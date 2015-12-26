@@ -6,14 +6,15 @@ import java.util.Random;
 /**
  * Created by Amadeusz on 26.12.2015.
  */
-public class Poziom extends JFrame implements KeyListener{
+public class Poziom extends JFrame implements KeyListener
+{
 
     static final int WYSOKOSC = 800;
     static final int SZEROKOSC = 1280;
     static final int maksymalnyCzasDmuchniecia = 100;
     final int blad = 8;
 
-    javax.swing.Timer timer1 = new javax.swing.Timer(1000, new czasDmuchniecia());
+    javax.swing.Timer timer1 = new javax.swing.Timer(300, new czasDmuchniecia());
 
     int czasNaPoziom;
     int pozostalyCzasNaPoziom;
@@ -31,6 +32,7 @@ public class Poziom extends JFrame implements KeyListener{
     JLabel wynikGry;
 
     JLabel dynamit;
+    WskaznikDmuchniecia wsk;
 
     public Poziom ()
     {
@@ -51,6 +53,9 @@ public class Poziom extends JFrame implements KeyListener{
 
         init();
         testLabel();
+
+        wsk = new WskaznikDmuchniecia();
+        add(wsk);
 
         addKeyListener(this);
         setFocusable(true);
@@ -94,12 +99,10 @@ public class Poziom extends JFrame implements KeyListener{
 
     public void init()
     {
-        dynamit = new JLabel();
-        dynamit.setSize(40,80);
+        dynamit = new JLabel(new ImageIcon("image//dynamitOFF.png"));
+        dynamit.setSize(60,120);
         dynamit.setLocation(losujPolozenie(1280,800));
-        dynamit.setOpaque(true);
-        dynamit.setForeground(Color.blue);
-        dynamit.setBackground(Color.green);
+        dynamit.setOpaque(false);
         dynamit.addMouseListener(new DynamitClick());
         add(dynamit);
 
@@ -179,7 +182,7 @@ public class Poziom extends JFrame implements KeyListener{
             System.out.println(czyRosnie);
             if (sprawdzWynik() && sprawdzMocDmuchniecia()) {
                 wynikGry.setText("Wygrales");
-
+                dynamit.setIcon(new ImageIcon("image//dynamit.png"));
             }
             else
             {
@@ -216,10 +219,45 @@ public class Poziom extends JFrame implements KeyListener{
             {
                 aktualnyCzasDmuchniecia++;
                 aktualnyCzasDmuchnieciaLBL.setText("Aktualny czas dmuchniecia " + aktualnyCzasDmuchniecia);
-                repaint();
                 System.out.println(czyRosnie);
                 System.out.println("czas "+aktualnyCzasDmuchniecia);
             }
         }
     }
+
+
+    public class WskaznikDmuchniecia extends JPanel {
+
+        public WskaznikDmuchniecia()
+        {
+            setBounds(850, 450, 500, 210);
+
+        }
+
+        public void paint (Graphics g)
+        {
+            int prosX = 0;
+            int prosY = 1;
+            int prosSzer = 25;
+            int prosWys = 200;
+            double prosWysD = prosWys;
+            int wypelnienie = (int)((aktualnyCzasDmuchniecia/maksymalnyCzasDmuchniecia)*prosWysD);
+            g.drawRect(prosX,prosY - 1 ,prosSzer,prosWys + 2);
+            if(potrzebnyCzasDmuchniecia + blad >= aktualnyCzasDmuchniecia && potrzebnyCzasDmuchniecia - blad <= aktualnyCzasDmuchniecia)
+            {
+                g.setColor(Color.green);
+            }
+            else if (potrzebnyCzasDmuchniecia - 20 <= aktualnyCzasDmuchniecia && aktualnyCzasDmuchniecia < potrzebnyCzasDmuchniecia)
+            {
+                g.setColor((Color.orange));
+            }
+            else
+            {
+                g.setColor(Color.red);
+            }
+            g.fillRect(prosX + 1,(prosY + prosWys-wypelnienie),prosSzer - 1,wypelnienie);
+
+        }
+    }
 }
+
