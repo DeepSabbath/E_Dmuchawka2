@@ -30,8 +30,6 @@ public class EkranStartowy extends JFrame{
         Font font = new Font("Helvetica", Font.BOLD, 30);
         Font font2 = new Font("Helvetica", Font.BOLD, 15);
 
-
-
         wybierzPoziomTrudnosci = new JLabel("Wybierz poziom trudnosci");
         wybierzPoziomTrudnosci.setSize(300,40);
         wybierzPoziomTrudnosci.setLocation(950,170);
@@ -68,7 +66,7 @@ public class EkranStartowy extends JFrame{
         rozpocznijGre.setLocation(950,570);
         rozpocznijGre.setFont(font);
         rozpocznijGre.setForeground(Color.yellow);
-        //rozpocznijGre.addMouseListener(new RozpocznijGreClick());
+        rozpocznijGre.addMouseListener(new RozpocznijGreClick());
         add(rozpocznijGre);
 
         infoOAutorze = new JLabel("Info o autorze");
@@ -100,6 +98,7 @@ public class EkranStartowy extends JFrame{
             poziomTrudny.setForeground(Color.red);
         }
     }
+
     class PoziomSredniClick extends MouseAdapter              // definicja dzia³ania buttona
     {
         @Override
@@ -127,6 +126,14 @@ public class EkranStartowy extends JFrame{
         public void mouseClicked(MouseEvent e) {
             InfoOAutorze i = new InfoOAutorze();
             i.init();
+        }
+    }
+
+    class RozpocznijGreClick extends MouseAdapter              // definicja dzia³ania buttona
+    {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            Poziom p = new Poziom(poziomTrudnosci, 50, 10);
         }
     }
 }
