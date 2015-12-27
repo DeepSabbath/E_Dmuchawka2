@@ -6,5 +6,11 @@ public class StatusGry {
     int wymaganyCzasDmuchniecia;
     int wymaganeMocDmuchniecia;
     int aktualnaMocDmuchniecia;
+    int pozostalyCzas;
+
+    StatusGry(int pozostalyCzas, int punkty)
+    {
+
+    }
 
 }

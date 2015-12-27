@@ -11,43 +11,43 @@ public class Poziom extends JFrame implements KeyListener
 
     static final int WYSOKOSC = 800;
     static final int SZEROKOSC = 1280;
-    static final int maksymalnyCzasDmuchniecia = 100;
+    static final double maksymalnyCzasDmuchniecia = 100;
     final int blad = 8;
 
-    javax.swing.Timer timer1 = new javax.swing.Timer(300, new czasDmuchniecia());
+    javax.swing.Timer timer1 = new javax.swing.Timer(50, new czasDmuchniecia());
+    javax.swing.Timer czasDoKoncaTimer = new javax.swing.Timer(1000, new liczCzasDoKonca());
 
     int czasNaPoziom;
     int pozostalyCzasNaPoziom;
     int potrzebnyCzasDmuchniecia;
     JLabel potrzebnyCzasDmuchnieciaLBL;
-    int aktualnyCzasDmuchniecia;
+    double aktualnyCzasDmuchniecia;
     JLabel aktualnyCzasDmuchnieciaLBL;
     int aktualnaMocDmuchniecia;
     JLabel aktualnaMocDmuchnieciaLBL;
     int wymaganaMocDmuchniecia;
     JLabel wymaganaMocDmuchnieciaLBL;
     int poziomTrudnosci;
+    int punkty;
+    int punktyZaPoziom = 0;
     boolean czyRosnie = false;
+    boolean czyWygrano = false;
 
     JLabel wynikGry;
 
+    JLabel czasDoKoncaLBL;
+    JLabel punktyLBL;
     JLabel dynamit;
     WskaznikDmuchniecia wsk;
 
-    public Poziom ()
-    {
-
-    }
-
-    public Poziom (int poziomTrudnosci, int wymaganaMocDmuchniecia, int potrzebnyCzasDmuchniecia)
+    public Poziom (int poziomTrudnosci, int wymaganaMocDmuchniecia, int potrzebnyCzasDmuchniecia, int czasNaPoziom)
     {
         super("Smok Wawelski");
-
-        System.out.println(czyRosnie);
 
         this.poziomTrudnosci = poziomTrudnosci;
         this.wymaganaMocDmuchniecia = wymaganaMocDmuchniecia;
         this.potrzebnyCzasDmuchniecia = potrzebnyCzasDmuchniecia;
+        this.czasNaPoziom = czasNaPoziom;
         setLayout(null);
         setSize(SZEROKOSC,WYSOKOSC);
 
@@ -106,31 +106,22 @@ public class Poziom extends JFrame implements KeyListener
         dynamit.addMouseListener(new DynamitClick());
         add(dynamit);
 
-        timer1.start();
-    }
+        czasDoKoncaLBL = new JLabel();
+        czasDoKoncaLBL.setSize(200,60);
+        czasDoKoncaLBL.setLocation(500, 100);
+        czasDoKoncaLBL.setText("Pozostaly czas: " + pozostalyCzasNaPoziom);
+        add(czasDoKoncaLBL);
 
-   /*public void paint (Graphics g)
-    {
-        int prosX = 1050;
-        int prosY = 450;
-        int prosSzer = 25;
-        int prosWys = 200;
-        double prosWysD = prosWys;
-        int wypelnienie = (int)((aktualnyCzasDmuchniecia/maksymalnyCzasDmuchniecia)*prosWysD);
-        g.drawRect(prosX,prosY-1,prosSzer,prosWys+1);
-        if(potrzebnyCzasDmuchniecia + blad >= aktualnyCzasDmuchniecia && potrzebnyCzasDmuchniecia - blad <= aktualnyCzasDmuchniecia)
-        {
-            g.setColor(Color.green);
-        }
-        else if (potrzebnyCzasDmuchniecia - 20 <= aktualnyCzasDmuchniecia && aktualnyCzasDmuchniecia < potrzebnyCzasDmuchniecia)
-        {
-            g.setColor((Color.orange));
-        }
-        else {
-            g.setColor(Color.red);
-        }
-        g.fillRect(prosX+1,(prosY+prosWys-wypelnienie),prosSzer-1,wypelnienie);
-    }*/
+        punktyLBL = new JLabel();
+        punktyLBL.setSize(200,60);
+        punktyLBL.setLocation(800,100);
+        punktyLBL.setText("Punkty: " + punkty);
+        add(punktyLBL);
+
+        pozostalyCzasNaPoziom = czasNaPoziom;
+        timer1.start();
+        czasDoKoncaTimer.start();
+    }
 
     public Point losujPolozenie(int width, int height)
     {
@@ -174,20 +165,22 @@ public class Poziom extends JFrame implements KeyListener
     {
         public void mousePressed(MouseEvent e) {
             czyRosnie = true;
-            System.out.println(czyRosnie);
         }
 
         public void mouseReleased(MouseEvent e) {
             czyRosnie = false;
-            System.out.println(czyRosnie);
             if (sprawdzWynik() && sprawdzMocDmuchniecia()) {
                 wynikGry.setText("Wygrales");
+                czyWygrano = true;
                 dynamit.setIcon(new ImageIcon("image//dynamit.png"));
+                wygrana();
+                System.out.println("Ounkty: " + punkty);
             }
             else
             {
                 aktualnyCzasDmuchniecia = 0;
                 wynikGry.setText("Przegrales");
+                przegrana();
             }
         }
     }
@@ -219,30 +212,68 @@ public class Poziom extends JFrame implements KeyListener
             {
                 aktualnyCzasDmuchniecia++;
                 aktualnyCzasDmuchnieciaLBL.setText("Aktualny czas dmuchniecia " + aktualnyCzasDmuchniecia);
-                System.out.println(czyRosnie);
-                System.out.println("czas "+aktualnyCzasDmuchniecia);
+                repaint();
             }
         }
+    }
+
+    private class liczCzasDoKonca implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e) {
+
+            pozostalyCzasNaPoziom--;
+            czasDoKoncaLBL.setText("Pozostaly czas: " + pozostalyCzasNaPoziom);
+
+            if (pozostalyCzasNaPoziom == 0 && czyWygrano)
+            {
+                przegrana();
+            }
+        }
+    }
+
+    public void przegrana()
+    {
+        liczPunkty();
+    }
+
+    public void wygrana()
+    {
+        liczPunkty();
+    }
+
+    public void liczPunkty()
+    {
+        if (czyWygrano)
+        {
+            punktyZaPoziom = 300 + pozostalyCzasNaPoziom * poziomTrudnosci * 10;
+        }
+
+        punkty +=  punktyZaPoziom;
+        punktyLBL.setText("Punkty: " + punkty);
     }
 
 
     public class WskaznikDmuchniecia extends JPanel {
 
+        int prosX = 0;
+        int prosY = 1;
+        int prosSzer = 25;
+        int prosWys = 200;
+        double prosWysD = prosWys;
+        int wypelnienie;
+
         public WskaznikDmuchniecia()
         {
-            setBounds(850, 450, 500, 210);
-
+            setBounds(1050, 450, 100, 204);
         }
 
-        public void paint (Graphics g)
+       public void paint (Graphics g)
         {
-            int prosX = 0;
-            int prosY = 1;
-            int prosSzer = 25;
-            int prosWys = 200;
-            double prosWysD = prosWys;
-            int wypelnienie = (int)((aktualnyCzasDmuchniecia/maksymalnyCzasDmuchniecia)*prosWysD);
-            g.drawRect(prosX,prosY - 1 ,prosSzer,prosWys + 2);
+
+            wypelnienie = (int)((aktualnyCzasDmuchniecia/maksymalnyCzasDmuchniecia)*prosWysD);
+
+            g.drawRect(prosX, prosY - 1 , prosSzer, prosWys);
+
             if(potrzebnyCzasDmuchniecia + blad >= aktualnyCzasDmuchniecia && potrzebnyCzasDmuchniecia - blad <= aktualnyCzasDmuchniecia)
             {
                 g.setColor(Color.green);
@@ -255,9 +286,11 @@ public class Poziom extends JFrame implements KeyListener
             {
                 g.setColor(Color.red);
             }
-            g.fillRect(prosX + 1,(prosY + prosWys-wypelnienie),prosSzer - 1,wypelnienie);
-
+            g.fillRect(prosX + 1,(prosY + prosWys - wypelnienie),prosSzer - 1 , wypelnienie - 1);
         }
     }
+
+
 }
+
 

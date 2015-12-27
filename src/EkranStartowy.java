@@ -18,6 +18,7 @@ public class EkranStartowy extends JFrame{
 
     public EkranStartowy(int width, int height)
     {
+        super("Smok wawelski - ekran startowy");
         setLayout(null);
         setSize(width, height);
         setResizable(false);
@@ -133,7 +134,28 @@ public class EkranStartowy extends JFrame{
     {
         @Override
         public void mouseClicked(MouseEvent e) {
-            Poziom p = new Poziom(poziomTrudnosci, 50, 10);
+            int wymaganaMocDmuchniecia = 40;
+            int potrzebnyCzasDmuchniecia = 40;
+            int czasNaPoziom = 20;
+            switch (poziomTrudnosci) {
+                case 1:
+                    wymaganaMocDmuchniecia = 30;
+                    potrzebnyCzasDmuchniecia = 40;
+                    czasNaPoziom = 30;
+                    break;
+                case 2:
+                    wymaganaMocDmuchniecia = 45;
+                    potrzebnyCzasDmuchniecia = 50;
+                    czasNaPoziom = 22;
+                    break;
+                case 3:
+                    wymaganaMocDmuchniecia = 60;
+                    potrzebnyCzasDmuchniecia = 65;
+                    czasNaPoziom = 15;
+                    break;
+            }
+            Poziom1 p = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom);
+
         }
     }
 }
