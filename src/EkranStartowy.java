@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class EkranStartowy extends JFrame{
+public class EkranStartowy extends JPanel{
 
     JLabel rozpocznijGre;
     JLabel infoOAutorze;
@@ -18,10 +18,8 @@ public class EkranStartowy extends JFrame{
 
     public EkranStartowy(int width, int height)
     {
-        super("Smok wawelski - ekran startowy");
         setLayout(null);
         setSize(width, height);
-        setResizable(false);
         init();
         setVisible(true);
     }
@@ -154,7 +152,11 @@ public class EkranStartowy extends JFrame{
                     czasNaPoziom = 15;
                     break;
             }
-            Poziom1 p = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom);
+            removeAll();
+            Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom);
+            add(p1);
+            repaint();
+            p1.requestFocusInWindow();
 
         }
     }

@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * Created by Amadeusz on 26.12.2015.
  */
-public class Poziom extends JFrame implements KeyListener
+public class Poziom extends JPanel implements KeyListener
 {
 
     static final int WYSOKOSC = 800;
@@ -42,8 +42,6 @@ public class Poziom extends JFrame implements KeyListener
 
     public Poziom (int poziomTrudnosci, int wymaganaMocDmuchniecia, int potrzebnyCzasDmuchniecia, int czasNaPoziom)
     {
-        super("Smok Wawelski");
-
         this.poziomTrudnosci = poziomTrudnosci;
         this.wymaganaMocDmuchniecia = wymaganaMocDmuchniecia;
         this.potrzebnyCzasDmuchniecia = potrzebnyCzasDmuchniecia;
@@ -61,6 +59,7 @@ public class Poziom extends JFrame implements KeyListener
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         setVisible(true);
+
 
     }
 
@@ -143,7 +142,8 @@ public class Poziom extends JFrame implements KeyListener
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        int a = e.getKeyCode();
+        System.out.println(a);
     }
 
     public void keyPressed(KeyEvent e) {
@@ -187,7 +187,7 @@ public class Poziom extends JFrame implements KeyListener
 
     private boolean sprawdzMocDmuchniecia()
     {
-        if (aktualnaMocDmuchniecia == wymaganaMocDmuchniecia)
+        if (aktualnaMocDmuchniecia >= wymaganaMocDmuchniecia)
             return  true;
         else
             return  false;
@@ -267,9 +267,8 @@ public class Poziom extends JFrame implements KeyListener
             setBounds(1050, 450, 100, 204);
         }
 
-       public void paint (Graphics g)
+        public void paint (Graphics g)
         {
-
             wypelnienie = (int)((aktualnyCzasDmuchniecia/maksymalnyCzasDmuchniecia)*prosWysD);
 
             g.drawRect(prosX, prosY - 1 , prosSzer, prosWys);
@@ -289,8 +288,6 @@ public class Poziom extends JFrame implements KeyListener
             g.fillRect(prosX + 1,(prosY + prosWys - wypelnienie),prosSzer - 1 , wypelnienie - 1);
         }
     }
-
-
 }
 
 

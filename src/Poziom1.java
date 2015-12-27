@@ -1,3 +1,5 @@
+import java.awt.event.KeyEvent;
+
 /**
  * Created by Amadeusz on 26.12.2015.
  */
@@ -32,7 +34,10 @@ public class Poziom1 extends Poziom {
                 czasNaPoziom = 16;
                 break;
         }
+        removeAll();
         Poziom2 p2 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty);
-        //this.dispose();
+        add(p2);
+        repaint();
+        p2.requestFocusInWindow();
     }
 }

@@ -3,9 +3,12 @@
  */
 public class Main {
 
+    static final int WYSOKOSC = 800;
+    static final int SZEROKOSC = 1280;
+
     public static void main(String[] args) {
 
-        EkranStartowy e = new EkranStartowy(1280,800);
-        e.setDefaultCloseOperation( e.EXIT_ON_CLOSE );
+        OknoGlowne o = new OknoGlowne(SZEROKOSC,WYSOKOSC);
+        o.setDefaultCloseOperation( o.EXIT_ON_CLOSE );
     }
 }
