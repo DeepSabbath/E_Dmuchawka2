@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * Created by Amadeusz on 26.12.2015.
  */
-public class Poziom extends JPanel implements KeyListener
+public abstract class Poziom extends JPanel implements KeyListener
 {
 
     static final int WYSOKOSC = 800;
@@ -59,8 +59,6 @@ public class Poziom extends JPanel implements KeyListener
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         setVisible(true);
-
-
     }
 
     public void testLabel()
@@ -136,14 +134,10 @@ public class Poziom extends JPanel implements KeyListener
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
-
 
     @Override
     public void keyReleased(KeyEvent e) {
-        int a = e.getKeyCode();
-        System.out.println(a);
     }
 
     public void keyPressed(KeyEvent e) {
@@ -173,7 +167,6 @@ public class Poziom extends JPanel implements KeyListener
 
             if (sprawdzWynik() && sprawdzMocDmuchniecia())
             {
-
                 wygrana();
             }
             else
@@ -232,7 +225,6 @@ public class Poziom extends JPanel implements KeyListener
     public void zakonczenieGry()
     {
         opoznij(500);
-
         removeAll();
         KoniecGry kg = new KoniecGry(punkty, poziomTrudnosci);
         add(kg);
@@ -241,12 +233,7 @@ public class Poziom extends JPanel implements KeyListener
 
     }
 
-    public void wygrana()
-    {
-        czasDoKoncaTimer.stop();
-        czyWygrano = true;
-        liczPunkty();
-    }
+    public abstract void wygrana();
 
     public void liczPunkty()
     {
@@ -257,7 +244,6 @@ public class Poziom extends JPanel implements KeyListener
 
         punkty +=  punktyZaPoziom;
         punktyLBL.setText("Punkty: " + punkty);
-        System.out.println("Punkty: " + punkty + "  punkty za poiziom: " + punktyZaPoziom + czyWygrano);
     }
 
     public  void opoznij (int opoznienie)

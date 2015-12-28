@@ -15,6 +15,7 @@ public class EkranStartowy extends JPanel{
     JLabel wybierzPoziomTrudnosci;
     JLabel tlo;
     JLabel wyjscieZAplikacji;
+    JLabel rekordy;
     int poziomTrudnosci = 1;
 
     public EkranStartowy(int width, int height)
@@ -29,8 +30,6 @@ public class EkranStartowy extends JPanel{
     {
         Font font = new Font("Helvetica", Font.BOLD, 30);
         Font font2 = new Font("Helvetica", Font.BOLD, 15);
-
-        System.out.println("ą,ć,ę,ł,ń,ó,ś,ź,ż");
 
         wybierzPoziomTrudnosci = new JLabel("Wybierz poziom trudnosci");
         wybierzPoziomTrudnosci.setSize(300,40);
@@ -79,9 +78,17 @@ public class EkranStartowy extends JPanel{
         infoOAutorze.addMouseListener(new oAutorzeClick());
         add(infoOAutorze);
 
+        rekordy = new JLabel("Rekordy");
+        rekordy.setSize(200,40);
+        rekordy.setLocation(950,540);
+        rekordy.setFont(font);
+        rekordy.setForeground(Color.yellow);
+        rekordy.addMouseListener(new WyswietlRekordyClick());
+        add(rekordy);
+
         wyjscieZAplikacji = new JLabel("Wyjście");
         wyjscieZAplikacji.setSize(200, 40);
-        wyjscieZAplikacji.setLocation(950,550);
+        wyjscieZAplikacji.setLocation(950,610);
         wyjscieZAplikacji.setFont(font);
         wyjscieZAplikacji.setForeground(Color.yellow);
         wyjscieZAplikacji.addMouseListener(new WyjscieClick());
@@ -175,6 +182,19 @@ public class EkranStartowy extends JPanel{
         @Override
         public void mouseClicked(MouseEvent e) {
             System.exit(0);
+        }
+    }
+
+    class WyswietlRekordyClick extends MouseAdapter              // definicja dzia�ania buttona
+    {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+            removeAll();
+            OknoZRekordami ozr = new OknoZRekordami();
+            add(ozr);
+            repaint();
+            ozr.requestFocusInWindow();
         }
     }
 }
