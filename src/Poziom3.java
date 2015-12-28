@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 /**
  * Created by Amadeusz on 28.12.2015.
  */
@@ -14,7 +16,12 @@ public class Poziom3 extends Poziom {
     public void wygrana()
     {
         czasDoKoncaTimer.stop();
+        czyWygrano = true;
+        dynamit.setIcon(new ImageIcon("image//dynamit.png"));
         liczPunkty();
+        wynikGry.setText("Wygrales");
+        czyWygrano = true;
+        opoznij(500);
         zakonczenieGry();
 
         /*removeAll();

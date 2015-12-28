@@ -168,11 +168,12 @@ public class Poziom extends JPanel implements KeyListener
         }
 
         public void mouseReleased(MouseEvent e) {
+
             czyRosnie = false;
-            if (sprawdzWynik() && sprawdzMocDmuchniecia()) {
-                wynikGry.setText("Wygrales");
-                czyWygrano = true;
-                dynamit.setIcon(new ImageIcon("image//dynamit.png"));
+
+            if (sprawdzWynik() && sprawdzMocDmuchniecia())
+            {
+
                 wygrana();
             }
             else
@@ -230,8 +231,8 @@ public class Poziom extends JPanel implements KeyListener
 
     public void zakonczenieGry()
     {
-        czasDoKoncaTimer.stop();
-        liczPunkty();
+        opoznij(500);
+
         removeAll();
         KoniecGry kg = new KoniecGry(punkty, poziomTrudnosci);
         add(kg);
@@ -243,6 +244,7 @@ public class Poziom extends JPanel implements KeyListener
     public void wygrana()
     {
         czasDoKoncaTimer.stop();
+        czyWygrano = true;
         liczPunkty();
     }
 
@@ -250,11 +252,24 @@ public class Poziom extends JPanel implements KeyListener
     {
         if (czyWygrano)
         {
-            punktyZaPoziom = 300 + pozostalyCzasNaPoziom * poziomTrudnosci * 10;
+            punktyZaPoziom = (50 * poziomTrudnosci) + (pozostalyCzasNaPoziom * poziomTrudnosci) * 5;
         }
 
         punkty +=  punktyZaPoziom;
         punktyLBL.setText("Punkty: " + punkty);
+        System.out.println("Punkty: " + punkty + "  punkty za poiziom: " + punktyZaPoziom + czyWygrano);
+    }
+
+    public  void opoznij (int opoznienie)
+    {
+        try {
+            Thread.sleep(opoznienie);
+        }
+
+        catch ( InterruptedException e) {
+
+            System.out.println("np. zostalem obudzony przedwczesnie");
+        }
     }
 
 

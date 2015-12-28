@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 /**
  * Created by Amadeusz on 27.12.2015.
  */
@@ -15,8 +17,12 @@ public class Poziom2 extends Poziom {
     public void wygrana()
     {
         czasDoKoncaTimer.stop();
+        czyWygrano = true;
+        dynamit.setIcon(new ImageIcon("image//dynamit.png"));
         liczPunkty();
-
+        wynikGry.setText("Wygrales");
+        czyWygrano = true;
+        opoznij(500);
         removeAll();
         PrzejscieMiedzyPoziomami pmp = new PrzejscieMiedzyPoziomami(aktualnyPoziom,punkty,punktyZaPoziom,poziomTrudnosci);
         add(pmp);

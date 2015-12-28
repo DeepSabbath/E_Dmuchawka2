@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 /**
@@ -14,9 +15,12 @@ public class Poziom1 extends Poziom {
 
     public void wygrana()
     {
+        dynamit.setIcon(new ImageIcon("image//dynamit.png"));
         czasDoKoncaTimer.stop();
+        czyWygrano = true;
+        repaint();
         liczPunkty();
-
+        opoznij(1000);
         removeAll();
         PrzejscieMiedzyPoziomami pmp = new PrzejscieMiedzyPoziomami(aktualnyPoziom,punkty,punktyZaPoziom,poziomTrudnosci);
         add(pmp);

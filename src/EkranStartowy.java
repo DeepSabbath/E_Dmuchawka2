@@ -14,6 +14,7 @@ public class EkranStartowy extends JPanel{
     JLabel poziomTrudny;
     JLabel wybierzPoziomTrudnosci;
     JLabel tlo;
+    JLabel wyjscieZAplikacji;
     int poziomTrudnosci = 1;
 
     public EkranStartowy(int width, int height)
@@ -29,32 +30,34 @@ public class EkranStartowy extends JPanel{
         Font font = new Font("Helvetica", Font.BOLD, 30);
         Font font2 = new Font("Helvetica", Font.BOLD, 15);
 
+        System.out.println("ą,ć,ę,ł,ń,ó,ś,ź,ż");
+
         wybierzPoziomTrudnosci = new JLabel("Wybierz poziom trudnosci");
         wybierzPoziomTrudnosci.setSize(300,40);
-        wybierzPoziomTrudnosci.setLocation(950,170);
+        wybierzPoziomTrudnosci.setLocation(950,180);
         wybierzPoziomTrudnosci.setForeground(Color.black);
         wybierzPoziomTrudnosci.setFont(font2);
         add(wybierzPoziomTrudnosci);
 
-        poziomLatwy = new JLabel("Latwy");
+        poziomLatwy = new JLabel("łatwy");
         poziomLatwy.setSize(100,40);
-        poziomLatwy.setLocation(950,250);
+        poziomLatwy.setLocation(950,230);
         poziomLatwy.setForeground(Color.green);
         poziomLatwy.setFont(font);
         poziomLatwy.addMouseListener(new PoziomLatwyClick());
         add(poziomLatwy);
 
-        poziomSredni = new JLabel("Sredni");
+        poziomSredni = new JLabel("średni");
         poziomSredni.setSize(100,40);
-        poziomSredni.setLocation(950,330);
+        poziomSredni.setLocation(950,310);
         poziomSredni.setForeground(Color.red);
         poziomSredni.setFont(font);
         poziomSredni.addMouseListener(new PoziomSredniClick());
         add(poziomSredni);
 
-        poziomTrudny = new JLabel("Trudny");
+        poziomTrudny = new JLabel("trudny");
         poziomTrudny.setSize(100,40);
-        poziomTrudny.setLocation(950,410);
+        poziomTrudny.setLocation(950,390);
         poziomTrudny.setForeground(Color.red);
         poziomTrudny.setFont(font);
         poziomTrudny.addMouseListener(new PoziomTrudnyClick());
@@ -62,7 +65,7 @@ public class EkranStartowy extends JPanel{
 
         rozpocznijGre = new JLabel("Graj");
         rozpocznijGre.setSize(200,40);
-        rozpocznijGre.setLocation(950,570);
+        rozpocznijGre.setLocation(950,120);
         rozpocznijGre.setFont(font);
         rozpocznijGre.setForeground(Color.yellow);
         rozpocznijGre.addMouseListener(new RozpocznijGreClick());
@@ -70,11 +73,19 @@ public class EkranStartowy extends JPanel{
 
         infoOAutorze = new JLabel("Info o autorze");
         infoOAutorze.setSize(200,40);
-        infoOAutorze.setLocation(950,490);
+        infoOAutorze.setLocation(950,470);
         infoOAutorze.setFont(font);
         infoOAutorze.setForeground(Color.yellow);
         infoOAutorze.addMouseListener(new oAutorzeClick());
         add(infoOAutorze);
+
+        wyjscieZAplikacji = new JLabel("Wyjście");
+        wyjscieZAplikacji.setSize(200, 40);
+        wyjscieZAplikacji.setLocation(950,550);
+        wyjscieZAplikacji.setFont(font);
+        wyjscieZAplikacji.setForeground(Color.yellow);
+        wyjscieZAplikacji.addMouseListener(new WyjscieClick());
+        add(wyjscieZAplikacji);
 
         try {
             tlo = new JLabel(new ImageIcon("image//EkranStartowy.jpg"));
@@ -87,7 +98,7 @@ public class EkranStartowy extends JPanel{
         }
     }
 
-    class PoziomLatwyClick extends MouseAdapter              // definicja dzia�ania buttona
+    class PoziomLatwyClick extends MouseAdapter              // definicja dzia�ania buttona
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -98,7 +109,7 @@ public class EkranStartowy extends JPanel{
         }
     }
 
-    class PoziomSredniClick extends MouseAdapter              // definicja dzia�ania buttona
+    class PoziomSredniClick extends MouseAdapter              // definicja dzia�ania buttona
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -108,7 +119,7 @@ public class EkranStartowy extends JPanel{
             poziomTrudny.setForeground(Color.red);
         }
     }
-    class PoziomTrudnyClick extends MouseAdapter              // definicja dzia�ania buttona
+    class PoziomTrudnyClick extends MouseAdapter              // definicja dzia�ania buttona
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -119,7 +130,7 @@ public class EkranStartowy extends JPanel{
         }
     }
 
-    class oAutorzeClick extends MouseAdapter              // definicja dzia�ania buttona
+    class oAutorzeClick extends MouseAdapter              // definicja dzia�ania buttona
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -128,7 +139,7 @@ public class EkranStartowy extends JPanel{
         }
     }
 
-    class RozpocznijGreClick extends MouseAdapter              // definicja dzia�ania buttona
+    class RozpocznijGreClick extends MouseAdapter              // definicja dzia�ania buttona
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -157,7 +168,13 @@ public class EkranStartowy extends JPanel{
             add(p1);
             repaint();
             p1.requestFocusInWindow();
-
+        }
+    }
+    class WyjscieClick extends MouseAdapter              // definicja dzia�ania buttona
+    {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            System.exit(0);
         }
     }
 }
