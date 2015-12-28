@@ -31,7 +31,7 @@ public class OknoZRekordami extends JPanel{
     String nazwaRekordzistyLatwy;
     String nazwaRekordzistySredni;
     String nazwaRekordzistyTrudny;
-
+    Date data = new Date();
 
     OknoZRekordami()
     {
@@ -45,6 +45,8 @@ public class OknoZRekordami extends JPanel{
 
     public void init()
     {
+        DaneDoZapisu dzp = new DaneDoZapisu("cod",10,data,1);
+        Arrays.fill(tablicaDanych, dzp);
         odczytCalego("dane.txt");
 
         Font font = new Font("Helvetica", Font.BOLD, 20);
@@ -79,7 +81,7 @@ public class OknoZRekordami extends JPanel{
         rekordNaTrudnymLBL = new JLabel("Poziom trudny ");
         rekordNaTrudnymLBL.setSize(200, 30);
         rekordNaTrudnymLBL.setLocation(550, 550);
-        add(rekordNaSrednimLBL);
+        add(rekordNaTrudnymLBL);
 
         wyswietlaTrudny = new JLabel();
         wyswietlaTrudny.setSize(200,30);
@@ -97,7 +99,7 @@ public class OknoZRekordami extends JPanel{
         //System.out.println("Dlugosc tablic " + tablicaDanych.length + "poziom  " + tablicaDanych[0].poziomTrudnosci +
          //       "nazwa " + tablicaDanych[0].nazwaUzytkownika);
 
-        //posortuj();
+        posortuj();
 
     }
     public void odczytCalego2(String nazwaPl)throws IOException,ClassNotFoundException{
@@ -137,7 +139,7 @@ public class OknoZRekordami extends JPanel{
     public void posortuj()
     {
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < tablicaDanych.length; i++) {
             switch (tablicaDanych[i].poziomTrudnosci)
             {
                 case 1:
