@@ -174,13 +174,10 @@ public class Poziom extends JPanel implements KeyListener
                 czyWygrano = true;
                 dynamit.setIcon(new ImageIcon("image//dynamit.png"));
                 wygrana();
-                System.out.println("Ounkty: " + punkty);
             }
             else
             {
                 aktualnyCzasDmuchniecia = 0;
-                wynikGry.setText("Przegrales");
-                przegrana();
             }
         }
     }
@@ -224,20 +221,28 @@ public class Poziom extends JPanel implements KeyListener
             pozostalyCzasNaPoziom--;
             czasDoKoncaLBL.setText("Pozostaly czas: " + pozostalyCzasNaPoziom);
 
-            if (pozostalyCzasNaPoziom == 0 && czyWygrano)
+            if (pozostalyCzasNaPoziom == 0 && !czyWygrano)
             {
-                przegrana();
+                zakonczenieGry();
             }
         }
     }
 
-    public void przegrana()
+    public void zakonczenieGry()
     {
+        czasDoKoncaTimer.stop();
         liczPunkty();
+        removeAll();
+        KoniecGry kg = new KoniecGry(punkty, poziomTrudnosci);
+        add(kg);
+        repaint();
+        kg.requestFocusInWindow();
+
     }
 
     public void wygrana()
     {
+        czasDoKoncaTimer.stop();
         liczPunkty();
     }
 

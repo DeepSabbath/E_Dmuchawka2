@@ -138,17 +138,17 @@ public class EkranStartowy extends JPanel{
             switch (poziomTrudnosci) {
                 case 1:
                     wymaganaMocDmuchniecia = 30;
-                    potrzebnyCzasDmuchniecia = 40;
+                    potrzebnyCzasDmuchniecia = 20;
                     czasNaPoziom = 30;
                     break;
                 case 2:
                     wymaganaMocDmuchniecia = 45;
-                    potrzebnyCzasDmuchniecia = 50;
+                    potrzebnyCzasDmuchniecia = 40;
                     czasNaPoziom = 22;
                     break;
                 case 3:
                     wymaganaMocDmuchniecia = 60;
-                    potrzebnyCzasDmuchniecia = 65;
+                    potrzebnyCzasDmuchniecia = 60;
                     czasNaPoziom = 15;
                     break;
             }

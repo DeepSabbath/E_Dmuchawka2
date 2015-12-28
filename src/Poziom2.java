@@ -3,14 +3,24 @@
  */
 public class Poziom2 extends Poziom {
 
+    int aktualnyPoziom = 2;
 
     public  Poziom2 (int poziomTrudnosci, int wymaganaMocDmuchniecia, int potrzebnyCzasDmuchniecia, int czasNaPoziom, int punkty)
     {
         super(poziomTrudnosci,  wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom);
-        System.out.println("Punkty: " + punkty);
         punktyLBL.setText("Punkty:" + punkty);
         this.punkty = punkty;
-        System.out.println("Punkty: " + punkty);
+    }
 
+    public void wygrana()
+    {
+        czasDoKoncaTimer.stop();
+        liczPunkty();
+
+        removeAll();
+        PrzejscieMiedzyPoziomami pmp = new PrzejscieMiedzyPoziomami(aktualnyPoziom,punkty,punktyZaPoziom,poziomTrudnosci);
+        add(pmp);
+        repaint();
+        pmp.requestFocusInWindow();
     }
 }
