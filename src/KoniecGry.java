@@ -112,6 +112,7 @@ public class KoniecGry extends JPanel {
             int wymaganaMocDmuchniecia = 40;
             int potrzebnyCzasDmuchniecia = 40;
             int czasNaPoziom = 20;
+            String tlo = "image//kopalnia1.jpg";
             zapiszDoPliku();
 
             switch (poziomTrudnosci) {
@@ -132,7 +133,7 @@ public class KoniecGry extends JPanel {
                     break;
             }
             removeAll();
-            Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom);
+            Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom, tlo);
             add(p1);
             repaint();
             p1.requestFocusInWindow();

@@ -94,8 +94,13 @@ public class EkranStartowy extends JPanel{
         wyjscieZAplikacji.addMouseListener(new WyjscieClick());
         add(wyjscieZAplikacji);
 
+        ustawTlo("image//EkranStartowy.jpg");
+    }
+
+    public void ustawTlo(String plik)
+    {
         try {
-            tlo = new JLabel(new ImageIcon("image//EkranStartowy.jpg"));
+            tlo = new JLabel(new ImageIcon(plik));
             tlo.setOpaque(true);
             tlo.setBounds(0, 0, 1280, 800);
             add(tlo);
@@ -171,7 +176,8 @@ public class EkranStartowy extends JPanel{
                     break;
             }
             removeAll();
-            Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom);
+            String tlo = "image//kopalnia1.jpg";
+            Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom, tlo);
             add(p1);
             repaint();
             p1.requestFocusInWindow();

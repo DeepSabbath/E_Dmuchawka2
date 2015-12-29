@@ -21,5 +21,4 @@ public class DaneDoZapisu implements Serializable {
         this.punkty = punkty;
         this.data = data;
     }
-
 }

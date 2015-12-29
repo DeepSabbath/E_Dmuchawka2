@@ -5,6 +5,7 @@ import javax.swing.*;
  */
 public class OknoGlowne extends JFrame {
 
+
     public OknoGlowne(int width, int height)
     {
         super("Smok wawelski");
@@ -17,4 +18,5 @@ public class OknoGlowne extends JFrame {
         add(e);
         repaint();
     }
+
 }

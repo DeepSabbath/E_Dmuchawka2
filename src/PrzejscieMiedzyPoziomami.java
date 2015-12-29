@@ -59,7 +59,7 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
         add(punktyZaPoziomLBL);
     }
 
-    class NastepnyPoziomClick extends MouseAdapter              // definicja dzia³ania buttona
+    class NastepnyPoziomClick extends MouseAdapter              // definicja dziaï¿½ania buttona
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -67,9 +67,11 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
             int wymaganaMocDmuchniecia = 0;
             int potrzebnyCzasDmuchniecia = 0;
             int czasNaPoziom = 0;
+            String tlo = "";
 
             switch (aktualnyPoziom){
                 case 1:
+                    tlo = "image//kopalnia2.jpg";
                     switch (poziomTrudnosci)
                     {
                         case 1:
@@ -89,12 +91,13 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             break;
                     }
                     removeAll();
-                    Poziom2 p2 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty);
+                    Poziom2 p2 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo);
                     add(p2);
                     repaint();
                     p2.requestFocusInWindow();
                     break;
                 case 2:
+                    tlo = "image//kopalnia3.jpg";
                     switch (poziomTrudnosci)
                     {
                         case 1:
@@ -114,7 +117,7 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             break;
                     }
                     removeAll();
-                    Poziom3 p3 = new Poziom3(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty);
+                    Poziom3 p3 = new Poziom3(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo);
                     add(p3);
                     repaint();
                     p3.requestFocusInWindow();

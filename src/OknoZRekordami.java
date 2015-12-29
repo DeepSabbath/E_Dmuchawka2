@@ -20,15 +20,13 @@ public class OknoZRekordami extends JPanel{
     JLabel rekordNaLatwymLBL;
     JLabel rekordNaSrednimLBL;
     JLabel rekordNaTrudnymLBL;
-    JLabel wyswietlaLatwy;
-    JLabel wyswietlaSredni;
-    JLabel wyswietlaTrudny;
+    JLabel wyswietlaLatwy [] = new JLabel[3];
+    JLabel wyswietlaSredni []= new JLabel[3];
+    JLabel wyswietlaTrudny []= new JLabel[3];
     JLabel wrocDoMenu;
 
-    int najwyzszyWynikLatwy = 0;
     int najwyzszyWynikSredni = 0;
     int najwyzszyWynikTrudny = 0;
-    String nazwaRekordzistyLatwy;
     String nazwaRekordzistySredni;
     String nazwaRekordzistyTrudny;
     Date data = new Date();
@@ -45,7 +43,7 @@ public class OknoZRekordami extends JPanel{
 
     public void init()
     {
-        DaneDoZapisu dzp = new DaneDoZapisu("cod",10,data,1);
+        DaneDoZapisu dzp = new DaneDoZapisu("c",0,data,2);
         Arrays.fill(tablicaDanych, dzp);
         odczytCalego("dane.txt");
 
@@ -60,33 +58,43 @@ public class OknoZRekordami extends JPanel{
 
         rekordNaLatwymLBL = new JLabel("Poziom łatwy ");
         rekordNaLatwymLBL.setSize(200,30);
-        rekordNaLatwymLBL.setLocation(550,150);
+        rekordNaLatwymLBL.setLocation(150,150);
         add(rekordNaLatwymLBL);
 
-        wyswietlaLatwy = new JLabel();
-        wyswietlaLatwy.setSize(200,30);
-        wyswietlaLatwy.setLocation(550,200);
-        add(wyswietlaLatwy);
+        for (int i = 0; i < 3; i++)
+        {
+            wyswietlaLatwy[i] = new JLabel();
+            wyswietlaLatwy[i].setSize(200, 30);
+            wyswietlaLatwy[i].setLocation(150, 200 + (i *100));
+            wyswietlaLatwy[i].setText("tekst");
+            add(wyswietlaLatwy[i]);
+        }
 
         rekordNaSrednimLBL = new JLabel("Poziom średni ");
         rekordNaSrednimLBL.setSize(200, 30);
-        rekordNaSrednimLBL.setLocation(550, 350);
+        rekordNaSrednimLBL.setLocation(500, 150);
         add(rekordNaSrednimLBL);
 
-        wyswietlaSredni = new JLabel();
-        wyswietlaSredni.setSize(200,30);
-        wyswietlaSredni.setLocation(550,400);
-        add(wyswietlaSredni);
+        for (int i = 0; i < 3; i++)
+        {
+            wyswietlaSredni[i] = new JLabel();
+            wyswietlaSredni[i].setSize(200, 30);
+            wyswietlaSredni[i].setLocation(500, 200 + (i *100));
+            add(wyswietlaSredni[i]);
+        }
 
         rekordNaTrudnymLBL = new JLabel("Poziom trudny ");
         rekordNaTrudnymLBL.setSize(200, 30);
-        rekordNaTrudnymLBL.setLocation(550, 550);
+        rekordNaTrudnymLBL.setLocation(900, 150);
         add(rekordNaTrudnymLBL);
 
-        wyswietlaTrudny = new JLabel();
-        wyswietlaTrudny.setSize(200,30);
-        wyswietlaTrudny.setLocation(550,600);
-        add(wyswietlaTrudny);
+        for (int i = 0; i < 3; i++)
+        {
+            wyswietlaTrudny[i] = new JLabel();
+            wyswietlaTrudny[i].setSize(200, 30);
+            wyswietlaTrudny[i].setLocation(900, 200 + (i *100));
+            add(wyswietlaTrudny[i]);
+        }
 
         wrocDoMenu = new JLabel("Zakoncz gre");
         wrocDoMenu.setSize(200,30);
@@ -139,38 +147,78 @@ public class OknoZRekordami extends JPanel{
     public void posortuj()
     {
 
+        DaneDoZapisu[] latwy = new DaneDoZapisu[3];
+        DaneDoZapisu[] sredni = new DaneDoZapisu[3];
+        DaneDoZapisu[] trudny = new DaneDoZapisu[3];
+        DaneDoZapisu dzp = new DaneDoZapisu("nick", 1, data, 1);
+
+        /*Arrays.fill(latwy, dzp);
+        Arrays.fill(sredni, dzp);
+        Arrays.fill(trudny, dzp);*/    // taka inicjalizacja psuje sortowanie i miesza poziomy
+
+        latwy[0] = new DaneDoZapisu("nick", 0, data, 1);
+        latwy[1] =  new DaneDoZapisu("nick", 0, data, 1);
+        latwy[2] =  new DaneDoZapisu("nick", 0, data, 1);
+        sredni[0] = new DaneDoZapisu("nick", 0, data, 1);
+        sredni[1] =  new DaneDoZapisu("nick", 0, data, 2);
+        sredni[2] =  new DaneDoZapisu("nick", 0, data, 2);
+        trudny[0] = new DaneDoZapisu("nick", 0, data, 1);
+        trudny[1] =  new DaneDoZapisu("nick", 0, data, 3);
+        trudny[2] =  new DaneDoZapisu("nick", 0, data, 3);
+
+
         for (int i = 0; i < tablicaDanych.length; i++) {
             switch (tablicaDanych[i].poziomTrudnosci)
             {
                 case 1:
-                    if (najwyzszyWynikLatwy < tablicaDanych[i].punkty)
-                    {
-                        najwyzszyWynikLatwy = tablicaDanych[i].punkty;
-                        nazwaRekordzistyLatwy = tablicaDanych[i].nazwaUzytkownika;
-                    }
+                    sortuj3(i, latwy);
                     break;
 
                 case 2:
-                    if (najwyzszyWynikSredni < tablicaDanych[i].punkty)
-                    {
-                        najwyzszyWynikSredni = tablicaDanych[i].punkty;
-                        nazwaRekordzistySredni= tablicaDanych[i].nazwaUzytkownika;
-                    }
-
+                    sortuj3(i,sredni);
                     break;
 
                 case 3:
-                    if (najwyzszyWynikTrudny < tablicaDanych[i].punkty)
-                    {
-                        najwyzszyWynikTrudny = tablicaDanych[i].punkty;
-                        nazwaRekordzistyTrudny = tablicaDanych[i].nazwaUzytkownika;
-                    }
+                    sortuj3(i,trudny);
                     break;
             }
-            wyswietlaLatwy.setText("1." + nazwaRekordzistyLatwy + " " + najwyzszyWynikLatwy + "p");
-            wyswietlaSredni.setText("1." + nazwaRekordzistySredni + " " + najwyzszyWynikSredni + "p");
-            wyswietlaTrudny.setText("1." + nazwaRekordzistyTrudny + " " + najwyzszyWynikTrudny + "p");
+            for (int j = 0; j < 3; j++) {
+                wyswietlaLatwy[j].setText(j + 1 + ". " + latwy[j].nazwaUzytkownika + " " + latwy[j].punkty + "p");
+                wyswietlaSredni[j].setText(j + 1 + ". " + sredni[j].nazwaUzytkownika + " " + sredni[j].punkty + "p");
+                wyswietlaTrudny[j].setText(j + 1 + ". " + trudny[j].nazwaUzytkownika + " " + trudny[j].punkty + "p");
+            }
+
         }
+    }
+
+    public void sortuj3(int i, DaneDoZapisu [] d)
+    {
+        if (d[0].punkty < tablicaDanych[i].punkty)
+        {
+            d[2].punkty = d[1].punkty;
+            d[2].nazwaUzytkownika = d[1].nazwaUzytkownika;
+            d[1].punkty = d[0].punkty;
+            d[1].nazwaUzytkownika = d[0].nazwaUzytkownika;
+            d[0].punkty = tablicaDanych[i].punkty;
+            d[0].nazwaUzytkownika = tablicaDanych[i].nazwaUzytkownika;
+            System.out.println("Jestem" + tablicaDanych[i].nazwaUzytkownika);
+        }
+        else if (d[1].punkty < tablicaDanych[i].punkty) {
+            d[2].punkty = d[1].punkty;
+            d[2].nazwaUzytkownika = d[1].nazwaUzytkownika;
+            d[1].punkty = tablicaDanych[i].punkty;
+            d[1].nazwaUzytkownika = tablicaDanych[i].nazwaUzytkownika;
+            System.out.println("if 2");
+        }
+            else if (d[2].punkty < tablicaDanych[i].punkty)
+        {
+            d[2].punkty = tablicaDanych[i].punkty;
+            d[2].nazwaUzytkownika = tablicaDanych[i].nazwaUzytkownika;
+            System.out.println("if 3");
+        }
+            System.out.println("latwy0 " + d[0].nazwaUzytkownika + " " + d[0].punkty);
+            System.out.println("latwy1 " + d[1].nazwaUzytkownika + " " + d[1].punkty);
+            System.out.println("_______________________________________________________________");
     }
 
     class WrocDoMenuClick extends MouseAdapter              // definicja dzia�ania buttona
