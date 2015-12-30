@@ -27,8 +27,6 @@ public class KoniecGry extends JPanel {
         this.punkty = punkty;
         this.poziomTrudnosci = poziomTrudnosci;
         setLayout(null);
-        //setOpaque(true);
-        //setBackground(Color.gray);
         setSize(Main.SZEROKOSC, Main.WYSOKOSC);
         init();
         setFocusable(true);
@@ -201,16 +199,12 @@ public class KoniecGry extends JPanel {
 
     public static void odczytCalego2(String nazwaPl)throws IOException,ClassNotFoundException{
         ObjectInputStream ois=null;
-        DaneDoZapisu ddz = null;
         DaneDoZapisu[] tablicaDanych = new DaneDoZapisu[100];
         try{
             ois = new ObjectInputStream(new FileInputStream(nazwaPl));
             int l=0;
             while(true){
-                //ddz=(DaneDoZapisu)ois.readObject();
                 tablicaDanych[l]=(DaneDoZapisu)ois.readObject();
-                System.out.println("Dane do zapisu " + l + " " + tablicaDanych[l].nazwaUzytkownika + " " +
-                        tablicaDanych[l].punkty + " poziom tr" + tablicaDanych[l].poziomTrudnosci );
                 l++;
             }
 

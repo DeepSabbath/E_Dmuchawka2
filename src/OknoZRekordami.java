@@ -25,10 +25,6 @@ public class OknoZRekordami extends JPanel{
     JLabel wyswietlaTrudny []= new JLabel[3];
     JLabel wrocDoMenu;
 
-    int najwyzszyWynikSredni = 0;
-    int najwyzszyWynikTrudny = 0;
-    String nazwaRekordzistySredni;
-    String nazwaRekordzistyTrudny;
     Date data = new Date();
 
     OknoZRekordami()
@@ -115,7 +111,7 @@ public class OknoZRekordami extends JPanel{
             int l=0;
             while(true){
                 tablicaDanych[l]=(DaneDoZapisu)ois.readObject();
-                System.out.println("Dane do zapisu " + l + " " + tablicaDanych[l].nazwaUzytkownika + tablicaDanych[l].punkty + "poziom tr " + tablicaDanych[l].poziomTrudnosci);
+                //System.out.println("Dane do zapisu " + l + " " + tablicaDanych[l].nazwaUzytkownika + tablicaDanych[l].punkty + "poziom tr " + tablicaDanych[l].poziomTrudnosci);
                 l++;
             }
 
@@ -139,7 +135,6 @@ public class OknoZRekordami extends JPanel{
             System.out.println("Błąd odczytu");
         }
     }
-
 
     public void posortuj()
     {

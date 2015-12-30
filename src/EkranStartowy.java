@@ -4,6 +4,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class EkranStartowy extends JPanel{
 
@@ -18,6 +21,8 @@ public class EkranStartowy extends JPanel{
     JLabel rekordy;
     int poziomTrudnosci = 1;
 
+    javax.swing.Timer czasGry = new javax.swing.Timer(1000, new LiczCzasGry());
+
     public EkranStartowy(int width, int height)
     {
         setLayout(null);
@@ -31,7 +36,7 @@ public class EkranStartowy extends JPanel{
         Font font = new Font("Helvetica", Font.BOLD, 30);
         Font font2 = new Font("Helvetica", Font.BOLD, 15);
 
-        wybierzPoziomTrudnosci = new JLabel("Wybierz poziom trudnosci");
+        wybierzPoziomTrudnosci = new JLabel("Wybierz poziom trudności");
         wybierzPoziomTrudnosci.setSize(300,40);
         wybierzPoziomTrudnosci.setLocation(950,150);
         wybierzPoziomTrudnosci.setForeground(Color.black);
@@ -95,6 +100,8 @@ public class EkranStartowy extends JPanel{
         add(wyjscieZAplikacji);
 
         ustawTlo("image//EkranStartowy.jpg");
+
+        czasGry.start();
     }
 
     public void ustawTlo(String plik)
@@ -107,6 +114,17 @@ public class EkranStartowy extends JPanel{
         } catch (Exception e)
         {
             System.out.println("Blad" + e);
+        }
+    }
+
+    private class LiczCzasGry implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e) {
+            Main.lacznyCzasOdpaleniaAplikacji++;
+            if(Poziom.czyRosnie)
+            {
+                Main.lacznyCzasDmuchania++;
+            }
         }
     }
 
@@ -187,7 +205,28 @@ public class EkranStartowy extends JPanel{
     {
         @Override
         public void mouseClicked(MouseEvent e) {
+
+            CzasDoZapisu cdz = new CzasDoZapisu(Main.lacznyCzasOdpaleniaAplikacji, Main.lacznyCzasDmuchania);
+
+            try {
+                zapis("czas.txt", cdz);
+            } catch (IOException e1) {
+                System.out.println("Błąd zapisu");
+            }
             System.exit(0);
+        }
+    }
+
+    public static void zapis(String nazwaPl, CzasDoZapisu cdz)throws IOException {
+        ObjectOutputStream pl=null;
+        try{
+            pl=new ObjectOutputStream(new FileOutputStream(nazwaPl));
+            pl.writeObject(cdz);
+            pl.flush();
+        }
+        finally{
+            if(pl!=null)
+                pl.close();
         }
     }
 

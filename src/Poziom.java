@@ -30,7 +30,7 @@ public abstract class Poziom extends JPanel implements KeyListener
     int poziomTrudnosci;
     int punkty;
     int punktyZaPoziom = 0;
-    boolean czyRosnie = false;
+    static boolean czyRosnie = false;
     boolean czyWygrano = false;
     String plik;
     int aktualnyPoziom;
@@ -121,7 +121,7 @@ public abstract class Poziom extends JPanel implements KeyListener
         dynamit.addMouseListener(new DynamitClick());
         add(dynamit);
 
-        zakonczGreLBL = new JLabel("Zakoncz gre");
+        zakonczGreLBL = new JLabel("Zakończ grę");
         zakonczGreLBL.setSize(200,50);
         zakonczGreLBL.setLocation(20,650);
         zakonczGreLBL.setForeground(Color.yellow);
@@ -134,7 +134,7 @@ public abstract class Poziom extends JPanel implements KeyListener
         czasDoKoncaLBL.setLocation(500, 0);
         czasDoKoncaLBL.setFont(font);
         czasDoKoncaLBL.setForeground(Color.yellow);
-        czasDoKoncaLBL.setText("Pozostaly czas: " + pozostalyCzasNaPoziom);
+        czasDoKoncaLBL.setText("Pozostały czas: " + pozostalyCzasNaPoziom);
         add(czasDoKoncaLBL);
 
         punktyLBL = new JLabel();
@@ -150,7 +150,7 @@ public abstract class Poziom extends JPanel implements KeyListener
         aktualnaMocDmuchnieciaLBL.setLocation(500,650);
         aktualnaMocDmuchnieciaLBL.setFont(font);
         aktualnaMocDmuchnieciaLBL.setForeground(Color.yellow);
-        aktualnaMocDmuchnieciaLBL.setText("Aktualna moc dmuchniecia: " + aktualnaMocDmuchniecia + "/" + wymaganaMocDmuchniecia);
+        aktualnaMocDmuchnieciaLBL.setText("Aktualna moc dmuchnięcia: " + aktualnaMocDmuchniecia + "/" + wymaganaMocDmuchniecia);
         add(aktualnaMocDmuchnieciaLBL);
 
         pozostalyCzasNaPoziom = czasNaPoziom;
@@ -189,7 +189,7 @@ public abstract class Poziom extends JPanel implements KeyListener
             if (a == KeyEvent.VK_DOWN && aktualnaMocDmuchniecia > 0) {
                 aktualnaMocDmuchniecia--;
             }
-            aktualnaMocDmuchnieciaLBL.setText("Aktualna moc dmuchniecia: " + aktualnaMocDmuchniecia + "/" + wymaganaMocDmuchniecia);
+            aktualnaMocDmuchnieciaLBL.setText("Aktualna moc dmuchnięcia: " + aktualnaMocDmuchniecia + "/" + wymaganaMocDmuchniecia);
         }
     }
 
@@ -248,7 +248,7 @@ public abstract class Poziom extends JPanel implements KeyListener
             if(czyRosnie && aktualnyCzasDmuchniecia < maksymalnyCzasDmuchniecia)
             {
                 aktualnyCzasDmuchniecia++;
-                aktualnyCzasDmuchnieciaLBL.setText("Aktualny czas dmuchniecia " + aktualnyCzasDmuchniecia);
+                aktualnyCzasDmuchnieciaLBL.setText("Aktualny czas dmuchnięcia " + aktualnyCzasDmuchniecia);
                 repaint();
             }
         }
@@ -259,7 +259,7 @@ public abstract class Poziom extends JPanel implements KeyListener
         public void actionPerformed(ActionEvent e) {
 
             pozostalyCzasNaPoziom--;
-            czasDoKoncaLBL.setText("Pozostaly czas: " + pozostalyCzasNaPoziom);
+            czasDoKoncaLBL.setText("Pozostały czas: " + pozostalyCzasNaPoziom);
 
             if (pozostalyCzasNaPoziom == 0 && !czyWygrano)
             {
@@ -299,7 +299,7 @@ public abstract class Poziom extends JPanel implements KeyListener
 
         catch ( InterruptedException e) {
 
-            System.out.println("np. zostalem obudzony przedwczesnie");
+            System.out.println("Zostalem obudzony przedwcześnie");
         }
     }
 
@@ -345,7 +345,7 @@ public abstract class Poziom extends JPanel implements KeyListener
 
         public WskaznikDmuchniecia()
         {
-            setBounds(1050, 400, 100, prosWys + 2);
+            setBounds(1100, 370, 100, prosWys + 2);
         }
 
         public void paint (Graphics g)
