@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
  */
 public class PrzejscieMiedzyPoziomami extends JPanel{
 
+    public static final int LICZBAPOZIOMOW = 10;
     int aktualnyPoziom;
     int punkty;
     int punktyZaPoziom;
@@ -69,34 +70,262 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
             int czasNaPoziom = 0;
             String tlo = "";
 
+
+
             switch (aktualnyPoziom){
                 case 1:
                     tlo = "image//kopalnia2.jpg";
                     switch (poziomTrudnosci)
                     {
                         case 1:
-                            wymaganaMocDmuchniecia = 50;
-                            potrzebnyCzasDmuchniecia = 30;
+                            wymaganaMocDmuchniecia = 20;
+                            potrzebnyCzasDmuchniecia = 20;
                             czasNaPoziom = 25;
                             break;
                         case 2 :
-                            wymaganaMocDmuchniecia = 60;
-                            potrzebnyCzasDmuchniecia = 35;
-                            czasNaPoziom = 19;
+                            wymaganaMocDmuchniecia = 40;
+                            potrzebnyCzasDmuchniecia = 30;
+                            czasNaPoziom = 20;
                             break;
                         case 3 :
-                            wymaganaMocDmuchniecia = 80;
-                            potrzebnyCzasDmuchniecia = 70;
-                            czasNaPoziom = 16;
+                            wymaganaMocDmuchniecia = 75;
+                            potrzebnyCzasDmuchniecia = 40;
+                            czasNaPoziom = 15;
                             break;
                     }
                     removeAll();
-                    Poziom2 p2 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo);
+                    aktualnyPoziom++;
+                    System.out.println(poziomTrudnosci);
+                    Poziom2 p2 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
                     add(p2);
                     repaint();
                     p2.requestFocusInWindow();
                     break;
                 case 2:
+                    tlo = "image//kopalnia3.jpg";
+                    switch (poziomTrudnosci)
+                    {
+                        case 1:
+                            wymaganaMocDmuchniecia = 20;
+                            potrzebnyCzasDmuchniecia = 25;
+                            czasNaPoziom = 20;
+                            break;
+                        case 2 :
+                            wymaganaMocDmuchniecia = 50;
+                            potrzebnyCzasDmuchniecia = 30;
+                            czasNaPoziom = 18;
+                            break;
+                        case 3 :
+                            wymaganaMocDmuchniecia = 90;
+                            potrzebnyCzasDmuchniecia = 40;
+                            czasNaPoziom = 14;
+                            break;
+                    }
+                    removeAll();
+                    aktualnyPoziom++;
+                    System.out.println(poziomTrudnosci);
+                    Poziom2 p3 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
+                    add(p3);
+                    repaint();
+                    p3.requestFocusInWindow();
+                    break;
+                case 3:
+                    tlo = "image//kopalnia1.jpg";
+                    switch (poziomTrudnosci)
+                    {
+                        case 1:
+                            wymaganaMocDmuchniecia = 25;
+                            potrzebnyCzasDmuchniecia = 25;
+                            czasNaPoziom = 20;
+                            break;
+                        case 2 :
+                            wymaganaMocDmuchniecia = 40;
+                            potrzebnyCzasDmuchniecia = 40;
+                            czasNaPoziom = 18;
+                            break;
+                        case 3 :
+                            wymaganaMocDmuchniecia = 60;
+                            potrzebnyCzasDmuchniecia = 60;
+                            czasNaPoziom = 14;
+                            break;
+                    }
+                    removeAll();
+                    aktualnyPoziom++;
+                    System.out.println(poziomTrudnosci);
+                    Poziom2 p4 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
+                    add(p4);
+                    repaint();
+                    p4.requestFocusInWindow();
+                    break;
+                case 4:
+                    tlo = "image//kopalnia2.jpg";
+                    switch (poziomTrudnosci)
+                    {
+                        case 1:
+                            wymaganaMocDmuchniecia = 30;
+                            potrzebnyCzasDmuchniecia = 30;
+                            czasNaPoziom = 18;
+                            break;
+                        case 2 :
+                            wymaganaMocDmuchniecia = 50;
+                            potrzebnyCzasDmuchniecia = 40;
+                            czasNaPoziom = 14;
+                            break;
+                        case 3 :
+                            wymaganaMocDmuchniecia = 75;
+                            potrzebnyCzasDmuchniecia = 60;
+                            czasNaPoziom = 13;
+                            break;
+                    }
+                    removeAll();
+                    aktualnyPoziom++;
+                    System.out.println(poziomTrudnosci);
+                    Poziom2 p5 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
+                    add(p5);
+                    repaint();
+                    p5.requestFocusInWindow();
+                    break;
+                case 5:
+                    tlo = "image//kopalnia3.jpg";
+                    switch (poziomTrudnosci)
+                    {
+                        case 1:
+                            wymaganaMocDmuchniecia = 35;
+                            potrzebnyCzasDmuchniecia = 30;
+                            czasNaPoziom = 18;
+                            break;
+                        case 2 :
+                            wymaganaMocDmuchniecia = 60;
+                            potrzebnyCzasDmuchniecia = 40;
+                            czasNaPoziom = 14;
+                            break;
+                        case 3 :
+                            wymaganaMocDmuchniecia = 90;
+                            potrzebnyCzasDmuchniecia = 60;
+                            czasNaPoziom = 12;
+                            break;
+                    }
+                    removeAll();
+                    aktualnyPoziom++;
+                    System.out.println(poziomTrudnosci);
+                    Poziom2 p6 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
+                    add(p6);
+                    repaint();
+                    p6.requestFocusInWindow();
+                    break;
+                case 6:
+                    tlo = "image//kopalnia1.jpg";
+                    switch (poziomTrudnosci)
+                    {
+                        case 1:
+                            wymaganaMocDmuchniecia = 40;
+                            potrzebnyCzasDmuchniecia = 30;
+                            czasNaPoziom = 16;
+                            break;
+                        case 2 :
+                            wymaganaMocDmuchniecia = 50;
+                            potrzebnyCzasDmuchniecia = 50;
+                            czasNaPoziom = 12;
+                            break;
+                        case 3 :
+                            wymaganaMocDmuchniecia = 50;
+                            potrzebnyCzasDmuchniecia = 70;
+                            czasNaPoziom = 10;
+                            break;
+                    }
+                    removeAll();
+                    aktualnyPoziom++;
+                    System.out.println(poziomTrudnosci);
+                    Poziom2 p7 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
+                    add(p7);
+                    repaint();
+                    p7.requestFocusInWindow();
+                    break;
+                case 7:
+                    tlo = "image//kopalnia2.jpg";
+                    switch (poziomTrudnosci)
+                    {
+                        case 1:
+                            wymaganaMocDmuchniecia = 35;
+                            potrzebnyCzasDmuchniecia = 40;
+                            czasNaPoziom = 18;
+                            break;
+                        case 2 :
+                            wymaganaMocDmuchniecia = 60;
+                            potrzebnyCzasDmuchniecia = 50;
+                            czasNaPoziom = 12;
+                            break;
+                        case 3 :
+                            wymaganaMocDmuchniecia = 65;
+                            potrzebnyCzasDmuchniecia = 70;
+                            czasNaPoziom = 10;
+                            break;
+                    }
+                    removeAll();
+                    aktualnyPoziom++;
+                    System.out.println(poziomTrudnosci);
+                    Poziom2 p8 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
+                    add(p8);
+                    repaint();
+                    p8.requestFocusInWindow();
+                    break;
+                case 8:
+                    tlo = "image//kopalnia3.jpg";
+                    switch (poziomTrudnosci)
+                    {
+                        case 1:
+                            wymaganaMocDmuchniecia = 40;
+                            potrzebnyCzasDmuchniecia = 40;
+                            czasNaPoziom = 16;
+                            break;
+                        case 2 :
+                            wymaganaMocDmuchniecia = 70;
+                            potrzebnyCzasDmuchniecia = 50;
+                            czasNaPoziom = 10;
+                            break;
+                        case 3 :
+                            wymaganaMocDmuchniecia = 80;
+                            potrzebnyCzasDmuchniecia = 70;
+                            czasNaPoziom = 9;
+                            break;
+                    }
+                    removeAll();
+                    aktualnyPoziom++;
+                    System.out.println(poziomTrudnosci);
+                    Poziom2 p9 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
+                    add(p9);
+                    repaint();
+                    p9.requestFocusInWindow();
+                    break;
+                case LICZBAPOZIOMOW - 1:
+                    tlo = "image//kopalnia3.jpg";
+                    switch (poziomTrudnosci)
+                    {
+                        case 1:
+                            wymaganaMocDmuchniecia = 45;
+                            potrzebnyCzasDmuchniecia = 40;
+                            czasNaPoziom = 16;
+                            break;
+                        case 2 :
+                            wymaganaMocDmuchniecia = 60;
+                            potrzebnyCzasDmuchniecia = 60;
+                            czasNaPoziom = 10;
+                            break;
+                        case 3 :
+                            wymaganaMocDmuchniecia = 80;
+                            potrzebnyCzasDmuchniecia = 80;
+                            czasNaPoziom = 8;
+                            break;
+                    }
+                    removeAll();
+                    aktualnyPoziom++;
+                    System.out.println(poziomTrudnosci);
+                    PoziomOstatni pO = new PoziomOstatni(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
+                    add(pO);
+                    repaint();
+                    pO.requestFocusInWindow();
+                    break;
+                default:
                     tlo = "image//kopalnia3.jpg";
                     switch (poziomTrudnosci)
                     {
@@ -117,10 +346,12 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             break;
                     }
                     removeAll();
-                    Poziom3 p3 = new Poziom3(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo);
-                    add(p3);
+                    aktualnyPoziom++;
+                    System.out.println(poziomTrudnosci);
+                    PoziomOstatni po = new PoziomOstatni(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
+                    add(po);
                     repaint();
-                    p3.requestFocusInWindow();
+                    po.requestFocusInWindow();
                     break;
             }
         }

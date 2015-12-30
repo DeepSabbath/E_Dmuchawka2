@@ -3,7 +3,7 @@
  */
 public class Main {
 
-    static final int WYSOKOSC = 800;
+    static final int WYSOKOSC = 700;
     static final int SZEROKOSC = 1280;
     public static OknoGlowne o;
 

@@ -9,8 +9,8 @@ import java.util.Random;
 public abstract class Poziom extends JPanel implements KeyListener
 {
 
-    static final int WYSOKOSC = 800;
-    static final int SZEROKOSC = 1280;
+    static final int WYSOKOSC = Main.WYSOKOSC;
+    static final int SZEROKOSC = Main.SZEROKOSC;
     static final double maksymalnyCzasDmuchniecia = 100;
     final int blad = 8;
 
@@ -33,6 +33,9 @@ public abstract class Poziom extends JPanel implements KeyListener
     boolean czyRosnie = false;
     boolean czyWygrano = false;
     String plik;
+    int aktualnyPoziom;
+    JLabel poziomLBL;
+    JLabel zakonczGreLBL;
 
     JLabel wynikGry;
 
@@ -40,9 +43,12 @@ public abstract class Poziom extends JPanel implements KeyListener
     JLabel punktyLBL;
     JLabel dynamit;
     WskaznikDmuchniecia wsk;
+    StatusGryGora sgg;
+    StatusGryDol sgd;
 
-    public Poziom (int poziomTrudnosci, int wymaganaMocDmuchniecia, int potrzebnyCzasDmuchniecia, int czasNaPoziom, String plik)
+    public Poziom (int poziomTrudnosci, int wymaganaMocDmuchniecia, int potrzebnyCzasDmuchniecia, int czasNaPoziom, String plik, int aktualnyPoziom)
     {
+        this.aktualnyPoziom = aktualnyPoziom;
         this.plik = plik;
         this.poziomTrudnosci = poziomTrudnosci;
         this.wymaganaMocDmuchniecia = wymaganaMocDmuchniecia;
@@ -55,6 +61,11 @@ public abstract class Poziom extends JPanel implements KeyListener
         testLabel();
         wsk = new WskaznikDmuchniecia();
         add(wsk);
+        sgg = new StatusGryGora();
+        add(sgg);
+        sgd = new StatusGryDol();
+        add(sgd);
+
         ustawTlo(plik);
 
         addKeyListener(this);
@@ -92,20 +103,6 @@ public abstract class Poziom extends JPanel implements KeyListener
         aktualnyCzasDmuchnieciaLBL.setText("Aktualny czas dmuchniecia" + aktualnyCzasDmuchniecia);
         add(aktualnyCzasDmuchnieciaLBL);
 
-        wymaganaMocDmuchnieciaLBL = new JLabel();
-        wymaganaMocDmuchnieciaLBL.setSize(200,40);
-        wymaganaMocDmuchnieciaLBL.setLocation(50,200);
-        wymaganaMocDmuchnieciaLBL.setForeground(Color.yellow);
-        wymaganaMocDmuchnieciaLBL.setText("WYmagana moc dmuchniecia" + wymaganaMocDmuchniecia);
-        add(wymaganaMocDmuchnieciaLBL);
-
-        aktualnaMocDmuchnieciaLBL = new JLabel();
-        aktualnaMocDmuchnieciaLBL.setSize(200,40);
-        aktualnaMocDmuchnieciaLBL.setLocation(250,200);
-        aktualnaMocDmuchnieciaLBL.setForeground(Color.yellow);
-        aktualnaMocDmuchnieciaLBL.setText("Aktualna moc dmuchniecia" + aktualnaMocDmuchniecia);
-        add(aktualnaMocDmuchnieciaLBL);
-
         wynikGry = new JLabel();
         wynikGry.setSize(200,40);
         wynikGry.setLocation(50,300);
@@ -116,26 +113,45 @@ public abstract class Poziom extends JPanel implements KeyListener
 
     public void init()
     {
+        Font font = new Font("Helvetica", Font.BOLD, 20);
+
         dynamit = new JLabel(new ImageIcon("image//dynamitOFF.png"));
         dynamit.setSize(60,120);
-        dynamit.setLocation(losujPolozenie(1280,800));
-        dynamit.setForeground(Color.yellow);
+        dynamit.setLocation(losujPolozenie(1280,700));
         dynamit.addMouseListener(new DynamitClick());
         add(dynamit);
 
+        zakonczGreLBL = new JLabel("Zakoncz gre");
+        zakonczGreLBL.setSize(200,50);
+        zakonczGreLBL.setLocation(20,650);
+        zakonczGreLBL.setForeground(Color.yellow);
+        zakonczGreLBL.setFont(font);
+        zakonczGreLBL.addMouseListener(new ZakonczGreClick());
+        add(zakonczGreLBL);
+
         czasDoKoncaLBL = new JLabel();
-        czasDoKoncaLBL.setSize(200,60);
-        czasDoKoncaLBL.setLocation(500, 100);
+        czasDoKoncaLBL.setSize(200,50);
+        czasDoKoncaLBL.setLocation(500, 0);
+        czasDoKoncaLBL.setFont(font);
         czasDoKoncaLBL.setForeground(Color.yellow);
         czasDoKoncaLBL.setText("Pozostaly czas: " + pozostalyCzasNaPoziom);
         add(czasDoKoncaLBL);
 
         punktyLBL = new JLabel();
-        punktyLBL.setSize(200,60);
-        punktyLBL.setLocation(800,100);
+        punktyLBL.setSize(200,50);
+        punktyLBL.setLocation(950,0);
         punktyLBL.setForeground(Color.yellow);
+        punktyLBL.setFont(font);
         punktyLBL.setText("Punkty: " + punkty);
         add(punktyLBL);
+
+        aktualnaMocDmuchnieciaLBL = new JLabel();
+        aktualnaMocDmuchnieciaLBL.setSize(500,40);
+        aktualnaMocDmuchnieciaLBL.setLocation(500,650);
+        aktualnaMocDmuchnieciaLBL.setFont(font);
+        aktualnaMocDmuchnieciaLBL.setForeground(Color.yellow);
+        aktualnaMocDmuchnieciaLBL.setText("Aktualna moc dmuchniecia: " + aktualnaMocDmuchniecia + "/" + wymaganaMocDmuchniecia);
+        add(aktualnaMocDmuchnieciaLBL);
 
         pozostalyCzasNaPoziom = czasNaPoziom;
         timer1.start();
@@ -149,7 +165,7 @@ public abstract class Poziom extends JPanel implements KeyListener
         int s = d.width;
         Random rand = new Random();
         int sze = rand.nextInt(width - s);
-        int wys = rand.nextInt(height - 2*w);
+        int wys = rand.nextInt(height - 2*w)+50;
         Point pol = new Point(sze, wys);
         return pol;
     }
@@ -166,14 +182,22 @@ public abstract class Poziom extends JPanel implements KeyListener
         int a = e.getKeyCode();
 
         if (!czyRosnie) {
-            if (a == KeyEvent.VK_UP) {
+            if (a == KeyEvent.VK_UP && aktualnaMocDmuchniecia < 100) {
                 aktualnaMocDmuchniecia++;
             }
 
-            if (a == KeyEvent.VK_DOWN) {
+            if (a == KeyEvent.VK_DOWN && aktualnaMocDmuchniecia > 0) {
                 aktualnaMocDmuchniecia--;
             }
-            aktualnaMocDmuchnieciaLBL.setText("Aktualna moc dmuchniecia " + aktualnaMocDmuchniecia);
+            aktualnaMocDmuchnieciaLBL.setText("Aktualna moc dmuchniecia: " + aktualnaMocDmuchniecia + "/" + wymaganaMocDmuchniecia);
+        }
+    }
+
+    class ZakonczGreClick extends MouseAdapter              // definicja dzia�ania buttona
+    {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            zakonczenieGry();
         }
     }
 
@@ -252,7 +276,6 @@ public abstract class Poziom extends JPanel implements KeyListener
         add(kg);
         repaint();
         kg.requestFocusInWindow();
-
     }
 
     public abstract void wygrana();
@@ -261,7 +284,7 @@ public abstract class Poziom extends JPanel implements KeyListener
     {
         if (czyWygrano)
         {
-            punktyZaPoziom = (50 * poziomTrudnosci) + (pozostalyCzasNaPoziom * poziomTrudnosci) * 5;
+            punktyZaPoziom = (aktualnyPoziom * poziomTrudnosci * 3) + (pozostalyCzasNaPoziom * poziomTrudnosci) * 2;
         }
 
         punkty +=  punktyZaPoziom;
@@ -281,18 +304,48 @@ public abstract class Poziom extends JPanel implements KeyListener
     }
 
 
+    public  class StatusGryGora extends JPanel
+    {
+        public StatusGryGora()
+        {
+            setBounds(0, 0, 1280, 50);
+            setOpaque(false);
+        }
+
+        public void paint (Graphics g)
+        {
+            g.setColor(Color.black.BLACK);
+            g.fillRect(0, 0, 1280, 50);
+        }
+    }
+
+    public  class StatusGryDol extends JPanel
+    {
+        public StatusGryDol()
+        {
+            setBounds(0, 650, 1280, 50);
+            setOpaque(false);
+        }
+
+        public void paint (Graphics g)
+        {
+            g.setColor(Color.black.BLACK);
+            g.fillRect(0, 0, 1280, 50);
+        }
+    }
+
     public class WskaznikDmuchniecia extends JPanel {
 
         int prosX = 0;
         int prosY = 1;
         int prosSzer = 25;
-        int prosWys = 200;
+        int prosWys = 250;
         double prosWysD = prosWys;
         int wypelnienie;
 
         public WskaznikDmuchniecia()
         {
-            setBounds(1050, 450, 100, 204);
+            setBounds(1050, 400, 100, prosWys + 2);
         }
 
         public void paint (Graphics g)

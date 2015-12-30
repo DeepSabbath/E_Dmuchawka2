@@ -10,6 +10,7 @@ public class OknoGlowne extends JFrame {
     {
         super("Smok wawelski");
         setLayout(null);
+        setUndecorated(true);
         setSize(width, height);
         setResizable(false);
         setVisible(true);

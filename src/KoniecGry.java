@@ -133,7 +133,7 @@ public class KoniecGry extends JPanel {
                     break;
             }
             removeAll();
-            Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom, tlo);
+            Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom, tlo, 1);
             add(p1);
             repaint();
             p1.requestFocusInWindow();

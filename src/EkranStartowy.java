@@ -33,14 +33,14 @@ public class EkranStartowy extends JPanel{
 
         wybierzPoziomTrudnosci = new JLabel("Wybierz poziom trudnosci");
         wybierzPoziomTrudnosci.setSize(300,40);
-        wybierzPoziomTrudnosci.setLocation(950,180);
+        wybierzPoziomTrudnosci.setLocation(950,150);
         wybierzPoziomTrudnosci.setForeground(Color.black);
         wybierzPoziomTrudnosci.setFont(font2);
         add(wybierzPoziomTrudnosci);
 
         poziomLatwy = new JLabel("łatwy");
         poziomLatwy.setSize(100,40);
-        poziomLatwy.setLocation(950,230);
+        poziomLatwy.setLocation(950,200);
         poziomLatwy.setForeground(Color.green);
         poziomLatwy.setFont(font);
         poziomLatwy.addMouseListener(new PoziomLatwyClick());
@@ -48,7 +48,7 @@ public class EkranStartowy extends JPanel{
 
         poziomSredni = new JLabel("średni");
         poziomSredni.setSize(100,40);
-        poziomSredni.setLocation(950,310);
+        poziomSredni.setLocation(950,280);
         poziomSredni.setForeground(Color.red);
         poziomSredni.setFont(font);
         poziomSredni.addMouseListener(new PoziomSredniClick());
@@ -56,7 +56,7 @@ public class EkranStartowy extends JPanel{
 
         poziomTrudny = new JLabel("trudny");
         poziomTrudny.setSize(100,40);
-        poziomTrudny.setLocation(950,390);
+        poziomTrudny.setLocation(950,360);
         poziomTrudny.setForeground(Color.red);
         poziomTrudny.setFont(font);
         poziomTrudny.addMouseListener(new PoziomTrudnyClick());
@@ -64,7 +64,7 @@ public class EkranStartowy extends JPanel{
 
         rozpocznijGre = new JLabel("Graj");
         rozpocznijGre.setSize(200,40);
-        rozpocznijGre.setLocation(950,120);
+        rozpocznijGre.setLocation(950,90);
         rozpocznijGre.setFont(font);
         rozpocznijGre.setForeground(Color.yellow);
         rozpocznijGre.addMouseListener(new RozpocznijGreClick());
@@ -72,7 +72,7 @@ public class EkranStartowy extends JPanel{
 
         infoOAutorze = new JLabel("Info o autorze");
         infoOAutorze.setSize(200,40);
-        infoOAutorze.setLocation(950,470);
+        infoOAutorze.setLocation(950,440);
         infoOAutorze.setFont(font);
         infoOAutorze.setForeground(Color.yellow);
         infoOAutorze.addMouseListener(new oAutorzeClick());
@@ -80,7 +80,7 @@ public class EkranStartowy extends JPanel{
 
         rekordy = new JLabel("Rekordy");
         rekordy.setSize(200,40);
-        rekordy.setLocation(950,540);
+        rekordy.setLocation(950,510);
         rekordy.setFont(font);
         rekordy.setForeground(Color.yellow);
         rekordy.addMouseListener(new WyswietlRekordyClick());
@@ -88,7 +88,7 @@ public class EkranStartowy extends JPanel{
 
         wyjscieZAplikacji = new JLabel("Wyjście");
         wyjscieZAplikacji.setSize(200, 40);
-        wyjscieZAplikacji.setLocation(950,610);
+        wyjscieZAplikacji.setLocation(950,580);
         wyjscieZAplikacji.setFont(font);
         wyjscieZAplikacji.setForeground(Color.yellow);
         wyjscieZAplikacji.addMouseListener(new WyjscieClick());
@@ -102,7 +102,7 @@ public class EkranStartowy extends JPanel{
         try {
             tlo = new JLabel(new ImageIcon(plik));
             tlo.setOpaque(true);
-            tlo.setBounds(0, 0, 1280, 800);
+            tlo.setBounds(0, 0, 1280, 1024);
             add(tlo);
         } catch (Exception e)
         {
@@ -160,24 +160,24 @@ public class EkranStartowy extends JPanel{
             int czasNaPoziom = 20;
             switch (poziomTrudnosci) {
                 case 1:
-                    wymaganaMocDmuchniecia = 30;
-                    potrzebnyCzasDmuchniecia = 20;
-                    czasNaPoziom = 30;
+                    potrzebnyCzasDmuchniecia = 10;
+                    wymaganaMocDmuchniecia = 10;
+                    czasNaPoziom = 25;
                     break;
                 case 2:
-                    wymaganaMocDmuchniecia = 45;
-                    potrzebnyCzasDmuchniecia = 40;
-                    czasNaPoziom = 22;
+                    potrzebnyCzasDmuchniecia = 30;
+                    wymaganaMocDmuchniecia = 30;
+                    czasNaPoziom = 20;
                     break;
                 case 3:
+                    potrzebnyCzasDmuchniecia = 40;
                     wymaganaMocDmuchniecia = 60;
-                    potrzebnyCzasDmuchniecia = 60;
-                    czasNaPoziom = 15;
+                    czasNaPoziom = 16;
                     break;
             }
             removeAll();
             String tlo = "image//kopalnia1.jpg";
-            Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom, tlo);
+            Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom, tlo, 1);
             add(p1);
             repaint();
             p1.requestFocusInWindow();

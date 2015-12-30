@@ -96,16 +96,13 @@ public class OknoZRekordami extends JPanel{
             add(wyswietlaTrudny[i]);
         }
 
-        wrocDoMenu = new JLabel("Zakoncz gre");
+        wrocDoMenu = new JLabel("Wróć do menu");
         wrocDoMenu.setSize(200,30);
         wrocDoMenu.setLocation(950,600);
         wrocDoMenu.setForeground(Color.red);
         wrocDoMenu.setFont(font);
         wrocDoMenu.addMouseListener(new WrocDoMenuClick());
         add(wrocDoMenu);
-
-        //System.out.println("Dlugosc tablic " + tablicaDanych.length + "poziom  " + tablicaDanych[0].poziomTrudnosci +
-         //       "nazwa " + tablicaDanych[0].nazwaUzytkownika);
 
         posortuj();
 
@@ -150,11 +147,6 @@ public class OknoZRekordami extends JPanel{
         DaneDoZapisu[] latwy = new DaneDoZapisu[3];
         DaneDoZapisu[] sredni = new DaneDoZapisu[3];
         DaneDoZapisu[] trudny = new DaneDoZapisu[3];
-        DaneDoZapisu dzp = new DaneDoZapisu("nick", 1, data, 1);
-
-        /*Arrays.fill(latwy, dzp);
-        Arrays.fill(sredni, dzp);
-        Arrays.fill(trudny, dzp);*/    // taka inicjalizacja psuje sortowanie i miesza poziomy
 
         latwy[0] = new DaneDoZapisu("nick", 0, data, 1);
         latwy[1] =  new DaneDoZapisu("nick", 0, data, 1);
@@ -201,24 +193,18 @@ public class OknoZRekordami extends JPanel{
             d[1].nazwaUzytkownika = d[0].nazwaUzytkownika;
             d[0].punkty = tablicaDanych[i].punkty;
             d[0].nazwaUzytkownika = tablicaDanych[i].nazwaUzytkownika;
-            System.out.println("Jestem" + tablicaDanych[i].nazwaUzytkownika);
         }
         else if (d[1].punkty < tablicaDanych[i].punkty) {
             d[2].punkty = d[1].punkty;
             d[2].nazwaUzytkownika = d[1].nazwaUzytkownika;
             d[1].punkty = tablicaDanych[i].punkty;
             d[1].nazwaUzytkownika = tablicaDanych[i].nazwaUzytkownika;
-            System.out.println("if 2");
         }
             else if (d[2].punkty < tablicaDanych[i].punkty)
         {
             d[2].punkty = tablicaDanych[i].punkty;
             d[2].nazwaUzytkownika = tablicaDanych[i].nazwaUzytkownika;
-            System.out.println("if 3");
         }
-            System.out.println("latwy0 " + d[0].nazwaUzytkownika + " " + d[0].punkty);
-            System.out.println("latwy1 " + d[1].nazwaUzytkownika + " " + d[1].punkty);
-            System.out.println("_______________________________________________________________");
     }
 
     class WrocDoMenuClick extends MouseAdapter              // definicja dzia�ania buttona
