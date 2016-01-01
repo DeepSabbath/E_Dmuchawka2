@@ -18,14 +18,8 @@ public class PoziomOstatni extends Poziom {
         punktyLBL.setText("Punkty:" + punkty);
     }
 
-    public void wygrana()
+    public void przejdzDoNastepnegoPoziomu()
     {
-        czasDoKoncaTimer.stop();
-        czyWygrano = true;
-        dynamit.setIcon(new ImageIcon("image//dynamit.png"));
-        liczPunkty();
-        czyWygrano = true;
-        opoznij(500);
         zakonczenieGry();
     }
 }

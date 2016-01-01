@@ -15,15 +15,8 @@ public class Poziom2 extends Poziom {
         this.punkty = punkty;
     }
 
-    public void wygrana()
+    public void przejdzDoNastepnegoPoziomu()
     {
-        czasDoKoncaTimer.stop();
-        czyWygrano = true;
-        dynamit.setIcon(new ImageIcon("image//dynamit.png"));
-        repaint();
-        liczPunkty();
-        czyWygrano = true;
-        opoznij(500);
         removeAll();
         PrzejscieMiedzyPoziomami pmp = new PrzejscieMiedzyPoziomami(aktualnyPoziom,punkty,punktyZaPoziom,poziomTrudnosci);
         add(pmp);

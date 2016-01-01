@@ -12,17 +12,12 @@ public class Poziom1 extends Poziom {
         super(poziomTrudnosci,  wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, plik, aktualnyPoziom);
     }
 
-    public void wygrana()
+
+
+    public void przejdzDoNastepnegoPoziomu()
     {
-        dynamit.setIcon(new ImageIcon("image//dynamit.png"));
-        repaint();
-        czasDoKoncaTimer.stop();
-        czyWygrano = true;
-        repaint();
-        liczPunkty();
-        opoznij(1000);
         removeAll();
-        PrzejscieMiedzyPoziomami pmp = new PrzejscieMiedzyPoziomami(aktualnyPoziom,punkty,punktyZaPoziom,poziomTrudnosci);
+        PrzejscieMiedzyPoziomami pmp = new PrzejscieMiedzyPoziomami(aktualnyPoziom, punkty, punktyZaPoziom, poziomTrudnosci);
         add(pmp);
         repaint();
         pmp.requestFocusInWindow();

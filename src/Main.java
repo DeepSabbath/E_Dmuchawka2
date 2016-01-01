@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,21 +18,20 @@ public class Main {
 
     public static void main(String[] args) {
 
-        try
-        {
-            odczyt("czas.txt");
-        }
-        catch (IOException e)
-        {
-            System.out.println("Błąd odczytu");
-        }
-        catch (ClassNotFoundException e)
-        {
-            System.out.println("Błąd odczytu");
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    odczyt("czas.txt");
+                } catch (IOException e) {
+                    System.out.println("Błąd odczytu");
+                } catch (ClassNotFoundException e) {
+                    System.out.println("Błąd odczytu");
+                }
 
-        o = new OknoGlowne(SZEROKOSC, WYSOKOSC);
-        o.setDefaultCloseOperation(o.EXIT_ON_CLOSE);
+                o = new OknoGlowne(SZEROKOSC, WYSOKOSC);
+                o.setDefaultCloseOperation(o.EXIT_ON_CLOSE);
+            }
+        });
     }
 
     public static void odczyt(String nazwaPl) throws IOException, ClassNotFoundException {

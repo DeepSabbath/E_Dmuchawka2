@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.Date;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 /**
  * Created by Amadeusz on 28.12.2015.
  */
@@ -12,7 +14,6 @@ public class KoniecGry extends JPanel {
 
     int punkty;
     int poziomTrudnosci;
-    String nazwaUżytkownika;
     Date data;
 
     JLabel punktyLBL;
@@ -45,7 +46,7 @@ public class KoniecGry extends JPanel {
             System.out.println("Błąd odczytu");
         }
 
-        Font font = new Font("Helvetica", Font.BOLD, 20);
+        Font font = new Font("Helvetica", Font.BOLD, 30);
         Font font2 = new Font("Helvetica", Font.BOLD, 40);
         data = new Date();
 
@@ -65,7 +66,7 @@ public class KoniecGry extends JPanel {
         koniecGryLBL.setFont(font2);
         add(koniecGryLBL);
 
-        zakonczGreLBL = new JLabel("Zakoncz gre");
+        zakonczGreLBL = new JLabel("Zakończ grę");
         zakonczGreLBL.setSize(200,50);
         zakonczGreLBL.setLocation(950,600);
         zakonczGreLBL.setForeground(Color.red);
@@ -94,12 +95,15 @@ public class KoniecGry extends JPanel {
     {
         @Override
         public void mouseClicked(MouseEvent e) {
-            zapiszDoPliku();
-            removeAll();
-            EkranStartowy es = new EkranStartowy(Main.SZEROKOSC, Main.WYSOKOSC);
-            es.setFocusable(true);
-            add(es);
-            repaint();
+            if (sprawdzNick())
+            {
+                zapiszDoPliku();
+                removeAll();
+                EkranStartowy es = new EkranStartowy(Main.SZEROKOSC, Main.WYSOKOSC);
+                es.setFocusable(true);
+                add(es);
+                repaint();
+            }
         }
     }
 
@@ -107,51 +111,57 @@ public class KoniecGry extends JPanel {
     {
         @Override
         public void mouseClicked(MouseEvent e) {
-            int wymaganaMocDmuchniecia = 40;
-            int potrzebnyCzasDmuchniecia = 40;
-            int czasNaPoziom = 20;
-            String tlo = "image//kopalnia1.jpg";
-            zapiszDoPliku();
+            if (sprawdzNick())
+            {
+                int wymaganaMocDmuchniecia = 40;
+                int potrzebnyCzasDmuchniecia = 40;
+                int czasNaPoziom = 20;
+                String tlo = "image//kopalnia1.jpg";
+                zapiszDoPliku();
 
-            switch (poziomTrudnosci) {
-                case 1:
-                    wymaganaMocDmuchniecia = 30;
-                    potrzebnyCzasDmuchniecia = 20;
-                    czasNaPoziom = 30;
-                    break;
-                case 2:
-                    wymaganaMocDmuchniecia = 45;
-                    potrzebnyCzasDmuchniecia = 40;
-                    czasNaPoziom = 22;
-                    break;
-                case 3:
-                    wymaganaMocDmuchniecia = 60;
-                    potrzebnyCzasDmuchniecia = 60;
-                    czasNaPoziom = 15;
-                    break;
+                switch (poziomTrudnosci) {
+                    case 1:
+                        wymaganaMocDmuchniecia = 10;
+                        potrzebnyCzasDmuchniecia = 10;
+                        czasNaPoziom = 25;
+                        break;
+                    case 2:
+                        wymaganaMocDmuchniecia = 30;
+                        potrzebnyCzasDmuchniecia = 30;
+                        czasNaPoziom = 20;
+                        break;
+                    case 3:
+                        wymaganaMocDmuchniecia = 60;
+                        potrzebnyCzasDmuchniecia = 40;
+                        czasNaPoziom = 16;
+                        break;
+                }
+                removeAll();
+                Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom, tlo, 1);
+                add(p1);
+                repaint();
+                p1.requestFocusInWindow();
             }
-            removeAll();
-            Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom, tlo, 1);
-            add(p1);
-            repaint();
-            p1.requestFocusInWindow();
         }
     }
 
     public void zapiszDoPliku()
     {
-        try{
-            zapiszDoPliku2();
-        }
-        catch (Exception e)
-        {
-            System.out.println("Błąd IO");
-        }
+            try
+            {
+                 zapiszDoPliku2();
+            }
+            catch (Exception e)
+            {
+                System.out.println("Błąd IO");
+            }
     }
 
     public void zapiszDoPliku2() throws IOException, ClassNotFoundException{
 
         String nazwaUzytkownika = nazwaUzytkownikaTF.getText();
+        int r = nazwaUzytkownika.length();
+
         DaneDoZapisu ddz = new DaneDoZapisu(nazwaUzytkownika, punkty, data, poziomTrudnosci);
 
         DaneDoZapisu[] tab = new DaneDoZapisu[100]; // do tablicy
@@ -226,6 +236,19 @@ public class KoniecGry extends JPanel {
         catch(Exception e)
         {
             System.out.println("Błąd odczytu");
+        }
+    }
+
+    public boolean sprawdzNick()
+    {
+        if (nazwaUzytkownikaTF.getText().length() > 2)
+        {
+            return true;
+        }
+        else
+        {
+            showMessageDialog(null, "Nick powinien mieć co najmniej 3 znaki.");
+            return false;
         }
     }
 }
