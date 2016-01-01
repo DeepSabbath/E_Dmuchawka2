@@ -41,6 +41,7 @@ public abstract class Poziom extends JPanel implements KeyListener
     JLabel czasDoKoncaLBL;
     JLabel punktyLBL;
     JLabel dynamit;
+    JLabel ogien;
     WskaznikDmuchniecia wsk;
     StatusGryGora sgg;
     StatusGryDol sgd;
@@ -101,6 +102,13 @@ public abstract class Poziom extends JPanel implements KeyListener
         poziomLBL.setForeground(Color.yellow);
         poziomLBL.setFont(font);
         add(poziomLBL);
+
+        ogien = new JLabel();
+        ogien.setSize(200,550);
+        ogien.setLocation(600,200);
+        ogien.setAlignmentY(0.0f);
+        ogien.setAlignmentX(100);
+        add(ogien);
 
         zakonczGreLBL = new JLabel("Zakończ grę");
         zakonczGreLBL.setSize(200,40);
@@ -214,13 +222,11 @@ public abstract class Poziom extends JPanel implements KeyListener
     private boolean sprawdzWynik()
     {
         if(potrzebnyCzasDmuchniecia + blad >= aktualnyCzasDmuchniecia && potrzebnyCzasDmuchniecia - blad <= aktualnyCzasDmuchniecia)
-        {
             return true;
-        }
+
         else
-        {
             return false;
-        }
+
     }
 
     private class czasDmuchniecia implements ActionListener
@@ -313,7 +319,7 @@ public abstract class Poziom extends JPanel implements KeyListener
 
         public void paint (Graphics g)
         {
-            g.setColor(Color.black.BLACK);
+            //g.setColor(Color.black.BLACK);
             g.fillRect(0, 0, 1280, 50);
         }
     }
@@ -328,7 +334,7 @@ public abstract class Poziom extends JPanel implements KeyListener
 
         public void paint (Graphics g)
         {
-            g.setColor(Color.black.BLACK);
+            //g.setColor(Color.black.BLACK);
             g.fillRect(0, 0, 1280, 50);
         }
     }
@@ -356,14 +362,32 @@ public abstract class Poziom extends JPanel implements KeyListener
             if(potrzebnyCzasDmuchniecia + blad >= aktualnyCzasDmuchniecia && potrzebnyCzasDmuchniecia - blad <= aktualnyCzasDmuchniecia)
             {
                 g.setColor(Color.green);
+                ogien.setLocation(500,219);
+                ogien.setSize(200,431);
+                ogien.setIcon(new ImageIcon("image//ogien3.png"));
             }
             else if (potrzebnyCzasDmuchniecia - 20 <= aktualnyCzasDmuchniecia && aktualnyCzasDmuchniecia < potrzebnyCzasDmuchniecia)
             {
                 g.setColor((Color.orange));
+                if (czyRosnie) {
+                    ogien.setLocation(533,397);
+                    ogien.setSize(150,253);
+                    ogien.setIcon(new ImageIcon("image//ogien2.png"));
+                }else {
+                    ogien.setIcon(new ImageIcon("image//pusty.png"));
+                }
             }
             else
             {
                 g.setColor(Color.red);
+                if (czyRosnie) {
+                    ogien.setLocation(570,527);
+                    ogien.setSize(70,123);
+                    ogien.setIcon(new ImageIcon("image//ogien1.png"));
+                }else
+                {
+                    ogien.setIcon(new ImageIcon("image//pusty.png"));
+                }
             }
             g.fillRect(prosX + 1,(prosY + prosWys - wypelnienie),prosSzer - 1 , wypelnienie - 1);
         }
