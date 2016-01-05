@@ -1,14 +1,14 @@
 /**
- * Created by Amadeusz on 30.12.2015.
- */
-import javax.swing.*;
-
-/**
- * Created by Amadeusz on 28.12.2015.
+ * <b>PoziomOstatni</b> - klasa odpowiadająca za obsługę ostatniego poziomu
+ * @Author Amadeusz Kardasz
  */
 public class PoziomOstatni extends Poziom {
 
-    int aktualnyPoziom = 3;
+    int aktualnyPoziom;
+
+    /**
+     * konstruktor pozwalający na przypisanie parametrów oraz wywołujący konstruktor klasy nadrzędnej
+     */
 
     public  PoziomOstatni (int poziomTrudnosci, int wymaganaMocDmuchniecia, int potrzebnyCzasDmuchniecia, int czasNaPoziom, int punkty, String plik, int aktualnyPoziom)
     {
@@ -16,10 +16,14 @@ public class PoziomOstatni extends Poziom {
         this.punkty = punkty;
         this.aktualnyPoziom = aktualnyPoziom;
         punktyLBL.setText("Punkty:" + punkty);
-    }
+    } // koniec konstruktora
+
+    /**
+     * metoda obsługująca zdarzenia po przejściu poziomu
+     */
 
     public void przejdzDoNastepnegoPoziomu()
     {
         zakonczenieGry();
-    }
+    } // koniec przejdzDoNastepnegoPoziomu
 }

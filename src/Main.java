@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 /**
- * Created by Amadeusz on 26.12.2015.
+ * <b>Main</b> - klasa główna aplikajci.
+ * Jest to prosta gra symulująca aplikację na platformę E-Dmuchawka
+ * @Author Amadeusz Kardasz
  */
 public class Main {
 
@@ -16,38 +18,71 @@ public class Main {
     public static int lacznyCzasOdpaleniaAplikacji;
     public static int lacznyCzasDmuchania;
 
-    public static void main(String[] args) {
+    /**
+     * metoda uruchamiająca grę. Najpierw pobierane są dane na temat czasu gry.
+     * Potem następuje pobranie parametrów ekranu i ustalenie jego środka,
+     * na koniec tworzony jest obiekt klasy OknoGlowne, gdzie wykonuje się dalsza część programu
+     * @Author Amadeusz Kardasz
+     */
 
+    public static void main(String[] args)
+    {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                try {
+                try
+                {
                     odczyt("czas.txt");
-                } catch (IOException e) {
+                }
+                catch (IOException e)
+                {
                     System.out.println("Błąd odczytu");
-                } catch (ClassNotFoundException e) {
+                }
+                catch (ClassNotFoundException e)
+                {
                     System.out.println("Błąd odczytu");
                 }
 
-                o = new OknoGlowne(SZEROKOSC, WYSOKOSC);
+                //pobierz rozmiar ekranu
+                int szerokoscEkranu=Toolkit.getDefaultToolkit().getScreenSize().width;
+                int wysokoscEkranu=Toolkit.getDefaultToolkit().getScreenSize().height;
+
+                //oblicz współrzędne narożnika tak, aby pole gry było wyśrodkowane
+                int xSrodek=(szerokoscEkranu - SZEROKOSC)/2;
+                int ySrodek=(wysokoscEkranu - WYSOKOSC)/2;
+
+                o = new OknoGlowne(SZEROKOSC, WYSOKOSC, xSrodek, ySrodek);      // utworzenie okna głównego aplikacji
                 o.setDefaultCloseOperation(o.EXIT_ON_CLOSE);
-            }
-        });
-    }
+            } // koniec run
+        }); // koniec Runnable
+    } // koniec main
 
-    public static void odczyt(String nazwaPl) throws IOException, ClassNotFoundException {
-        ObjectInputStream pl2 = null;
+    /**
+     * metoda odczytująca z pliku dotychczasowe czasy gry oraz dmuchania
+     * @param nazwaPliku - ścieżka do pliku z danymi
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+
+    public static void odczyt(String nazwaPliku) throws IOException, ClassNotFoundException
+    {
+        ObjectInputStream ois = null;
         CzasDoZapisu cdz = null;
-        try {
-            pl2 = new ObjectInputStream(new FileInputStream(nazwaPl));
-            cdz = (CzasDoZapisu) pl2.readObject();
+        try
+        {
+            ois = new ObjectInputStream(new FileInputStream(nazwaPliku));
+            cdz = (CzasDoZapisu) ois.readObject();
 
-        } catch (EOFException ex) {
+        }
+        catch (EOFException ex)
+        {
             System.out.println("Koniec pliku");
-        } finally {
-            if (pl2 != null)
-                pl2.close();
+        }
+        finally
+        {
+            if (ois != null)
+                ois.close();
         }
         lacznyCzasOdpaleniaAplikacji = cdz.lacznyCzasGry;
         lacznyCzasDmuchania = cdz.lacznyCzasDmuchania;
-    }
+    } // koniec odczyt
 }

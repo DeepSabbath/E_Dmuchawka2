@@ -1,12 +1,14 @@
-/**
- * Created by Amadeusz on 26.12.2015.
- */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+
+/**
+ * <b>EkranStartowy</b> - klasa definiująca ekran startowy gry
+ * @Author Amadeusz Kardasz
+ */
 
 public class EkranStartowy extends JPanel{
 
@@ -20,16 +22,29 @@ public class EkranStartowy extends JPanel{
     JLabel wyjscieZAplikacji;
     JLabel rekordy;
     int poziomTrudnosci = 1;
+    int szerokosc;
+    int wysokosc;
 
-    javax.swing.Timer czasGry = new javax.swing.Timer(1000, new LiczCzasGry());
+    javax.swing.Timer czasGry = new javax.swing.Timer(1000, new LiczCzasGry()); // timer liczący łączny czas gry
 
-    public EkranStartowy(int width, int height)
+    /**
+     * Konstruktor umożliwia podanie właściwości obiektu oraz odpowiadający za ustawienie parametrów okna
+     */
+
+    public EkranStartowy(int szerokosc, int wysokosc)
     {
+        this.szerokosc = szerokosc;
+        this.wysokosc = wysokosc;
+
         setLayout(null);
-        setSize(width, height);
+        setSize(szerokosc, wysokosc);
         init();
         setVisible(true);
-    }
+    } // koniec konstruktora
+
+    /**
+     * funkcja wyrysowująca początkową zawartość okna
+     */
 
     private void init()
     {
@@ -48,7 +63,7 @@ public class EkranStartowy extends JPanel{
         poziomLatwy.setLocation(950,200);
         poziomLatwy.setForeground(Color.green);
         poziomLatwy.setFont(font);
-        poziomLatwy.addMouseListener(new PoziomLatwyClick());
+        poziomLatwy.addMouseListener(new PoziomLatwyKlik());
         add(poziomLatwy);
 
         poziomSredni = new JLabel("średni");
@@ -56,7 +71,7 @@ public class EkranStartowy extends JPanel{
         poziomSredni.setLocation(950,280);
         poziomSredni.setForeground(Color.red);
         poziomSredni.setFont(font);
-        poziomSredni.addMouseListener(new PoziomSredniClick());
+        poziomSredni.addMouseListener(new PoziomSredniKlik());
         add(poziomSredni);
 
         poziomTrudny = new JLabel("trudny");
@@ -64,7 +79,7 @@ public class EkranStartowy extends JPanel{
         poziomTrudny.setLocation(950,360);
         poziomTrudny.setForeground(Color.red);
         poziomTrudny.setFont(font);
-        poziomTrudny.addMouseListener(new PoziomTrudnyClick());
+        poziomTrudny.addMouseListener(new PoziomTrudnyKlik());
         add(poziomTrudny);
 
         rozpocznijGre = new JLabel("Graj");
@@ -72,7 +87,7 @@ public class EkranStartowy extends JPanel{
         rozpocznijGre.setLocation(950,90);
         rozpocznijGre.setFont(font);
         rozpocznijGre.setForeground(Color.yellow);
-        rozpocznijGre.addMouseListener(new RozpocznijGreClick());
+        rozpocznijGre.addMouseListener(new RozpocznijGreKlik());
         add(rozpocznijGre);
 
         infoOAutorze = new JLabel("Info o autorze");
@@ -80,7 +95,7 @@ public class EkranStartowy extends JPanel{
         infoOAutorze.setLocation(950,440);
         infoOAutorze.setFont(font);
         infoOAutorze.setForeground(Color.yellow);
-        infoOAutorze.addMouseListener(new oAutorzeClick());
+        infoOAutorze.addMouseListener(new oAutorzeKlik());
         add(infoOAutorze);
 
         rekordy = new JLabel("Rekordy");
@@ -88,7 +103,7 @@ public class EkranStartowy extends JPanel{
         rekordy.setLocation(950,510);
         rekordy.setFont(font);
         rekordy.setForeground(Color.yellow);
-        rekordy.addMouseListener(new WyswietlRekordyClick());
+        rekordy.addMouseListener(new WyswietlRekordyKlik());
         add(rekordy);
 
         wyjscieZAplikacji = new JLabel("Wyjście");
@@ -96,26 +111,35 @@ public class EkranStartowy extends JPanel{
         wyjscieZAplikacji.setLocation(950,580);
         wyjscieZAplikacji.setFont(font);
         wyjscieZAplikacji.setForeground(Color.yellow);
-        wyjscieZAplikacji.addMouseListener(new WyjscieClick());
+        wyjscieZAplikacji.addMouseListener(new WyjscieKlik());
         add(wyjscieZAplikacji);
 
         ustawTlo("image//EkranStartowy.jpg");
 
         czasGry.start();
-    }
+    } // koniec init
+
+    /**
+     * funkcja ustawiajca tło
+     * @param plik - ścieżka do pliku z obrazkiem
+     */
 
     public void ustawTlo(String plik)
     {
         try {
             tlo = new JLabel(new ImageIcon(plik));
             tlo.setOpaque(true);
-            tlo.setBounds(0, 0, 1280, 1024);
+            tlo.setBounds(0, 0, Main.SZEROKOSC, Main.WYSOKOSC);
             add(tlo);
         } catch (Exception e)
         {
             System.out.println("Blad" + e);
         }
-    }
+    } // koniec ustaw tło
+
+    /**
+     * Klasa inkrementująca łączny czas dmuchania
+     */
 
     private class LiczCzasGry implements ActionListener
     {
@@ -126,9 +150,13 @@ public class EkranStartowy extends JPanel{
                 Main.lacznyCzasDmuchania++;
             }
         }
-    }
+    } // koniec LiczCzasGRy
 
-    class PoziomLatwyClick extends MouseAdapter              // definicja dzia�ania buttona
+    /**
+     * Definiuje działania po wybraniu poziomu łatwego
+     */
+
+    class PoziomLatwyKlik extends MouseAdapter
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -137,9 +165,13 @@ public class EkranStartowy extends JPanel{
             poziomSredni.setForeground(Color.red);
             poziomTrudny.setForeground(Color.red);
         }
-    }
+    } // koniec PoziomLatwyKlik
 
-    class PoziomSredniClick extends MouseAdapter              // definicja dzia�ania buttona
+    /**
+     * Definiuje działania po wybraniu poziomu średniego
+     */
+
+    class PoziomSredniKlik extends MouseAdapter
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -148,8 +180,13 @@ public class EkranStartowy extends JPanel{
             poziomLatwy.setForeground(Color.red);
             poziomTrudny.setForeground(Color.red);
         }
-    }
-    class PoziomTrudnyClick extends MouseAdapter              // definicja dzia�ania buttona
+    } // koniec PoziomSredniKlik
+
+    /**
+     * Definiuje działania po wybraniu poziomu trudnego
+     */
+
+    class PoziomTrudnyKlik extends MouseAdapter
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -158,18 +195,26 @@ public class EkranStartowy extends JPanel{
             poziomSredni.setForeground(Color.red);
             poziomLatwy.setForeground(Color.red);
         }
-    }
+    } // koniec PoziomTrudnyKlik
 
-    class oAutorzeClick extends MouseAdapter              // definicja dzia�ania buttona
+    /**
+     * Definiuje działania po wybraniu z menu opcji info o autorze
+     */
+
+    class oAutorzeKlik extends MouseAdapter
     {
         @Override
         public void mouseClicked(MouseEvent e) {
             InfoOAutorze i = new InfoOAutorze();
-            i.init();
         }
-    }
+    } // koniec oAutorzeKlik
 
-    class RozpocznijGreClick extends MouseAdapter              // definicja dzia�ania buttona
+    /**
+     * Definiuje działania po wybraniu rozpoczęcia nowej gry.
+     * ustawia odpowiednie pararmetry nowej gry w zależności od wybranego poziomu trudności
+     */
+
+    class RozpocznijGreKlik extends MouseAdapter
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -192,7 +237,7 @@ public class EkranStartowy extends JPanel{
                     wymaganaMocDmuchniecia = 60;
                     czasNaPoziom = 16;
                     break;
-            }
+            } // koniec switch
             removeAll();
             String tlo = "image//kopalnia1.jpg";
             Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom, tlo, 1);
@@ -200,16 +245,21 @@ public class EkranStartowy extends JPanel{
             repaint();
             p1.requestFocusInWindow();
         }
-    }
-    class WyjscieClick extends MouseAdapter              // definicja dzia�ania buttona
+    } // koniec RozpocznijGreKlik
+
+    /**
+     * definiuje zachowanie po wybraniu z menu opcji wyjście z gry
+     */
+
+    class WyjscieKlik extends MouseAdapter
     {
         @Override
         public void mouseClicked(MouseEvent e) {
 
-            CzasDoZapisu cdz = new CzasDoZapisu(Main.lacznyCzasOdpaleniaAplikacji, Main.lacznyCzasDmuchania);
+            CzasDoZapisu cdz = new CzasDoZapisu(Main.lacznyCzasOdpaleniaAplikacji, Main.lacznyCzasDmuchania); // stworzenie obiektu do zapisu danych na temat czasu gry
 
             try {
-                zapis("czas.txt", cdz);
+                zapis("czas.txt", cdz);     // zapis danych na temat czasu do pliku
             } catch (IOException e1) {
                 System.out.println("Błąd zapisu");
             }
@@ -217,10 +267,17 @@ public class EkranStartowy extends JPanel{
         }
     }
 
-    public static void zapis(String nazwaPl, CzasDoZapisu cdz)throws IOException {
+    /**
+     * funkcja zapisująca pojedynczy obiekt do pliku
+      * @param nazwaPliku - wskazuje plik do, którego mają być zapisane dane
+     * @param cdz - przekazywany jest obiekt klasy CzasDoZapisu
+     * @throws IOException
+     */
+
+    public static void zapis(String nazwaPliku, CzasDoZapisu cdz)throws IOException {
         ObjectOutputStream pl=null;
         try{
-            pl=new ObjectOutputStream(new FileOutputStream(nazwaPl));
+            pl=new ObjectOutputStream(new FileOutputStream(nazwaPliku));
             pl.writeObject(cdz);
             pl.flush();
         }
@@ -228,15 +285,19 @@ public class EkranStartowy extends JPanel{
             if(pl!=null)
                 pl.close();
         }
-    }
+    } // koniec zapis
 
-    class WyswietlRekordyClick extends MouseAdapter              // definicja dzia�ania buttona
+    /**
+     * Definiuje działanie po wybraniu opcji wyświetl rekordy
+     */
+
+    class WyswietlRekordyKlik extends MouseAdapter
     {
         @Override
         public void mouseClicked(MouseEvent e) {
 
             removeAll();
-            OknoZRekordami ozr = new OknoZRekordami();
+            OknoZRekordami ozr = new OknoZRekordami(); // tworzony jest obiekt wyświetlający rekordy
             add(ozr);
             repaint();
             ozr.requestFocusInWindow();

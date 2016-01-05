@@ -1,11 +1,9 @@
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by Amadeusz on 28.12.2015.
+ * <b>DaneDoZapisu</b> - klasa służąca do zapisu danych na temat danej gry
+ * @Author Amadeusz Kardasz
  */
 public class DaneDoZapisu implements Serializable {
 
@@ -14,11 +12,13 @@ public class DaneDoZapisu implements Serializable {
     Date data;
     int poziomTrudnosci;
 
+    /** Konstruktor umożliwia podanie właściwości obiektu*/
+
     DaneDoZapisu(String nazwaUzytkownika, int punkty, Date data, int poziomTrudnosci) {
 
         this.poziomTrudnosci = poziomTrudnosci;
         this.nazwaUzytkownika = nazwaUzytkownika;
         this.punkty = punkty;
         this.data = data;
-    }
+    } // koniec konstruktora
 }

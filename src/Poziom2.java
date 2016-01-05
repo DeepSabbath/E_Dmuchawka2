@@ -1,11 +1,14 @@
-import javax.swing.*;
-
 /**
- * Created by Amadeusz on 27.12.2015.
+ * <b>Poziom2</b> - klasa odpowiedzialna za obsługę poziomów od drugiego do przedostatniego
+ * @Author Amadeusz Kardasz
  */
 public class Poziom2 extends Poziom {
 
     int aktualnyPoziom;
+
+    /**
+     * konstruktor pozwalający na przypisanie parametrów oraz wywołujący konstruktor klasy nadrzędnej
+     */
 
     public  Poziom2 (int poziomTrudnosci, int wymaganaMocDmuchniecia, int potrzebnyCzasDmuchniecia, int czasNaPoziom, int punkty, String plik, int aktualnyPoziom)
     {
@@ -13,7 +16,11 @@ public class Poziom2 extends Poziom {
         punktyLBL.setText("Punkty:" + punkty);
         this.aktualnyPoziom = aktualnyPoziom;
         this.punkty = punkty;
-    }
+    } // koniec konstruktora
+
+    /**
+     * metoda obsługująca zdarzenia po przejściu poziomu
+     */
 
     public void przejdzDoNastepnegoPoziomu()
     {
@@ -22,5 +29,5 @@ public class Poziom2 extends Poziom {
         add(pmp);
         repaint();
         pmp.requestFocusInWindow();
-    }
-}
+    } // koniec przejdzDONastepnegoPoziomu
+} // koniecPoziom2

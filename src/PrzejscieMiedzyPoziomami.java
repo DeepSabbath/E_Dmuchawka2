@@ -4,7 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * Created by Amadeusz on 28.12.2015.
+ * <b>PrzejscieMiedzyPoziomami</b> - klasa odpowiadająca za obsługę przejścia pomiędzy kolejnymi poziomami gry
  */
 public class PrzejscieMiedzyPoziomami extends JPanel{
 
@@ -16,6 +16,12 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
     JLabel nastepnyPoziom;
     JLabel punktyLBL;
     JLabel punktyZaPoziomLBL;
+    JLabel tlo;
+    JLabel ukonczylesLBL;
+
+    /**
+     * konstruktora pozwalający na wywołanie panelu z odpowiednimi parametrami oraz wyrysowujące ten panel
+     */
 
     PrzejscieMiedzyPoziomami(int aktualnyPoziom, int punkty, int punktyZaPoziom, int poziomTrudnosci)
     {
@@ -29,38 +35,74 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         setVisible(true);
-    }
+    } // koniec konstruktora
+
+    /**
+     * metoda wyrysowująca początkową zawartość okna
+     */
 
     public void init()
     {
-        Font font = new Font("Helvetica", Font.BOLD, 30);
+        Font font30 = new Font("Helvetica", Font.BOLD, 30);
+        Font font40 = new Font("Helvetica", Font.BOLD, 40);
 
         nastepnyPoziom = new JLabel("Nastepny poziom");
         nastepnyPoziom.setSize(400,50);
-        nastepnyPoziom.setLocation(300,420);
-        nastepnyPoziom.setForeground(Color.black);
-        nastepnyPoziom.setFont(font);
-        nastepnyPoziom.addMouseListener(new NastepnyPoziomClick());
+        nastepnyPoziom.setLocation(950,500);
+        nastepnyPoziom.setForeground(Color.yellow);
+        nastepnyPoziom.setFont(font30);
+        nastepnyPoziom.addMouseListener(new NastepnyPoziomKlik());
         add(nastepnyPoziom);
+
+        ukonczylesLBL = new JLabel("Brawo! Ukończyłeś " + aktualnyPoziom + " poziom");
+        ukonczylesLBL.setSize(600,50);
+        ukonczylesLBL.setLocation(300,50);
+        ukonczylesLBL.setForeground(Color.yellow);
+        ukonczylesLBL.setFont(font40);
+        add(ukonczylesLBL);
 
         punktyLBL = new JLabel();
         punktyLBL.setSize(400,50);
-        punktyLBL.setLocation(150,100);
-        punktyLBL.setForeground(Color.black);
-        punktyLBL.setFont(font);
+        punktyLBL.setLocation(950,300);
+        punktyLBL.setForeground(Color.yellow);
+        punktyLBL.setFont(font30);
         punktyLBL.setText("Punkty lacznie: " + punkty);
         add(punktyLBL);
 
         punktyZaPoziomLBL = new JLabel();
         punktyZaPoziomLBL.setSize(400,50);
-        punktyZaPoziomLBL.setLocation(150,200);
-        punktyZaPoziomLBL.setForeground(Color.black);
-        punktyZaPoziomLBL.setFont(font);
+        punktyZaPoziomLBL.setLocation(950,400);
+        punktyZaPoziomLBL.setForeground(Color.yellow);
+        punktyZaPoziomLBL.setFont(font30);
         punktyZaPoziomLBL.setText("Punkty za poziom " + punktyZaPoziom);
         add(punktyZaPoziomLBL);
-    }
 
-    class NastepnyPoziomClick extends MouseAdapter              // definicja dzia�ania buttona
+        ustawTlo("image//EkranStartowy.jpg");
+    } // koniec init
+
+    /**
+     * funkcja ustawiajca tło
+     * @param plik - ścieżka do pliku z obrazkiem
+     */
+
+    public void ustawTlo(String plik)
+    {
+        try {
+            tlo = new JLabel(new ImageIcon(plik));
+            tlo.setOpaque(true);
+            tlo.setBounds(0, 0, Main.SZEROKOSC, Main.WYSOKOSC);
+            add(tlo);
+        } catch (Exception e)
+        {
+            System.out.println("Blad" + e);
+        }
+    } // koniec ustaw tło
+
+    /**
+     * metoda ustawiająca odpowiednie parametry następnego poziomu oraz wywołująca obiekt odpowiedzialny za jego obsługę
+     */
+
+    class NastepnyPoziomKlik extends MouseAdapter
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -69,8 +111,6 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
             int potrzebnyCzasDmuchniecia = 0;
             int czasNaPoziom = 0;
             String tlo = "";
-
-
 
             switch (aktualnyPoziom){
                 case 1:
@@ -92,10 +132,9 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             potrzebnyCzasDmuchniecia = 40;
                             czasNaPoziom = 15;
                             break;
-                    }
+                    } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
-                    System.out.println(poziomTrudnosci);
                     Poziom2 p2 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
                     add(p2);
                     repaint();
@@ -120,10 +159,9 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             potrzebnyCzasDmuchniecia = 40;
                             czasNaPoziom = 14;
                             break;
-                    }
+                    } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
-                    System.out.println(poziomTrudnosci);
                     Poziom2 p3 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
                     add(p3);
                     repaint();
@@ -148,10 +186,9 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             potrzebnyCzasDmuchniecia = 60;
                             czasNaPoziom = 14;
                             break;
-                    }
+                    } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
-                    System.out.println(poziomTrudnosci);
                     Poziom2 p4 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
                     add(p4);
                     repaint();
@@ -176,10 +213,9 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             potrzebnyCzasDmuchniecia = 60;
                             czasNaPoziom = 13;
                             break;
-                    }
+                    } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
-                    System.out.println(poziomTrudnosci);
                     Poziom2 p5 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
                     add(p5);
                     repaint();
@@ -204,10 +240,9 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             potrzebnyCzasDmuchniecia = 60;
                             czasNaPoziom = 12;
                             break;
-                    }
+                    } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
-                    System.out.println(poziomTrudnosci);
                     Poziom2 p6 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
                     add(p6);
                     repaint();
@@ -232,10 +267,9 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             potrzebnyCzasDmuchniecia = 70;
                             czasNaPoziom = 10;
                             break;
-                    }
+                    } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
-                    System.out.println(poziomTrudnosci);
                     Poziom2 p7 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
                     add(p7);
                     repaint();
@@ -260,10 +294,9 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             potrzebnyCzasDmuchniecia = 70;
                             czasNaPoziom = 10;
                             break;
-                    }
+                    } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
-                    System.out.println(poziomTrudnosci);
                     Poziom2 p8 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
                     add(p8);
                     repaint();
@@ -288,10 +321,9 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             potrzebnyCzasDmuchniecia = 70;
                             czasNaPoziom = 9;
                             break;
-                    }
+                    } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
-                    System.out.println(poziomTrudnosci);
                     Poziom2 p9 = new Poziom2(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
                     add(p9);
                     repaint();
@@ -316,7 +348,7 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             potrzebnyCzasDmuchniecia = 80;
                             czasNaPoziom = 8;
                             break;
-                    }
+                    } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
                     System.out.println(poziomTrudnosci);
@@ -344,7 +376,7 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                             potrzebnyCzasDmuchniecia = 80;
                             czasNaPoziom = 14;
                             break;
-                    }
+                    } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
                     System.out.println(poziomTrudnosci);
@@ -353,8 +385,7 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                     repaint();
                     po.requestFocusInWindow();
                     break;
-            }
+            } // koniec switch
         }
-    }
-
-}
+    } // koniec NastepnyPoziomKlik
+} // koniec PrzejscieMiedzyPoziomami

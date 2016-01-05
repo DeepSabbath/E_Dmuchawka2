@@ -2,11 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by Amadeusz on 26.12.2015.
+ * <b>InfoOAutorze</b>Definicja klasy wyświetlającej dane o autorze
+ * @Author Amadeusz Kardasz
  */
 public class InfoOAutorze extends JDialog{
 
-    JLabel oAutorze;
+    JTextArea oAutorze;
 
     InfoOAutorze ()
     {
@@ -16,20 +17,23 @@ public class InfoOAutorze extends JDialog{
         setResizable(false);
         init();
         setVisible(true);
-    }
+    } // koniec konstruktora
+
+    /**
+     * funkcja wyrysowująca początkową zawartość okna
+     */
 
     public void init()
     {
         Font font = new Font("Helvetica", Font.BOLD, 20);
 
-        String tekst = "Tworca gry jest Amadeusz Kardasz.";
-        oAutorze= new JLabel(tekst);
+        String tekst = "Twórcą gry jest Amadeusz Kardasz.";
+        oAutorze= new JTextArea(tekst);
         oAutorze.setSize(500,200);
-        oAutorze.setAlignmentX(10);
-        oAutorze.setAlignmentY(10);
         oAutorze.setLocation(100,100);
+        oAutorze.setOpaque(false);
         oAutorze.setForeground(Color.black);
         oAutorze.setFont(font);
         add(oAutorze);
-    }
+    } // init
 }

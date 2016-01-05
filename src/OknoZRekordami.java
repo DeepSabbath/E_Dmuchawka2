@@ -10,11 +10,12 @@ import java.util.Arrays;
 import java.util.Date;
 
 /**
- * Created by Amadeusz on 28.12.2015.
+ * <b>OknoZRekordami</b> definiuje okno, w którym wyświetlane są rekorodwe wyniki
+ * @Author Amadeusz Kardasz
  */
 public class OknoZRekordami extends JPanel{
 
-    DaneDoZapisu[] tablicaDanych = new DaneDoZapisu[100];
+    DaneDoZapisu[] tablicaDanych = new DaneDoZapisu[1000];
 
     JLabel rekordLBL;
     JLabel rekordNaLatwymLBL;
@@ -27,6 +28,10 @@ public class OknoZRekordami extends JPanel{
 
     Date data = new Date();
 
+    /**
+     * konstruktor klasy ustawia odpowiednie wartości parametrów okna oraz wyrysowuje jego zawartość
+     */
+
     OknoZRekordami()
     {
         setLayout(null);
@@ -35,7 +40,11 @@ public class OknoZRekordami extends JPanel{
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         setVisible(true);
-    }
+    } // koniec konstrukotra
+
+    /**
+     * funkcja wyrysowująca początkową zawartość okna
+     */
 
     public void init()
     {
@@ -43,18 +52,20 @@ public class OknoZRekordami extends JPanel{
         Arrays.fill(tablicaDanych, dzp);
         odczytCalego("dane.txt");
 
-        Font font = new Font("Helvetica", Font.BOLD, 20);
-        Font font2 = new Font("Helvetica", Font.BOLD, 40);
+        Font font20 = new Font("Helvetica", Font.BOLD, 20);
+        Font font30 = new Font("Helvetica", Font.BOLD, 30);
+        Font font40 = new Font("Helvetica", Font.BOLD, 40);
 
         rekordLBL = new JLabel("REKORDY ");
         rekordLBL.setSize(300,50);
         rekordLBL.setLocation(550,50);
-        rekordLBL.setFont(font2);
+        rekordLBL.setFont(font40);
         add(rekordLBL);
 
         rekordNaLatwymLBL = new JLabel("Poziom łatwy ");
         rekordNaLatwymLBL.setSize(200,30);
         rekordNaLatwymLBL.setLocation(150,150);
+        rekordNaLatwymLBL.setFont(font20);
         add(rekordNaLatwymLBL);
 
         for (int i = 0; i < 3; i++)
@@ -64,11 +75,12 @@ public class OknoZRekordami extends JPanel{
             wyswietlaLatwy[i].setLocation(150, 200 + (i *100));
             wyswietlaLatwy[i].setText("tekst");
             add(wyswietlaLatwy[i]);
-        }
+        } // koniec for
 
         rekordNaSrednimLBL = new JLabel("Poziom średni ");
         rekordNaSrednimLBL.setSize(200, 30);
         rekordNaSrednimLBL.setLocation(500, 150);
+        rekordNaSrednimLBL.setFont(font20);
         add(rekordNaSrednimLBL);
 
         for (int i = 0; i < 3; i++)
@@ -77,11 +89,12 @@ public class OknoZRekordami extends JPanel{
             wyswietlaSredni[i].setSize(200, 30);
             wyswietlaSredni[i].setLocation(500, 200 + (i *100));
             add(wyswietlaSredni[i]);
-        }
+        } // koniec for
 
         rekordNaTrudnymLBL = new JLabel("Poziom trudny ");
         rekordNaTrudnymLBL.setSize(200, 30);
         rekordNaTrudnymLBL.setLocation(900, 150);
+        rekordNaTrudnymLBL.setFont(font20);
         add(rekordNaTrudnymLBL);
 
         for (int i = 0; i < 3; i++)
@@ -90,39 +103,56 @@ public class OknoZRekordami extends JPanel{
             wyswietlaTrudny[i].setSize(200, 30);
             wyswietlaTrudny[i].setLocation(900, 200 + (i *100));
             add(wyswietlaTrudny[i]);
-        }
+        } // koniec for
 
         wrocDoMenu = new JLabel("Wróć do menu");
         wrocDoMenu.setSize(200,30);
         wrocDoMenu.setLocation(950,600);
         wrocDoMenu.setForeground(Color.red);
-        wrocDoMenu.setFont(font);
-        wrocDoMenu.addMouseListener(new WrocDoMenuClick());
+        wrocDoMenu.setFont(font20);
+        wrocDoMenu.addMouseListener(new WrocDoMenuKlik());
         add(wrocDoMenu);
 
         posortuj();
 
-    }
-    public void odczytCalego2(String nazwaPl)throws IOException,ClassNotFoundException{
+    } // koniec init
+
+    /**
+     * metoda pobierająca z pliku dane na temat wynikó gier
+     * @param nazwaPliku - ścieżkia do pliku
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+
+    public void odczytCalego2(String nazwaPliku)throws IOException,ClassNotFoundException{
         ObjectInputStream ois=null;
 
-        try{
-            ois = new ObjectInputStream(new FileInputStream(nazwaPl));
+        try
+        {
+            ois = new ObjectInputStream(new FileInputStream(nazwaPliku));
             int l=0;
-            while(true){
+            while(true) // odczytanie danych z pliku i zapisanie ich do tablicy
+            {
                 tablicaDanych[l]=(DaneDoZapisu)ois.readObject();
                 //System.out.println("Dane do zapisu " + l + " " + tablicaDanych[l].nazwaUzytkownika + tablicaDanych[l].punkty + "poziom tr " + tablicaDanych[l].poziomTrudnosci);
                 l++;
-            }
+            } // koniec while
 
-        } catch (EOFException ex) {
+        } catch (EOFException ex)
+        {
             System.out.println("Koniec pliku");
         }
-        finally{
+        finally
+        {
             if(ois!=null)
                 ois.close();
         }
-    }
+    } // koniec odczyCalego2
+
+    /**
+     * metoda uruchamiająca metodę odczytCalego2 po obsłużeniu wyjątku
+     * @param nazwaPliku
+     */
 
     public void odczytCalego(String nazwaPliku)
     {
@@ -134,7 +164,11 @@ public class OknoZRekordami extends JPanel{
         {
             System.out.println("Błąd odczytu");
         }
-    }
+    } // koniec odczytCalego
+
+    /**
+     * metoda wywołująca sortowanie oraz wyświetlająca wyniki na ekranie
+     */
 
     public void posortuj()
     {
@@ -154,7 +188,8 @@ public class OknoZRekordami extends JPanel{
         trudny[2] =  new DaneDoZapisu("nick", 0, data, 3);
 
 
-        for (int i = 0; i < tablicaDanych.length; i++) {
+        for (int i = 0; i < tablicaDanych.length; i++)
+        {
             switch (tablicaDanych[i].poziomTrudnosci)
             {
                 case 1:
@@ -168,15 +203,20 @@ public class OknoZRekordami extends JPanel{
                 case 3:
                     sortuj3(i,trudny);
                     break;
-            }
+            }// koniec switch
             for (int j = 0; j < 3; j++) {
                 wyswietlaLatwy[j].setText(j + 1 + ". " + latwy[j].nazwaUzytkownika + " " + latwy[j].punkty + "p");
                 wyswietlaSredni[j].setText(j + 1 + ". " + sredni[j].nazwaUzytkownika + " " + sredni[j].punkty + "p");
                 wyswietlaTrudny[j].setText(j + 1 + ". " + trudny[j].nazwaUzytkownika + " " + trudny[j].punkty + "p");
-            }
+            } // koniec for
+        } // koniec for
+    } // konoec posortuj
 
-        }
-    }
+    /**
+     * metoda sortująca trzy najlepsze wyniki
+     * @param i - indeks w tabeli danego obiektu klasy DaneDoZapisu
+     * @param d - przyporządkowuje wyniki pod odpowiedni poziom trudności
+     */
 
     public void sortuj3(int i, DaneDoZapisu [] d)
     {
@@ -200,9 +240,13 @@ public class OknoZRekordami extends JPanel{
             d[2].punkty = tablicaDanych[i].punkty;
             d[2].nazwaUzytkownika = tablicaDanych[i].nazwaUzytkownika;
         }
-    }
+    } // koniec posortuj3
 
-    class WrocDoMenuClick extends MouseAdapter              // definicja dzia�ania buttona
+    /**
+     * definiuje działanie po wybraniu opcji wróć do menu - następuje powrót do menu startowego
+     */
+
+    class WrocDoMenuKlik extends MouseAdapter
     {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -212,6 +256,6 @@ public class OknoZRekordami extends JPanel{
             add(es);
             repaint();
         }
-    }
+    } // koniec WrocDoMenuKlik
 
 }

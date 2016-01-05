@@ -8,7 +8,8 @@ import java.util.Date;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
- * Created by Amadeusz on 28.12.2015.
+ * <b>KoniecGry</b> - klasa definiująca dzaiłania podczas zakończenia gry
+ * @Author Amadeusz Kardasz
  */
 public class KoniecGry extends JPanel {
 
@@ -23,6 +24,12 @@ public class KoniecGry extends JPanel {
     JLabel nazwaUzytkownikaLBL;
     JTextField nazwaUzytkownikaTF;
 
+    /**
+     * konstrukor odpowiedzialny za ustawienie odpowiednich parametrów oraz inicjalizację zawartości okna
+     * @param punkty - określa liczbę zdobytych punktów
+     * @param poziomTrudnosci - określa poziom trudności na jakim grano
+     */
+
     KoniecGry(int punkty, int poziomTrudnosci)
     {
         this.punkty = punkty;
@@ -35,16 +42,19 @@ public class KoniecGry extends JPanel {
         setVisible(true);
     }
 
+    /**
+     * funkcja wyrysowująca początkową zawartość okna oraz pobierające dane z pliku
+     */
+
     public void init()
     {
-
-        try {
+        /*try {
             odczytCalego("dane.txt");
         }
         catch (Exception e)
         {
             System.out.println("Błąd odczytu");
-        }
+        }*/
 
         Font font = new Font("Helvetica", Font.BOLD, 30);
         Font font2 = new Font("Helvetica", Font.BOLD, 40);
@@ -71,7 +81,7 @@ public class KoniecGry extends JPanel {
         zakonczGreLBL.setLocation(950,600);
         zakonczGreLBL.setForeground(Color.red);
         zakonczGreLBL.setFont(font);
-        zakonczGreLBL.addMouseListener(new ZakonczGreClick());
+        zakonczGreLBL.addMouseListener(new ZakonczGreKlik());
         add(zakonczGreLBL);
 
         punktyLBL = new JLabel();
@@ -87,15 +97,20 @@ public class KoniecGry extends JPanel {
         restartLBL.setLocation(150,600);
         restartLBL.setForeground(Color.red);
         restartLBL.setFont(font);
-        restartLBL.addMouseListener(new RestartClick());
+        restartLBL.addMouseListener(new RestartKlik());
         add(restartLBL);
-    }
+    } // koniec init
 
-    class ZakonczGreClick extends MouseAdapter              // definicja dzia�ania buttona
+    /**
+     * klasa definiuje działanie po wybraniu opcji zakończ grę - dane zostają zapisnae do pliku, następuje powrót do ekranu startowego
+     */
+
+    class ZakonczGreKlik extends MouseAdapter
     {
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (sprawdzNick())
+
+            if (sprawdzNick()) // sprawdzenie dlugosci nicku
             {
                 zapiszDoPliku();
                 removeAll();
@@ -105,13 +120,17 @@ public class KoniecGry extends JPanel {
                 repaint();
             }
         }
-    }
+    } // koniec ZakonczGreKlik
 
-    class RestartClick extends MouseAdapter              // definicja dzia�ania buttona
+    /**
+     * klasa definująca działanie po wybraniu opcji zacznij od nowa - dane zostają zapisnae do pliku, zostaje włączony poziom 1
+     */
+
+    class RestartKlik extends MouseAdapter              // definicja dzia�ania buttona
     {
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (sprawdzNick())
+            if (sprawdzNick())      // spradzenie długości nicku
             {
                 int wymaganaMocDmuchniecia = 40;
                 int potrzebnyCzasDmuchniecia = 40;
@@ -119,7 +138,7 @@ public class KoniecGry extends JPanel {
                 String tlo = "image//kopalnia1.jpg";
                 zapiszDoPliku();
 
-                switch (poziomTrudnosci) {
+                switch (poziomTrudnosci) {      // ustawienie parmetrów nowej gry w zależności od aktulanego poziomu trudności
                     case 1:
                         wymaganaMocDmuchniecia = 10;
                         potrzebnyCzasDmuchniecia = 10;
@@ -135,15 +154,20 @@ public class KoniecGry extends JPanel {
                         potrzebnyCzasDmuchniecia = 40;
                         czasNaPoziom = 16;
                         break;
-                }
+                } // koniec switch
+
                 removeAll();
                 Poziom1 p1 = new Poziom1(poziomTrudnosci, wymaganaMocDmuchniecia, potrzebnyCzasDmuchniecia, czasNaPoziom, tlo, 1);
                 add(p1);
                 repaint();
                 p1.requestFocusInWindow();
-            }
+            } // koniec if
         }
-    }
+    } // koniec RestartKlik
+
+    /**
+     * funkcja uruchamiająca funkcję do zapisu do pliku po obsłudze wyjątku
+     */
 
     public void zapiszDoPliku()
     {
@@ -157,98 +181,77 @@ public class KoniecGry extends JPanel {
             }
     }
 
+    /**
+     * funkcja realizująca zapis danych na temat danej gry do pliku
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+
     public void zapiszDoPliku2() throws IOException, ClassNotFoundException{
 
         String nazwaUzytkownika = nazwaUzytkownikaTF.getText();
-        int r = nazwaUzytkownika.length();
 
-        DaneDoZapisu ddz = new DaneDoZapisu(nazwaUzytkownika, punkty, data, poziomTrudnosci);
+        DaneDoZapisu ddz = new DaneDoZapisu(nazwaUzytkownika, punkty, data, poziomTrudnosci);       // stworzenie obiektu klasy DanaDoZapisu
 
-        DaneDoZapisu[] tab = new DaneDoZapisu[100]; // do tablicy
+        DaneDoZapisu[] tab = new DaneDoZapisu[1000]; // stworzenie tablicy obiektów klasy DaneDoZapisu
         ObjectInputStream ois = null;
         try{
             ois=new ObjectInputStream(new FileInputStream("dane.txt"));
             int l=0;
-            while(true)
-                tab[l++]=(DaneDoZapisu)ois.readObject();
+                while(true)
+                    tab[l++]=(DaneDoZapisu)ois.readObject();            // odczytanie obiektów z pliku do tablicy
 
-        } catch (EOFException ex) {
+        }// koniec try
+        catch (EOFException ex)
+        {
             // Program przeskakuje w to miejsce, kiedy dojdzie do końca pliku,
             // czyli kiedy wszystko już odczyta.
             // Teraz zamykamy plik, otwieramy w trybie zapisu i wpisujemy
             // do niego wszystko oraz dopisujemy to, co ma być dodane
             if(ois!=null)
-                ois.close();
+                ois.close();            // zamknięcie strumienia odczytu danych
 
             ObjectOutputStream oos=null;
 
-            try{
-                oos=new ObjectOutputStream(new FileOutputStream("dane.txt"));
-                // Wpisujemy do pliku to, co w nim już było
+            try
+            {
+                oos=new ObjectOutputStream(new FileOutputStream("dane.txt"));        // Wpisujemy do pliku to, co w nim już było
                 for(int i=0; tab[i]!=null; i++)
-                    oos.writeObject(tab[i]);
-
-                // i dopisujemy nowy obiekt
+                    oos.writeObject(tab[i]);                // dopisujemy nowy obiekt do pliku
                 oos.writeObject(ddz);
                 oos.flush();
-            }
+            } // koniec try
             catch (Exception e)
             {
                 System.out.println("Błąd IO");
-            }
-            finally{
+            } // koniec catch
+            finally
+            {
                 if(oos!=null)
-                    oos.close();
-            }
-        }
+                    oos.close();        // zamknięcie strumienia zapisu danych
+            } // koniec finally
+        } // koniec catch (EOFException ex)
         catch (Exception e)
         {
             System.out.println("Błąd IO");
-        }
-    }
+        }// koniec catch
+    } // koniec ZapiszDoPliku2
 
-    public static void odczytCalego2(String nazwaPl)throws IOException,ClassNotFoundException{
-        ObjectInputStream ois=null;
-        DaneDoZapisu[] tablicaDanych = new DaneDoZapisu[100];
-        try{
-            ois = new ObjectInputStream(new FileInputStream(nazwaPl));
-            int l=0;
-            while(true){
-                tablicaDanych[l]=(DaneDoZapisu)ois.readObject();
-                l++;
-            }
-
-        } catch (EOFException ex) {
-            System.out.println("Koniec pliku");
-        }
-        finally{
-            if(ois!=null)
-                ois.close();
-        }
-    }
-
-    public static void odczytCalego(String nazwaPliku)
-    {
-        try
-        {
-            odczytCalego2(nazwaPliku);
-        }
-        catch(Exception e)
-        {
-            System.out.println("Błąd odczytu");
-        }
-    }
+    /**
+     * funkcja sprawdzająca długość nicku
+     * @return zwraca true jeśli nick ma co najmniej 2 znaki
+     */
 
     public boolean sprawdzNick()
     {
-        if (nazwaUzytkownikaTF.getText().length() > 2)
+        if (nazwaUzytkownikaTF.getText().length() > 2)  // zwraca true jeśli długość nicku wynosi powyżej 2 znaków
         {
             return true;
-        }
-        else
+        } // koniec if
+        else // w przeciwnym wypadku zwraca false i wyświetla odpowiedni komunikat
         {
             showMessageDialog(null, "Nick powinien mieć co najmniej 3 znaki.");
             return false;
-        }
-    }
+        } // koniec else
+    }// koniec sprawdzNick
 }
