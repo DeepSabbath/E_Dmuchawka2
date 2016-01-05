@@ -75,7 +75,7 @@ public class Main {
         }
         catch (EOFException ex)
         {
-            System.out.println("Koniec pliku");
+            //System.out.println("Koniec pliku");
         }
         finally
         {
@@ -85,4 +85,14 @@ public class Main {
         lacznyCzasOdpaleniaAplikacji = cdz.lacznyCzasGry;
         lacznyCzasDmuchania = cdz.lacznyCzasDmuchania;
     } // koniec odczyt
+
+    /**
+     * metoda pozwalająca ustawić rozmiar czcionki
+     */
+
+    public static Font ustawCzcionke(int rozmiar)
+    {
+        Font font = new Font("Helvetica", Font.BOLD, rozmiar);
+        return font;
+    }
 }

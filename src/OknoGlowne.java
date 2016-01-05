@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * <b>OknoGlowne</b> - klasa definiujące główne parametry okna aplikacji
@@ -17,11 +18,12 @@ public class OknoGlowne extends JFrame {
         setUndecorated(true);
         setSize(szerokosc, wysokosc);
         setLocation(xSrodek, ySrodek);
+        setBackground(Color.white);
         setResizable(false);
         setVisible(true);
         EkranStartowy e = new EkranStartowy(szerokosc, wysokosc);
         e.setFocusable(true);
         add(e);
         repaint();
-    }
+    } // koniec konstruktora
 }

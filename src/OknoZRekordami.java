@@ -52,69 +52,74 @@ public class OknoZRekordami extends JPanel{
         Arrays.fill(tablicaDanych, dzp);
         odczytCalego("dane.txt");
 
-        Font font20 = new Font("Helvetica", Font.BOLD, 20);
-        Font font30 = new Font("Helvetica", Font.BOLD, 30);
-        Font font40 = new Font("Helvetica", Font.BOLD, 40);
-
         rekordLBL = new JLabel("REKORDY ");
         rekordLBL.setSize(300,50);
         rekordLBL.setLocation(550,50);
-        rekordLBL.setFont(font40);
+        rekordLBL.setFont(Main.ustawCzcionke(40));
         add(rekordLBL);
 
         rekordNaLatwymLBL = new JLabel("Poziom łatwy ");
         rekordNaLatwymLBL.setSize(200,30);
         rekordNaLatwymLBL.setLocation(150,150);
-        rekordNaLatwymLBL.setFont(font20);
+        rekordNaLatwymLBL.setFont(Main.ustawCzcionke(20));
         add(rekordNaLatwymLBL);
 
         for (int i = 0; i < 3; i++)
         {
             wyswietlaLatwy[i] = new JLabel();
             wyswietlaLatwy[i].setSize(200, 30);
-            wyswietlaLatwy[i].setLocation(150, 200 + (i *100));
-            wyswietlaLatwy[i].setText("tekst");
+            wyswietlaLatwy[i].setLocation(150, 225 + (i * 85));
+            wyswietlaLatwy[i].setFont(Main.ustawCzcionke(15));
             add(wyswietlaLatwy[i]);
         } // koniec for
 
         rekordNaSrednimLBL = new JLabel("Poziom średni ");
         rekordNaSrednimLBL.setSize(200, 30);
         rekordNaSrednimLBL.setLocation(500, 150);
-        rekordNaSrednimLBL.setFont(font20);
+        rekordNaSrednimLBL.setFont(Main.ustawCzcionke(20));
         add(rekordNaSrednimLBL);
 
         for (int i = 0; i < 3; i++)
         {
             wyswietlaSredni[i] = new JLabel();
             wyswietlaSredni[i].setSize(200, 30);
-            wyswietlaSredni[i].setLocation(500, 200 + (i *100));
+            wyswietlaSredni[i].setLocation(500, 225 + (i * 85));
+            wyswietlaSredni[i].setFont(Main.ustawCzcionke(15));
             add(wyswietlaSredni[i]);
         } // koniec for
 
         rekordNaTrudnymLBL = new JLabel("Poziom trudny ");
         rekordNaTrudnymLBL.setSize(200, 30);
         rekordNaTrudnymLBL.setLocation(900, 150);
-        rekordNaTrudnymLBL.setFont(font20);
+        rekordNaTrudnymLBL.setFont(Main.ustawCzcionke(20));
         add(rekordNaTrudnymLBL);
 
         for (int i = 0; i < 3; i++)
         {
             wyswietlaTrudny[i] = new JLabel();
             wyswietlaTrudny[i].setSize(200, 30);
-            wyswietlaTrudny[i].setLocation(900, 200 + (i *100));
+            wyswietlaTrudny[i].setLocation(900, 225 + (i * 85));
+            wyswietlaTrudny[i].setFont(Main.ustawCzcionke(15));
             add(wyswietlaTrudny[i]);
         } // koniec for
 
         wrocDoMenu = new JLabel("Wróć do menu");
-        wrocDoMenu.setSize(200,30);
+        wrocDoMenu.setSize(300,30);
         wrocDoMenu.setLocation(950,600);
         wrocDoMenu.setForeground(Color.red);
-        wrocDoMenu.setFont(font20);
+        wrocDoMenu.setFont(Main.ustawCzcionke(30));
         wrocDoMenu.addMouseListener(new WrocDoMenuKlik());
         add(wrocDoMenu);
 
-        posortuj();
+        JLabel ogien = new JLabel(new ImageIcon("image//ogienPoziom.png"));
+        ogien.setBounds(300, 450, 500, 204);
+        add(ogien);
 
+        JLabel ogien2 = new JLabel(new ImageIcon("image//ogien2.png"));
+        ogien2.setBounds(1050,200,150,253);
+        add(ogien2);
+
+        posortuj();
     } // koniec init
 
     /**
@@ -124,7 +129,7 @@ public class OknoZRekordami extends JPanel{
      * @throws ClassNotFoundException
      */
 
-    public void odczytCalego2(String nazwaPliku)throws IOException,ClassNotFoundException{
+    private void odczytCalego2(String nazwaPliku)throws IOException,ClassNotFoundException{
         ObjectInputStream ois=null;
 
         try
@@ -140,7 +145,7 @@ public class OknoZRekordami extends JPanel{
 
         } catch (EOFException ex)
         {
-            System.out.println("Koniec pliku");
+            //System.out.println("Koniec pliku");
         }
         finally
         {
@@ -154,7 +159,7 @@ public class OknoZRekordami extends JPanel{
      * @param nazwaPliku
      */
 
-    public void odczytCalego(String nazwaPliku)
+    private void odczytCalego(String nazwaPliku)
     {
         try
         {
@@ -170,7 +175,7 @@ public class OknoZRekordami extends JPanel{
      * metoda wywołująca sortowanie oraz wyświetlająca wyniki na ekranie
      */
 
-    public void posortuj()
+    private void posortuj()
     {
 
         DaneDoZapisu[] latwy = new DaneDoZapisu[3];
@@ -218,7 +223,7 @@ public class OknoZRekordami extends JPanel{
      * @param d - przyporządkowuje wyniki pod odpowiedni poziom trudności
      */
 
-    public void sortuj3(int i, DaneDoZapisu [] d)
+    private void sortuj3(int i, DaneDoZapisu [] d)
     {
         if (d[0].punkty < tablicaDanych[i].punkty)
         {

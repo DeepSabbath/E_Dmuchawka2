@@ -14,10 +14,10 @@ public abstract class Poziom extends JPanel implements KeyListener
 
     javax.swing.Timer czasDmuchniecia = new javax.swing.Timer(50, new CzasDmuchniecia()); // timer odliczający czas naciśnięcia na dynamit
     javax.swing.Timer czasDoKoncaTimer = new javax.swing.Timer(1000, new LiczCzasDoKonca());  // timer odliczający czas do końca poziomu
-    javax.swing.Timer czasDoNastepnegoPoziomu = new javax.swing.Timer(1000, new LiczCzasDoNastepnegoPoziomu()); // timer wg, którego wskazania dokonują się animacje po skończonym poziomie
+    javax.swing.Timer czasDoNastepnegoPoziomu = new javax.swing.Timer(500, new LiczCzasDoNastepnegoPoziomu()); // timer wg, którego wskazania dokonują się animacje po skończonym poziomie
 
 
-    int czasZapaleniaDynamitu = 2; // czas od zakończenia poziomu do pojawienia się okna odpowiedzialnego za przejście między poziomami
+    int czasZapaleniaDynamitu = 4; // czas od zakończenia poziomu do pojawienia się okna odpowiedzialnego za przejście między poziomami - wartosc 2 oznacza sekundę
     int czasNaPoziom;       // maksymalny czas na przejście danego poziomu
     int pozostalyCzasNaPoziom;  // zmienna przechowująca czas do zakończenia poziomu
     int potrzebnyCzasDmuchniecia;   // zmienna przechowująca wyagany czas kliknięcia w dynamit, aby poziom został ukończony - wartość 20 oznacza 1 sekundę
@@ -32,6 +32,7 @@ public abstract class Poziom extends JPanel implements KeyListener
     boolean czyWygrano = false;     // zmienna przyjmująca wartość true w mimencie ukończenia poziomu
     String plik;    // zmiennia określająca ścieżkę do pliku
     int aktualnyPoziom;
+    public static final int LICZBAPOZIOMOW = 10;
 
     JLabel poziomLBL;
     JLabel zakonczGreLBL;
@@ -69,7 +70,7 @@ public abstract class Poziom extends JPanel implements KeyListener
         pgd = new PasekGryDol();
         add(pgd);
 
-        ustawTlo(plik);
+        add(ustawTlo(plik));
 
         addKeyListener(this);
         setFocusable(true);
@@ -82,17 +83,19 @@ public abstract class Poziom extends JPanel implements KeyListener
      * @param plik - ścieżka do pliku
      */
 
-    public void ustawTlo(String plik)
+    public static JLabel ustawTlo(String plik)
     {
+        JLabel tlo = new JLabel();
         try {
-            JLabel tlo = new JLabel(new ImageIcon(plik));
+            tlo.setIcon(new ImageIcon(plik));
             tlo.setOpaque(false);
             tlo.setBounds(0, 0, Main.SZEROKOSC, Main.WYSOKOSC);
-            add(tlo);
+
         } catch (Exception e)
         {
             System.out.println("Blad" + e);
         }
+        return tlo;
     } // koniec ustawTlo
 
     /**
@@ -101,8 +104,6 @@ public abstract class Poziom extends JPanel implements KeyListener
 
     public void init()
     {
-        Font font = new Font("Helvetica", Font.BOLD, 30);
-
         dynamit = new JLabel(new ImageIcon("image//dynamitOFF.png"));
         dynamit.setSize(60,120);
         dynamit.setLocation(losujPolozenie(Main.SZEROKOSC,Main.WYSOKOSC));
@@ -113,7 +114,7 @@ public abstract class Poziom extends JPanel implements KeyListener
         poziomLBL.setSize(200,40);
         poziomLBL.setLocation(50,0);
         poziomLBL.setForeground(Color.yellow);
-        poziomLBL.setFont(font);
+        poziomLBL.setFont(Main.ustawCzcionke(30));
         add(poziomLBL);
 
         ogien = new JLabel();
@@ -125,14 +126,14 @@ public abstract class Poziom extends JPanel implements KeyListener
         zakonczGreLBL.setSize(200,40);
         zakonczGreLBL.setLocation(120,650);
         zakonczGreLBL.setForeground(Color.yellow);
-        zakonczGreLBL.setFont(font);
+        zakonczGreLBL.setFont(Main.ustawCzcionke(30));
         zakonczGreLBL.addMouseListener(new ZakonczGreKlik());
         add(zakonczGreLBL);
 
         czasDoKoncaLBL = new JLabel();
         czasDoKoncaLBL.setSize(500,50);
         czasDoKoncaLBL.setLocation(500, 0);
-        czasDoKoncaLBL.setFont(font);
+        czasDoKoncaLBL.setFont(Main.ustawCzcionke(30));
         czasDoKoncaLBL.setForeground(Color.yellow);
         czasDoKoncaLBL.setText("Pozostały czas: " + pozostalyCzasNaPoziom);
         add(czasDoKoncaLBL);
@@ -141,14 +142,14 @@ public abstract class Poziom extends JPanel implements KeyListener
         punktyLBL.setSize(200,50);
         punktyLBL.setLocation(950,0);
         punktyLBL.setForeground(Color.yellow);
-        punktyLBL.setFont(font);
+        punktyLBL.setFont(Main.ustawCzcionke(30));
         punktyLBL.setText("Punkty: " + punkty);
         add(punktyLBL);
 
         aktualnaMocDmuchnieciaLBL = new JLabel();
         aktualnaMocDmuchnieciaLBL.setSize(500,40);
         aktualnaMocDmuchnieciaLBL.setLocation(700,650);
-        aktualnaMocDmuchnieciaLBL.setFont(font);
+        aktualnaMocDmuchnieciaLBL.setFont(Main.ustawCzcionke(30));
         aktualnaMocDmuchnieciaLBL.setForeground(Color.yellow);
         aktualnaMocDmuchnieciaLBL.setText("Aktualna moc dmuchnięcia: " + aktualnaMocDmuchniecia + "/" + wymaganaMocDmuchniecia);
         add(aktualnaMocDmuchnieciaLBL);
@@ -234,7 +235,7 @@ public abstract class Poziom extends JPanel implements KeyListener
 
             czyRosnie = false;
 
-            if (sprawdzWynik() && sprawdzMocDmuchniecia())  // sprawdzenie czy gracz wygrał po zwolnieniu przycisku myszki
+            if (sprawdzWynik() && sprawdzMocDmuchniecia() && !czyWygrano)  // sprawdzenie czy gracz wygrał po zwolnieniu przycisku myszki
             {
                 wygrana();
             }
@@ -313,16 +314,31 @@ public abstract class Poziom extends JPanel implements KeyListener
     {
         public void actionPerformed(ActionEvent e) {
 
-            if (czasZapaleniaDynamitu>0)  // dekrementuje, co sekundę zmienną odliczająca czas do następnego poziomu
+            ImageIcon icon;
+
+            if (czasZapaleniaDynamitu > 0)  // dekrementuje, co pół seundy zmienną odliczająca czas do następnego poziomu
             {
                 czasZapaleniaDynamitu--;
             }
 
-            switch (czasZapaleniaDynamitu) // zmiana wyświetlanego obrazu w czasie - na razie brak animacji poza zapaleniem dynamitu
+            switch (czasZapaleniaDynamitu) // zmiana wyświetlanego obrazu dynamitu w czasie zapalenia
             {
+                case 3:
+                    icon = new ImageIcon("image//dynamit1.2.png");
+                    dynamit.setIcon(icon);
+                    break;
+                case 2:
+                    icon = new ImageIcon("image//dynamit1.3.png");
+                    dynamit.setIcon(icon);
+                    break;
+                case 1:
+                    icon = new ImageIcon("image//dynamit1.4.png");
+                    dynamit.setIcon(icon);
+                    break;
                 case 0:
                     przejdzDoNastepnegoPoziomu();
                     czasDoNastepnegoPoziomu.stop();
+                    break;
             }
         }
     } // koniec LiczCzasDoNasteonegoPoziomu
@@ -333,7 +349,7 @@ public abstract class Poziom extends JPanel implements KeyListener
 
     private void zapalDynamit()
     {
-        ImageIcon icon = new ImageIcon("image//dynamit.png");
+        ImageIcon icon = new ImageIcon("image//dynamit1.1.png");
         dynamit.setIcon(icon);
     } // koniec zapalDynamit
 

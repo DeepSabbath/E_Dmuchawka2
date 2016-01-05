@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
  * @Author Amadeusz Kardasz
  */
 
+
 public class EkranStartowy extends JPanel{
 
     JLabel rozpocznijGre;
@@ -48,68 +49,65 @@ public class EkranStartowy extends JPanel{
 
     private void init()
     {
-        Font font = new Font("Helvetica", Font.BOLD, 30);
-        Font font2 = new Font("Helvetica", Font.BOLD, 15);
-
         wybierzPoziomTrudnosci = new JLabel("Wybierz poziom trudności");
         wybierzPoziomTrudnosci.setSize(300,40);
         wybierzPoziomTrudnosci.setLocation(950,150);
         wybierzPoziomTrudnosci.setForeground(Color.black);
-        wybierzPoziomTrudnosci.setFont(font2);
+        wybierzPoziomTrudnosci.setFont(Main.ustawCzcionke(15));
         add(wybierzPoziomTrudnosci);
 
         poziomLatwy = new JLabel("łatwy");
-        poziomLatwy.setSize(100,40);
+        poziomLatwy.setSize(300,40);
         poziomLatwy.setLocation(950,200);
         poziomLatwy.setForeground(Color.green);
-        poziomLatwy.setFont(font);
+        poziomLatwy.setFont(Main.ustawCzcionke(33));
         poziomLatwy.addMouseListener(new PoziomLatwyKlik());
         add(poziomLatwy);
 
         poziomSredni = new JLabel("średni");
-        poziomSredni.setSize(100,40);
+        poziomSredni.setSize(300,40);
         poziomSredni.setLocation(950,280);
         poziomSredni.setForeground(Color.red);
-        poziomSredni.setFont(font);
+        poziomSredni.setFont(Main.ustawCzcionke(33));
         poziomSredni.addMouseListener(new PoziomSredniKlik());
         add(poziomSredni);
 
         poziomTrudny = new JLabel("trudny");
-        poziomTrudny.setSize(100,40);
+        poziomTrudny.setSize(300,40);
         poziomTrudny.setLocation(950,360);
         poziomTrudny.setForeground(Color.red);
-        poziomTrudny.setFont(font);
+        poziomTrudny.setFont(Main.ustawCzcionke(33));
         poziomTrudny.addMouseListener(new PoziomTrudnyKlik());
         add(poziomTrudny);
 
         rozpocznijGre = new JLabel("Graj");
-        rozpocznijGre.setSize(200,40);
+        rozpocznijGre.setSize(300,60);
         rozpocznijGre.setLocation(950,90);
-        rozpocznijGre.setFont(font);
+        rozpocznijGre.setFont(Main.ustawCzcionke(45));
         rozpocznijGre.setForeground(Color.yellow);
         rozpocznijGre.addMouseListener(new RozpocznijGreKlik());
         add(rozpocznijGre);
 
         infoOAutorze = new JLabel("Info o autorze");
-        infoOAutorze.setSize(200,40);
+        infoOAutorze.setSize(300,40);
         infoOAutorze.setLocation(950,440);
-        infoOAutorze.setFont(font);
+        infoOAutorze.setFont(Main.ustawCzcionke(33));
         infoOAutorze.setForeground(Color.yellow);
         infoOAutorze.addMouseListener(new oAutorzeKlik());
         add(infoOAutorze);
 
         rekordy = new JLabel("Rekordy");
-        rekordy.setSize(200,40);
+        rekordy.setSize(300,40);
         rekordy.setLocation(950,510);
-        rekordy.setFont(font);
+        rekordy.setFont(Main.ustawCzcionke(33));
         rekordy.setForeground(Color.yellow);
         rekordy.addMouseListener(new WyswietlRekordyKlik());
         add(rekordy);
 
         wyjscieZAplikacji = new JLabel("Wyjście");
-        wyjscieZAplikacji.setSize(200, 40);
+        wyjscieZAplikacji.setSize(300, 40);
         wyjscieZAplikacji.setLocation(950,580);
-        wyjscieZAplikacji.setFont(font);
+        wyjscieZAplikacji.setFont(Main.ustawCzcionke(33));
         wyjscieZAplikacji.setForeground(Color.yellow);
         wyjscieZAplikacji.addMouseListener(new WyjscieKlik());
         add(wyjscieZAplikacji);

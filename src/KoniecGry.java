@@ -23,6 +23,7 @@ public class KoniecGry extends JPanel {
     JLabel zakonczGreLBL;
     JLabel nazwaUzytkownikaLBL;
     JTextField nazwaUzytkownikaTF;
+    JTextArea infoNaZakonczenie;
 
     /**
      * konstrukor odpowiedzialny za ustawienie odpowiednich parametrów oraz inicjalizację zawartości okna
@@ -36,6 +37,7 @@ public class KoniecGry extends JPanel {
         this.poziomTrudnosci = poziomTrudnosci;
         setLayout(null);
         setSize(Main.SZEROKOSC, Main.WYSOKOSC);
+        setBackground(Color.white);
         init();
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -46,49 +48,41 @@ public class KoniecGry extends JPanel {
      * funkcja wyrysowująca początkową zawartość okna oraz pobierające dane z pliku
      */
 
-    public void init()
+    private void init()
     {
-        /*try {
-            odczytCalego("dane.txt");
-        }
-        catch (Exception e)
-        {
-            System.out.println("Błąd odczytu");
-        }*/
-
-        Font font = new Font("Helvetica", Font.BOLD, 30);
-        Font font2 = new Font("Helvetica", Font.BOLD, 40);
         data = new Date();
 
-        nazwaUzytkownikaTF = new JTextField(10);
-        nazwaUzytkownikaTF.setSize(200,25);
-        nazwaUzytkownikaTF.setLocation(570,200);
+        nazwaUzytkownikaTF = new JTextField(20);
+        nazwaUzytkownikaTF.setSize(200,30);
+        nazwaUzytkownikaTF.setFont(Main.ustawCzcionke(20));
+        nazwaUzytkownikaTF.setLocation(580, 350);
         add(nazwaUzytkownikaTF);
 
         nazwaUzytkownikaLBL = new JLabel("Nick: ");
-        nazwaUzytkownikaLBL.setSize(60,25);
-        nazwaUzytkownikaLBL.setLocation(530,200);
+        nazwaUzytkownikaLBL.setFont(Main.ustawCzcionke(20));
+        nazwaUzytkownikaLBL.setSize(80,30);
+        nazwaUzytkownikaLBL.setLocation(520,350);
         add(nazwaUzytkownikaLBL);
 
         koniecGryLBL = new JLabel("Koniec gry");
-        koniecGryLBL.setSize(250,60);
-        koniecGryLBL.setLocation(550,100);
-        koniecGryLBL.setFont(font2);
+        koniecGryLBL.setSize(350,60);
+        koniecGryLBL.setLocation(520,100);
+        koniecGryLBL.setFont(Main.ustawCzcionke(50));
         add(koniecGryLBL);
 
         zakonczGreLBL = new JLabel("Zakończ grę");
         zakonczGreLBL.setSize(200,50);
         zakonczGreLBL.setLocation(950,600);
         zakonczGreLBL.setForeground(Color.red);
-        zakonczGreLBL.setFont(font);
+        zakonczGreLBL.setFont(Main.ustawCzcionke(30));
         zakonczGreLBL.addMouseListener(new ZakonczGreKlik());
         add(zakonczGreLBL);
 
         punktyLBL = new JLabel();
         punktyLBL.setSize(400,50);
-        punktyLBL.setLocation(550,250);
+        punktyLBL.setLocation(520,250);
         punktyLBL.setForeground(Color.black);
-        punktyLBL.setFont(font);
+        punktyLBL.setFont(Main.ustawCzcionke(30));
         punktyLBL.setText("Punkty łącznie: " + punkty);
         add(punktyLBL);
 
@@ -96,10 +90,44 @@ public class KoniecGry extends JPanel {
         restartLBL.setSize(400,50);
         restartLBL.setLocation(150,600);
         restartLBL.setForeground(Color.red);
-        restartLBL.setFont(font);
+        restartLBL.setFont(Main.ustawCzcionke(30));
         restartLBL.addMouseListener(new RestartKlik());
         add(restartLBL);
+
+        infoNaZakonczenie = new JTextArea();
+        infoNaZakonczenie.setBounds(350,160, 600, 50);
+        infoNaZakonczenie.setOpaque(false);
+        infoNaZakonczenie.setFont(Main.ustawCzcionke(30));
+        infoNaZakonczenieDodajTekst();
+        add(infoNaZakonczenie);
+
     } // koniec init
+
+    private void infoNaZakonczenieDodajTekst()
+    {
+        String tekst = "";
+        if(PrzejscieMiedzyPoziomami.aktualnyPoziom - 1 == 1)
+        {
+            tekst = "Ukończyłeś 1 poziom";
+        }
+        else if ((PrzejscieMiedzyPoziomami.aktualnyPoziom - 1) == 0)
+        {
+            tekst = "Ukończyłeś 0 poziomów";
+        }
+        else if (PrzejscieMiedzyPoziomami.aktualnyPoziom < 6)
+        {
+            tekst = "Ukończyłeś " + (PrzejscieMiedzyPoziomami.aktualnyPoziom - 1) + " poziomy";
+        }
+        else if (PrzejscieMiedzyPoziomami.aktualnyPoziom == Poziom.LICZBAPOZIOMOW)
+        {
+            tekst = "Ukończyłeś wszystkie " + Poziom.LICZBAPOZIOMOW + " poziomów";
+        }
+        else
+        {
+            tekst = "Ukończyłeś " + (PrzejscieMiedzyPoziomami.aktualnyPoziom - 1) + " poziomów";
+        }
+        infoNaZakonczenie.setText(tekst);
+    }
 
     /**
      * klasa definiuje działanie po wybraniu opcji zakończ grę - dane zostają zapisnae do pliku, następuje powrót do ekranu startowego
@@ -215,10 +243,12 @@ public class KoniecGry extends JPanel {
 
             try
             {
-                oos=new ObjectOutputStream(new FileOutputStream("dane.txt"));        // Wpisujemy do pliku to, co w nim już było
+                oos=new ObjectOutputStream(new FileOutputStream("dane.txt"));
                 for(int i=0; tab[i]!=null; i++)
-                    oos.writeObject(tab[i]);                // dopisujemy nowy obiekt do pliku
-                oos.writeObject(ddz);
+                {
+                    oos.writeObject(tab[i]); // Wpisujemy do pliku to, co w nim już było
+                }
+                oos.writeObject(ddz);       // dopisujemy nowy obiekt do pliku
                 oos.flush();
             } // koniec try
             catch (Exception e)
@@ -242,7 +272,7 @@ public class KoniecGry extends JPanel {
      * @return zwraca true jeśli nick ma co najmniej 2 znaki
      */
 
-    public boolean sprawdzNick()
+    private boolean sprawdzNick()
     {
         if (nazwaUzytkownikaTF.getText().length() > 2)  // zwraca true jeśli długość nicku wynosi powyżej 2 znaków
         {

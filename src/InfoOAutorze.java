@@ -25,15 +25,14 @@ public class InfoOAutorze extends JDialog{
 
     public void init()
     {
-        Font font = new Font("Helvetica", Font.BOLD, 20);
-
-        String tekst = "Twórcą gry jest Amadeusz Kardasz.";
+        String tekst = "Twórcą gry jest Amadeusz Kardasz," +'\n' +  "student 3 roku inżynierii biomedycznej" +'\n' +
+        "na Politechnice Gdańskiej";
         oAutorze= new JTextArea(tekst);
         oAutorze.setSize(500,200);
         oAutorze.setLocation(100,100);
         oAutorze.setOpaque(false);
         oAutorze.setForeground(Color.black);
-        oAutorze.setFont(font);
+        oAutorze.setFont(Main.ustawCzcionke(20));
         add(oAutorze);
     } // init
 }

@@ -8,8 +8,7 @@ import java.awt.event.MouseEvent;
  */
 public class PrzejscieMiedzyPoziomami extends JPanel{
 
-    public static final int LICZBAPOZIOMOW = 10;
-    int aktualnyPoziom;
+    static int aktualnyPoziom;
     int punkty;
     int punktyZaPoziom;
     int poziomTrudnosci;
@@ -18,6 +17,7 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
     JLabel punktyZaPoziomLBL;
     JLabel tlo;
     JLabel ukonczylesLBL;
+    JLabel brawoLBL;
 
     /**
      * konstruktora pozwalający na wywołanie panelu z odpowiednimi parametrami oraz wyrysowujące ten panel
@@ -43,41 +43,45 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
 
     public void init()
     {
-        Font font30 = new Font("Helvetica", Font.BOLD, 30);
-        Font font40 = new Font("Helvetica", Font.BOLD, 40);
-
-        nastepnyPoziom = new JLabel("Nastepny poziom");
+        nastepnyPoziom = new JLabel("Następny poziom");
         nastepnyPoziom.setSize(400,50);
-        nastepnyPoziom.setLocation(950,500);
+        nastepnyPoziom.setLocation(270,500);
         nastepnyPoziom.setForeground(Color.yellow);
-        nastepnyPoziom.setFont(font30);
+        nastepnyPoziom.setFont(Main.ustawCzcionke(30));
         nastepnyPoziom.addMouseListener(new NastepnyPoziomKlik());
         add(nastepnyPoziom);
 
-        ukonczylesLBL = new JLabel("Brawo! Ukończyłeś " + aktualnyPoziom + " poziom");
+        brawoLBL = new JLabel("Brawo!");
+        brawoLBL.setSize(200,70);
+        brawoLBL.setLocation(130,40);
+        brawoLBL.setForeground(Color.yellow);
+        brawoLBL.setFont(Main.ustawCzcionke(55));
+        add(brawoLBL);
+
+        ukonczylesLBL = new JLabel("Ukończyłeś " + aktualnyPoziom + " poziom");
         ukonczylesLBL.setSize(600,50);
-        ukonczylesLBL.setLocation(300,50);
+        ukonczylesLBL.setLocation(200,150);
         ukonczylesLBL.setForeground(Color.yellow);
-        ukonczylesLBL.setFont(font40);
+        ukonczylesLBL.setFont(Main.ustawCzcionke(45));
         add(ukonczylesLBL);
 
         punktyLBL = new JLabel();
         punktyLBL.setSize(400,50);
-        punktyLBL.setLocation(950,300);
+        punktyLBL.setLocation(200,400);
         punktyLBL.setForeground(Color.yellow);
-        punktyLBL.setFont(font30);
-        punktyLBL.setText("Punkty lacznie: " + punkty);
+        punktyLBL.setFont(Main.ustawCzcionke(30));
+        punktyLBL.setText("Punkty łącznie: " + punkty);
         add(punktyLBL);
 
         punktyZaPoziomLBL = new JLabel();
         punktyZaPoziomLBL.setSize(400,50);
-        punktyZaPoziomLBL.setLocation(950,400);
+        punktyZaPoziomLBL.setLocation(200,280);
         punktyZaPoziomLBL.setForeground(Color.yellow);
-        punktyZaPoziomLBL.setFont(font30);
+        punktyZaPoziomLBL.setFont(Main.ustawCzcionke(30));
         punktyZaPoziomLBL.setText("Punkty za poziom " + punktyZaPoziom);
         add(punktyZaPoziomLBL);
 
-        ustawTlo("image//EkranStartowy.jpg");
+        add(Poziom.ustawTlo("image//EkranStartowy.jpg"));
     } // koniec init
 
     /**
@@ -329,7 +333,7 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                     repaint();
                     p9.requestFocusInWindow();
                     break;
-                case LICZBAPOZIOMOW - 1:
+                case Poziom.LICZBAPOZIOMOW - 1:
                     tlo = "image//kopalnia3.jpg";
                     switch (poziomTrudnosci)
                     {
@@ -351,7 +355,6 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                     } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
-                    System.out.println(poziomTrudnosci);
                     PoziomOstatni pO = new PoziomOstatni(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
                     add(pO);
                     repaint();
@@ -379,7 +382,6 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
                     } // koniec switch
                     removeAll();
                     aktualnyPoziom++;
-                    System.out.println(poziomTrudnosci);
                     PoziomOstatni po = new PoziomOstatni(poziomTrudnosci, wymaganaMocDmuchniecia,  potrzebnyCzasDmuchniecia,  czasNaPoziom, punkty, tlo, aktualnyPoziom);
                     add(po);
                     repaint();
