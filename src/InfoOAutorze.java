@@ -3,7 +3,7 @@ import java.awt.*;
 
 /**
  * <b>InfoOAutorze</b>Definicja klasy wyświetlającej dane o autorze
- * @Author Amadeusz Kardasz
+ * @author Amadeusz Kardasz
  */
 public class InfoOAutorze extends JDialog{
 

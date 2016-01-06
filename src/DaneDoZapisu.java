@@ -3,7 +3,7 @@ import java.util.Date;
 
 /**
  * <b>DaneDoZapisu</b> - klasa służąca do zapisu danych na temat danej gry
- * @Author Amadeusz Kardasz
+ * @author Amadeusz Kardasz
  */
 public class DaneDoZapisu implements Serializable {
 

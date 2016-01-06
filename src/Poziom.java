@@ -1,11 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.Random;
 
 /**
  * Klasa abstrakcyjna odpowiedzialna za obsługę poszczególnych poziomów
- * @Author Amadeusz Kardasz
+ * @author Amadeusz Kardasz
  */
 public abstract class Poziom extends JPanel implements KeyListener
 {
@@ -62,9 +63,9 @@ public abstract class Poziom extends JPanel implements KeyListener
         setSize(Main.SZEROKOSC,Main.WYSOKOSC);
         czyRosnie = false;
 
-        init();
         wsk = new WskaznikDmuchniecia();
         add(wsk);
+        init();
         pgg = new PasekGryGora();
         add(pgg);
         pgd = new PasekGryDol();
@@ -104,6 +105,11 @@ public abstract class Poziom extends JPanel implements KeyListener
 
     public void init()
     {
+        ogien = new JLabel();
+        ogien.setSize(200,550);
+        ogien.setLocation(600,200);
+        add(ogien);
+
         dynamit = new JLabel(new ImageIcon("image//dynamitOFF.png"));
         dynamit.setSize(60,120);
         dynamit.setLocation(losujPolozenie(Main.SZEROKOSC,Main.WYSOKOSC));
@@ -116,11 +122,6 @@ public abstract class Poziom extends JPanel implements KeyListener
         poziomLBL.setForeground(Color.yellow);
         poziomLBL.setFont(Main.ustawCzcionke(30));
         add(poziomLBL);
-
-        ogien = new JLabel();
-        ogien.setSize(200,550);
-        ogien.setLocation(600,200);
-        add(ogien);
 
         zakonczGreLBL = new JLabel("Zakończ grę");
         zakonczGreLBL.setSize(200,40);
@@ -234,6 +235,7 @@ public abstract class Poziom extends JPanel implements KeyListener
         public void mouseReleased(MouseEvent e) {
 
             czyRosnie = false;
+            ogien.setIcon(new ImageIcon("image//pusty.png"));
 
             if (sprawdzWynik() && sprawdzMocDmuchniecia() && !czyWygrano)  // sprawdzenie czy gracz wygrał po zwolnieniu przycisku myszki
             {
@@ -336,6 +338,7 @@ public abstract class Poziom extends JPanel implements KeyListener
                     dynamit.setIcon(icon);
                     break;
                 case 0:
+                    Main.grajDzwiek(new File("sounds//wybuch.wav"));
                     przejdzDoNastepnegoPoziomu();
                     czasDoNastepnegoPoziomu.stop();
                     break;
@@ -349,7 +352,9 @@ public abstract class Poziom extends JPanel implements KeyListener
 
     private void zapalDynamit()
     {
+        czasDoKoncaTimer.stop();
         ImageIcon icon = new ImageIcon("image//dynamit1.1.png");
+        Main.grajDzwiek(new File("sounds//lont.wav"));
         dynamit.setIcon(icon);
     } // koniec zapalDynamit
 
@@ -468,22 +473,30 @@ public abstract class Poziom extends JPanel implements KeyListener
         public void paint (Graphics g)
         {
             wypelnienie = (int)((aktualnyCzasDmuchniecia/maksymalnyCzasDmuchniecia)*prosWysD);  // zmienna oznaczająca wypełnienie wskaźnika dmucjnięcia
+            int szerokosc = dynamit.getLocation().x; // zmienna odpowiadająca za szerokość na jakiej pojawi się ogień
 
             g.drawRect(prosX, prosY - 1 , prosSzer, prosWys);
 
             if(potrzebnyCzasDmuchniecia + blad >= aktualnyCzasDmuchniecia && potrzebnyCzasDmuchniecia - blad <= aktualnyCzasDmuchniecia)
             { // zamalowanie wskaźnika na zielono i ustawienie najwyższego ognia przy uzyskaniu potrzebnego czasu dmuchnięcia
                 g.setColor(Color.green);
-                ogien.setLocation(500,219);
-                ogien.setSize(200,431);
-                ogien.setIcon(new ImageIcon("image//ogien3.png"));
+                if (czyRosnie)
+                {
+                    ogien.setLocation(szerokosc - 70, 219);
+                    ogien.setSize(200, 431);
+                    ogien.setIcon(new ImageIcon("image//ogien3.png"));
+                }
+                else
+                {
+                    ogien.setIcon(new ImageIcon("image//pusty.png"));
+                }
             }
             else if (potrzebnyCzasDmuchniecia - 20 <= aktualnyCzasDmuchniecia && aktualnyCzasDmuchniecia < potrzebnyCzasDmuchniecia)
             { // zamalowanie wskaźnika na pomarańczowo i ustawienie średniego ognia przy zbliżeniu się do potrzebnego czasu dmuchnięcia
                 g.setColor((Color.orange));
                 if (czyRosnie)
                 {
-                    ogien.setLocation(533,397);
+                    ogien.setLocation(szerokosc - 37 ,397);
                     ogien.setSize(150,253);
                     ogien.setIcon(new ImageIcon("image//ogien2.png"));
                 }
@@ -497,7 +510,7 @@ public abstract class Poziom extends JPanel implements KeyListener
                 g.setColor(Color.red);
                 if (czyRosnie)  // wyświetlenie obrazka z ogniem tylko w momencie, gdy naciśnieto na dynamit
                 {
-                    ogien.setLocation(570,527);
+                    ogien.setLocation(szerokosc,527);
                     ogien.setSize(70,123);
                     ogien.setIcon(new ImageIcon("image//ogien1.png"));
                 }

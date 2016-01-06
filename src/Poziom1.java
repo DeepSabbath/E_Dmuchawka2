@@ -1,12 +1,10 @@
 import javax.swing.*;
 
 /**
- * <b>Poziom1</b> klasa dziedzicząca po klasie poziom, odpowiadająca za obsługę poziomu pierwszego
- * @Author Amadeusz Kardasz
+ * <b>Poziom1</b> klasa dziedzicząca po klasie <b>Poziom</b>, odpowiadająca za obsługę poziomu pierwszego
+ * @author Amadeusz Kardasz
  */
 public class Poziom1 extends Poziom {
-
-    int aktualnyPoziom = 1;
 
     /**
      * konstruktor pozwalający na przypisanie parametrów oraz wywołujący konstruktor klasy nadrzędnej
@@ -24,7 +22,7 @@ public class Poziom1 extends Poziom {
     public void przejdzDoNastepnegoPoziomu()
     {
         removeAll();
-        PrzejscieMiedzyPoziomami pmp = new PrzejscieMiedzyPoziomami(aktualnyPoziom, punkty, punktyZaPoziom, poziomTrudnosci);
+        PrzejscieMiedzyPoziomami pmp = new PrzejscieMiedzyPoziomami(1, punkty, punktyZaPoziom, poziomTrudnosci);
         add(pmp);
         repaint();
         pmp.requestFocusInWindow();

@@ -2,7 +2,7 @@ import java.io.Serializable;
 
 /**
  * <b>CzasDoZapisu</b> - klasa służąca do przechowywania danych na temat czasu gry
- * @Author Amadeusz Kardasz
+ * @author Amadeusz Kardasz
  */
 public class CzasDoZapisu implements Serializable{
 

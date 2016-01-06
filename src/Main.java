@@ -1,14 +1,18 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.File;
 
 /**
  * <b>Main</b> - klasa główna aplikajci.
  * Jest to prosta gra symulująca aplikację na platformę E-Dmuchawka
- * @Author Amadeusz Kardasz
+ * @author Amadeusz Kardasz
  */
 public class Main {
 
@@ -22,7 +26,6 @@ public class Main {
      * metoda uruchamiająca grę. Najpierw pobierane są dane na temat czasu gry.
      * Potem następuje pobranie parametrów ekranu i ustalenie jego środka,
      * na koniec tworzony jest obiekt klasy OknoGlowne, gdzie wykonuje się dalsza część programu
-     * @Author Amadeusz Kardasz
      */
 
     public static void main(String[] args)
@@ -95,4 +98,24 @@ public class Main {
         Font font = new Font("Helvetica", Font.BOLD, rozmiar);
         return font;
     }
+
+    /**
+     * metoda oddtwarzająca dźwięk
+     * @param f - ścieżka do pliku
+     */
+
+    public static synchronized void grajDzwiek(final File f) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Clip clip = AudioSystem.getClip();
+                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(f);
+                    clip.open(inputStream);
+                    clip.start();
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }).start();
+    }// koniec grajDzwiek
 }

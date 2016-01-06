@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 
 /**
  * <b>EkranStartowy</b> - klasa definiująca ekran startowy gry
- * @Author Amadeusz Kardasz
+ * @author Amadeusz Kardasz
  */
 
 

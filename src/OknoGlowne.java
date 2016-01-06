@@ -3,7 +3,7 @@ import java.awt.*;
 
 /**
  * <b>OknoGlowne</b> - klasa definiujące główne parametry okna aplikacji
- * @Author Amadeusz Kardasz
+ * @author Amadeusz Kardasz
  */
 public class OknoGlowne extends JFrame {
 

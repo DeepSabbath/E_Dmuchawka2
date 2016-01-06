@@ -9,7 +9,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * <b>KoniecGry</b> - klasa definiująca dzaiłania podczas zakończenia gry
- * @Author Amadeusz Kardasz
+ * @author Amadeusz Kardasz
  */
 public class KoniecGry extends JPanel {
 
@@ -62,18 +62,20 @@ public class KoniecGry extends JPanel {
         nazwaUzytkownikaLBL.setFont(Main.ustawCzcionke(20));
         nazwaUzytkownikaLBL.setSize(80,30);
         nazwaUzytkownikaLBL.setLocation(520,350);
+        nazwaUzytkownikaLBL.setForeground(Color.yellow);
         add(nazwaUzytkownikaLBL);
 
         koniecGryLBL = new JLabel("Koniec gry");
         koniecGryLBL.setSize(350,60);
         koniecGryLBL.setLocation(520,100);
+        koniecGryLBL.setForeground(Color.yellow);
         koniecGryLBL.setFont(Main.ustawCzcionke(50));
         add(koniecGryLBL);
 
         zakonczGreLBL = new JLabel("Zakończ grę");
         zakonczGreLBL.setSize(200,50);
         zakonczGreLBL.setLocation(950,600);
-        zakonczGreLBL.setForeground(Color.red);
+        zakonczGreLBL.setForeground(Color.yellow);
         zakonczGreLBL.setFont(Main.ustawCzcionke(30));
         zakonczGreLBL.addMouseListener(new ZakonczGreKlik());
         add(zakonczGreLBL);
@@ -81,7 +83,7 @@ public class KoniecGry extends JPanel {
         punktyLBL = new JLabel();
         punktyLBL.setSize(400,50);
         punktyLBL.setLocation(520,250);
-        punktyLBL.setForeground(Color.black);
+        punktyLBL.setForeground(Color.yellow);
         punktyLBL.setFont(Main.ustawCzcionke(30));
         punktyLBL.setText("Punkty łącznie: " + punkty);
         add(punktyLBL);
@@ -89,28 +91,31 @@ public class KoniecGry extends JPanel {
         restartLBL = new JLabel("Zacznij od nowa");
         restartLBL.setSize(400,50);
         restartLBL.setLocation(150,600);
-        restartLBL.setForeground(Color.red);
+        restartLBL.setForeground(Color.yellow);
         restartLBL.setFont(Main.ustawCzcionke(30));
         restartLBL.addMouseListener(new RestartKlik());
         add(restartLBL);
 
         infoNaZakonczenie = new JTextArea();
-        infoNaZakonczenie.setBounds(350,160, 600, 50);
+        infoNaZakonczenie.setBounds(500,180, 600, 50);
         infoNaZakonczenie.setOpaque(false);
         infoNaZakonczenie.setFont(Main.ustawCzcionke(30));
+        infoNaZakonczenie.setForeground(Color.yellow);
         infoNaZakonczenieDodajTekst();
         add(infoNaZakonczenie);
 
+        add(Poziom.ustawTlo("image//EkranStartowy.jpg"));
     } // koniec init
 
     private void infoNaZakonczenieDodajTekst()
     {
+        System.out.println(PrzejscieMiedzyPoziomami.aktualnyPoziom);
         String tekst = "";
         if(PrzejscieMiedzyPoziomami.aktualnyPoziom - 1 == 1)
         {
             tekst = "Ukończyłeś 1 poziom";
         }
-        else if ((PrzejscieMiedzyPoziomami.aktualnyPoziom - 1) == 0)
+        else if ((PrzejscieMiedzyPoziomami.aktualnyPoziom == 0))
         {
             tekst = "Ukończyłeś 0 poziomów";
         }
@@ -160,6 +165,7 @@ public class KoniecGry extends JPanel {
         public void mouseClicked(MouseEvent e) {
             if (sprawdzNick())      // spradzenie długości nicku
             {
+                PrzejscieMiedzyPoziomami.aktualnyPoziom = 1;
                 int wymaganaMocDmuchniecia = 40;
                 int potrzebnyCzasDmuchniecia = 40;
                 int czasNaPoziom = 20;

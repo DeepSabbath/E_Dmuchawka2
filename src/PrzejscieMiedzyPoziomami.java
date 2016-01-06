@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * <b>PrzejscieMiedzyPoziomami</b> - klasa odpowiadająca za obsługę przejścia pomiędzy kolejnymi poziomami gry
+ * @author Amadeusz Kardasz
  */
 public class PrzejscieMiedzyPoziomami extends JPanel{
 
@@ -45,62 +46,45 @@ public class PrzejscieMiedzyPoziomami extends JPanel{
     {
         nastepnyPoziom = new JLabel("Następny poziom");
         nastepnyPoziom.setSize(400,50);
-        nastepnyPoziom.setLocation(270,500);
-        nastepnyPoziom.setForeground(Color.yellow);
-        nastepnyPoziom.setFont(Main.ustawCzcionke(30));
+        nastepnyPoziom.setLocation(600,600);
+        nastepnyPoziom.setForeground(Color.black);
+        nastepnyPoziom.setFont(Main.ustawCzcionke(40));
         nastepnyPoziom.addMouseListener(new NastepnyPoziomKlik());
         add(nastepnyPoziom);
 
         brawoLBL = new JLabel("Brawo!");
-        brawoLBL.setSize(200,70);
-        brawoLBL.setLocation(130,40);
-        brawoLBL.setForeground(Color.yellow);
-        brawoLBL.setFont(Main.ustawCzcionke(55));
+        brawoLBL.setSize(300,70);
+        brawoLBL.setLocation(530,40);
+        brawoLBL.setForeground(Color.black);
+        brawoLBL.setFont(Main.ustawCzcionke(60));
         add(brawoLBL);
 
         ukonczylesLBL = new JLabel("Ukończyłeś " + aktualnyPoziom + " poziom");
         ukonczylesLBL.setSize(600,50);
-        ukonczylesLBL.setLocation(200,150);
-        ukonczylesLBL.setForeground(Color.yellow);
+        ukonczylesLBL.setLocation(530,180);
+        ukonczylesLBL.setForeground(Color.black);
         ukonczylesLBL.setFont(Main.ustawCzcionke(45));
         add(ukonczylesLBL);
 
         punktyLBL = new JLabel();
         punktyLBL.setSize(400,50);
-        punktyLBL.setLocation(200,400);
-        punktyLBL.setForeground(Color.yellow);
-        punktyLBL.setFont(Main.ustawCzcionke(30));
+        punktyLBL.setLocation(530,400);
+        punktyLBL.setForeground(Color.black);
+        punktyLBL.setFont(Main.ustawCzcionke(35));
         punktyLBL.setText("Punkty łącznie: " + punkty);
         add(punktyLBL);
 
         punktyZaPoziomLBL = new JLabel();
         punktyZaPoziomLBL.setSize(400,50);
-        punktyZaPoziomLBL.setLocation(200,280);
-        punktyZaPoziomLBL.setForeground(Color.yellow);
-        punktyZaPoziomLBL.setFont(Main.ustawCzcionke(30));
+        punktyZaPoziomLBL.setLocation(530,300);
+        punktyZaPoziomLBL.setForeground(Color.black);
+        punktyZaPoziomLBL.setFont(Main.ustawCzcionke(35));
         punktyZaPoziomLBL.setText("Punkty za poziom " + punktyZaPoziom);
         add(punktyZaPoziomLBL);
 
-        add(Poziom.ustawTlo("image//EkranStartowy.jpg"));
+        add(Poziom.ustawTlo("image//wybuch3.jpg"));
     } // koniec init
 
-    /**
-     * funkcja ustawiajca tło
-     * @param plik - ścieżka do pliku z obrazkiem
-     */
-
-    public void ustawTlo(String plik)
-    {
-        try {
-            tlo = new JLabel(new ImageIcon(plik));
-            tlo.setOpaque(true);
-            tlo.setBounds(0, 0, Main.SZEROKOSC, Main.WYSOKOSC);
-            add(tlo);
-        } catch (Exception e)
-        {
-            System.out.println("Blad" + e);
-        }
-    } // koniec ustaw tło
 
     /**
      * metoda ustawiająca odpowiednie parametry następnego poziomu oraz wywołująca obiekt odpowiedzialny za jego obsługę

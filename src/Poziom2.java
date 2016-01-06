@@ -1,6 +1,6 @@
 /**
- * <b>Poziom2</b> - klasa odpowiedzialna za obsługę poziomów od drugiego do przedostatniego
- * @Author Amadeusz Kardasz
+ * <b>Poziom2</b> - klasa dziedzicząca po klasie <b>Poziom</b>, odpowiedzialna za obsługę poziomów od drugiego do przedostatniego
+ * @author Amadeusz Kardasz
  */
 public class Poziom2 extends Poziom {
 

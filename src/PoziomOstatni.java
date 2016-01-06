@@ -1,6 +1,9 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
- * <b>PoziomOstatni</b> - klasa odpowiadająca za obsługę ostatniego poziomu
- * @Author Amadeusz Kardasz
+ * <b>PoziomOstatni</b> - klasa dziedziacząca po klasie <b>Poziom</b>, odpowiadająca za obsługę ostatniego poziomu
+ * @author Amadeusz Kardasz
  */
 public class PoziomOstatni extends Poziom {
 
@@ -26,4 +29,5 @@ public class PoziomOstatni extends Poziom {
     {
         zakonczenieGry();
     } // koniec przejdzDoNastepnegoPoziomu
+
 }

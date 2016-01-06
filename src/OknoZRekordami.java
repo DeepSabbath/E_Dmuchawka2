@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * <b>OknoZRekordami</b> definiuje okno, w którym wyświetlane są rekorodwe wyniki
- * @Author Amadeusz Kardasz
+ * @author Amadeusz Kardasz
  */
 public class OknoZRekordami extends JPanel{
 
@@ -61,45 +61,45 @@ public class OknoZRekordami extends JPanel{
         rekordNaLatwymLBL = new JLabel("Poziom łatwy ");
         rekordNaLatwymLBL.setSize(200,30);
         rekordNaLatwymLBL.setLocation(150,150);
-        rekordNaLatwymLBL.setFont(Main.ustawCzcionke(20));
+        rekordNaLatwymLBL.setFont(Main.ustawCzcionke(25));
         add(rekordNaLatwymLBL);
 
         for (int i = 0; i < 3; i++)
         {
             wyswietlaLatwy[i] = new JLabel();
-            wyswietlaLatwy[i].setSize(200, 30);
+            wyswietlaLatwy[i].setSize(300, 30);
             wyswietlaLatwy[i].setLocation(150, 225 + (i * 85));
-            wyswietlaLatwy[i].setFont(Main.ustawCzcionke(15));
+            wyswietlaLatwy[i].setFont(Main.ustawCzcionke(20));
             add(wyswietlaLatwy[i]);
         } // koniec for
 
         rekordNaSrednimLBL = new JLabel("Poziom średni ");
-        rekordNaSrednimLBL.setSize(200, 30);
+        rekordNaSrednimLBL.setSize(300, 30);
         rekordNaSrednimLBL.setLocation(500, 150);
-        rekordNaSrednimLBL.setFont(Main.ustawCzcionke(20));
+        rekordNaSrednimLBL.setFont(Main.ustawCzcionke(25));
         add(rekordNaSrednimLBL);
 
         for (int i = 0; i < 3; i++)
         {
             wyswietlaSredni[i] = new JLabel();
-            wyswietlaSredni[i].setSize(200, 30);
+            wyswietlaSredni[i].setSize(300, 30);
             wyswietlaSredni[i].setLocation(500, 225 + (i * 85));
-            wyswietlaSredni[i].setFont(Main.ustawCzcionke(15));
+            wyswietlaSredni[i].setFont(Main.ustawCzcionke(20));
             add(wyswietlaSredni[i]);
         } // koniec for
 
         rekordNaTrudnymLBL = new JLabel("Poziom trudny ");
-        rekordNaTrudnymLBL.setSize(200, 30);
+        rekordNaTrudnymLBL.setSize(300, 30);
         rekordNaTrudnymLBL.setLocation(900, 150);
-        rekordNaTrudnymLBL.setFont(Main.ustawCzcionke(20));
+        rekordNaTrudnymLBL.setFont(Main.ustawCzcionke(25));
         add(rekordNaTrudnymLBL);
 
         for (int i = 0; i < 3; i++)
         {
             wyswietlaTrudny[i] = new JLabel();
-            wyswietlaTrudny[i].setSize(200, 30);
+            wyswietlaTrudny[i].setSize(300, 30);
             wyswietlaTrudny[i].setLocation(900, 225 + (i * 85));
-            wyswietlaTrudny[i].setFont(Main.ustawCzcionke(15));
+            wyswietlaTrudny[i].setFont(Main.ustawCzcionke(20));
             add(wyswietlaTrudny[i]);
         } // koniec for
 
