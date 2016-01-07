@@ -4,6 +4,7 @@
  */
 public class Poziom2 extends Poziom {
 
+    /** przechowuje aktualny poziom */
     int aktualnyPoziom;
 
     /**

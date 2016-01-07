@@ -6,8 +6,9 @@ import java.io.Serializable;
  */
 public class CzasDoZapisu implements Serializable{
 
-
+    /** przechowuje calkowity czas odpalenia aplikacji */
     int lacznyCzasGry;
+    /** przechowuje calkowity czas dmuchania (klikania dynamitu) */
     int lacznyCzasDmuchania;
 
     /** Konstruktor umożliwia podanie właściwości obiektu*/

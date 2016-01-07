@@ -9,15 +9,23 @@ import java.awt.event.MouseEvent;
  */
 public class PrzejscieMiedzyPoziomami extends JPanel{
 
+    /** przechowuje aktualny poziom */
     static int aktualnyPoziom;
+    /** przechowuje liczbę zdobytych punktów */
     int punkty;
+    /** przechowuje liczbę zdobytych punktów na aktualnym poziomie*/
     int punktyZaPoziom;
+    /** przechowuje poziom trodności */
     int poziomTrudnosci;
+    /** poziwala na przejście do następnego poziomu */
     JLabel nastepnyPoziom;
+    /** wyświelta liczbę zdobytych punktów */
     JLabel punktyLBL;
+    /** wyświetla liczbą punktów zdobytych na aktualnym poziomie */
     JLabel punktyZaPoziomLBL;
-    JLabel tlo;
+    /** wyświetla tekst */
     JLabel ukonczylesLBL;
+    /** wyświetla tekst */
     JLabel brawoLBL;
 
     /**

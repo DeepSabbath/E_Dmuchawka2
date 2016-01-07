@@ -13,8 +13,11 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class KoniecGry extends JPanel {
 
+    /** przechowuje liczbe zdobytych punktow */
     int punkty;
+    /** przechowuje date */
     int poziomTrudnosci;
+    /** przechowuje poziom trudnosci gry */
     Date data;
 
     JLabel punktyLBL;

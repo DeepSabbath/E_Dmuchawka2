@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
  */
 public class PoziomOstatni extends Poziom {
 
+    /** przechowuje aktualny poziom */
     int aktualnyPoziom;
 
     /**

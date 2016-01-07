@@ -10,22 +10,29 @@ import java.io.ObjectOutputStream;
  * @author Amadeusz Kardasz
  */
 
-
 public class EkranStartowy extends JPanel{
 
+    /** umozliwia rozpoczecie gry */
     JLabel rozpocznijGre;
+    /** umozliwia podejrzenie informacji o autorze */
     JLabel infoOAutorze;
+    /** pozwala na wybor poziomu latwego */
     JLabel poziomLatwy;
+    /** pozwala na wybor poziomu sredniego */
     JLabel poziomSredni;
+    /** pozwala na wybor poziomu trudnego */
     JLabel poziomTrudny;
+    /** wyswietla tekst */
     JLabel wybierzPoziomTrudnosci;
+    /** wyswietla tlo aplikacji */
     JLabel tlo;
+    /** pozwala na wyjscie z aplikacji */
     JLabel wyjscieZAplikacji;
+    /** pozwala na wyswietlenie tabeli z rekordami */
     JLabel rekordy;
+    /** przechowuje poziom trudnosci gry, inicjowana jako poziom latwy */
     int poziomTrudnosci = 1;
-    int szerokosc;
-    int wysokosc;
-
+    /** liczy laczny czas odpalenia aplikacji */
     javax.swing.Timer czasGry = new javax.swing.Timer(1000, new LiczCzasGry()); // timer liczący łączny czas gry
 
     /**
@@ -34,9 +41,6 @@ public class EkranStartowy extends JPanel{
 
     public EkranStartowy(int szerokosc, int wysokosc)
     {
-        this.szerokosc = szerokosc;
-        this.wysokosc = wysokosc;
-
         setLayout(null);
         setSize(szerokosc, wysokosc);
         init();

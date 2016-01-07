@@ -10,37 +10,62 @@ import java.util.Random;
  */
 public abstract class Poziom extends JPanel implements KeyListener
 {
+    /** ustawia maksymalna wartosc czasu dmuchniecia */
     static final double maksymalnyCzasDmuchniecia = 100;
-    final int blad = 8;  // zmienna określająca maksymalne odstępstwo od wyznaczonego czasu dmuchnięcia, przy którym poziom zostaje zaliczony
+    /** zmienna określająca maksymalne odstępstwo od wyznaczonego czasu dmuchnięcia, przy którym poziom zostaje zaliczony */
+    final int blad = 8;
+    /** timer odliczający czas naciśnięcia na dynamit */
+    javax.swing.Timer czasDmuchniecia = new javax.swing.Timer(50, new CzasDmuchniecia());
+    /** timer odliczający czas do końca poziomu */
+    javax.swing.Timer czasDoKoncaTimer = new javax.swing.Timer(1000, new LiczCzasDoKonca());
+    /** timer wg, którego wskazania dokonują się animacje po skończonym poziomie */
+    javax.swing.Timer czasDoNastepnegoPoziomu = new javax.swing.Timer(500, new LiczCzasDoNastepnegoPoziomu());
 
-    javax.swing.Timer czasDmuchniecia = new javax.swing.Timer(50, new CzasDmuchniecia()); // timer odliczający czas naciśnięcia na dynamit
-    javax.swing.Timer czasDoKoncaTimer = new javax.swing.Timer(1000, new LiczCzasDoKonca());  // timer odliczający czas do końca poziomu
-    javax.swing.Timer czasDoNastepnegoPoziomu = new javax.swing.Timer(500, new LiczCzasDoNastepnegoPoziomu()); // timer wg, którego wskazania dokonują się animacje po skończonym poziomie
-
-
-    int czasZapaleniaDynamitu = 4; // czas od zakończenia poziomu do pojawienia się okna odpowiedzialnego za przejście między poziomami - wartosc 2 oznacza sekundę
-    int czasNaPoziom;       // maksymalny czas na przejście danego poziomu
-    int pozostalyCzasNaPoziom;  // zmienna przechowująca czas do zakończenia poziomu
-    int potrzebnyCzasDmuchniecia;   // zmienna przechowująca wyagany czas kliknięcia w dynamit, aby poziom został ukończony - wartość 20 oznacza 1 sekundę
-    double aktualnyCzasDmuchniecia;  // zmienna przechowująca aktulany czas kliknięcia w dynamit
-    int aktualnaMocDmuchniecia;     // zmienna przechowująca aktualnie ustawioną siłę dmuchnięcia
+    /** czas od zakończenia poziomu do pojawienia się okna odpowiedzialnego za przejście między poziomami - wartosc 2 oznacza sekundę */
+    int czasZapaleniaDynamitu = 4;
+    /** maksymalny czas na przejście danego poziomu */
+    int czasNaPoziom;
+    /** zmienna przechowująca czas do zakończenia poziomu */
+    int pozostalyCzasNaPoziom;
+    /** zmienna przechowująca wyagany czas kliknięcia w dynamit, aby poziom został ukończony - wartość 20 oznacza 1 sekundę */
+    int potrzebnyCzasDmuchniecia;
+    /** zmienna przechowująca aktulany czas kliknięcia w dynamit */
+    double aktualnyCzasDmuchniecia;
+    /** zmienna przechowująca aktualnie ustawioną siłę dmuchnięcia */
+    int aktualnaMocDmuchniecia;
+    /** wyświetla aktualną i wymaganą moc dmuchnięcia */
     JLabel aktualnaMocDmuchnieciaLBL;
-    int wymaganaMocDmuchniecia; // zmienna przechowująca siłę dmuchnięcia potrzebną do ukończenia poziomu
+    /** zmienna przechowująca siłę dmuchnięcia potrzebną do ukończenia poziomu */
+    int wymaganaMocDmuchniecia;
+    /** przechowuje poziom trudnosci */
     int poziomTrudnosci;
+    /** przechowuje łączny wynik punktowy */
     int punkty;
+    /** przechowuje wynik punktowy za altualny poziom */
     int punktyZaPoziom = 0;
-    static boolean czyRosnie = false;   // zmienna określająca czy wskaźnik czasu dmuchnięcia rośnie
-    boolean czyWygrano = false;     // zmienna przyjmująca wartość true w mimencie ukończenia poziomu
-    String plik;    // zmiennia określająca ścieżkę do pliku
+    /** zmienna określająca czy wskaźnik czasu dmuchnięcia rośnie */
+    static boolean czyRosnie = false;
+    /** zmienna przyjmująca wartość true w momencie ukończenia poziomu */
+    boolean czyWygrano = false;
+    /** zmiennia określająca ścieżkę do pliku */
+    String plik;
+    /** zmienna przechowuje numer aktualnego poziomu */
     int aktualnyPoziom;
+    /** zmienna określa maksymalną liczbę poziomów */
     public static final int LICZBAPOZIOMOW = 10;
-
+    /** wyświetla aktualny poziom */
     JLabel poziomLBL;
+    /** pozwala na zakończnie gry */
     JLabel zakonczGreLBL;
+    /** wyświetla czas do końca poziomu */
     JLabel czasDoKoncaLBL;
+    /** wyświetla łączną liczbę zdobytych punktów */
     JLabel punktyLBL;
+    /** wyświetla dynamit, który należy zapalić */
     JLabel dynamit;
+    /** wyświetla obrazek symulujący oddech smoka zionącego ogniem */
     JLabel ogien;
+    /** instancja obiektu WskaznikDmuchniecia - wyswietla wskaźnik czasu dmuchnięcia */
     WskaznikDmuchniecia wsk;
     PasekGryGora pgg;
     PasekGryDol pgd;

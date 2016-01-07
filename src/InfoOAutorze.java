@@ -7,6 +7,7 @@ import java.awt.*;
  */
 public class InfoOAutorze extends JDialog{
 
+    /** przechowuje informacje o autorze gry*/
     JTextArea oAutorze;
 
     InfoOAutorze ()

@@ -15,15 +15,24 @@ import java.util.Date;
  */
 public class OknoZRekordami extends JPanel{
 
+    /** tablica przechowuje dane dotyczace poszczegolnych gier (nazwe uzytkownika, wynik, poziom trudnosic oraz date) */
     DaneDoZapisu[] tablicaDanych = new DaneDoZapisu[1000];
 
+    /** wyswietla tekst */
     JLabel rekordLBL;
+    /** wyswietla tekst */
     JLabel rekordNaLatwymLBL;
+    /** wyswietla tekst */
     JLabel rekordNaSrednimLBL;
+    /** wyswietla tekst */
     JLabel rekordNaTrudnymLBL;
+    /** wyswietla rekordy na poziomie latwym */
     JLabel wyswietlaLatwy [] = new JLabel[3];
+    /** wyswietla rekordy na poziomie srednim */
     JLabel wyswietlaSredni []= new JLabel[3];
+    /** wyswietla rekordy na poziomie trudnym */
     JLabel wyswietlaTrudny []= new JLabel[3];
+    /** pozwala na powrot do menu glowengo */
     JLabel wrocDoMenu;
 
     Date data = new Date();
@@ -48,7 +57,7 @@ public class OknoZRekordami extends JPanel{
 
     public void init()
     {
-        DaneDoZapisu dzp = new DaneDoZapisu("c",0,data,2);
+        DaneDoZapisu dzp = new DaneDoZapisu("",0,data,2);
         Arrays.fill(tablicaDanych, dzp);
         odczytCalego("dane.txt");
 
@@ -182,6 +191,7 @@ public class OknoZRekordami extends JPanel{
         DaneDoZapisu[] sredni = new DaneDoZapisu[3];
         DaneDoZapisu[] trudny = new DaneDoZapisu[3];
 
+        // inicjalizacja wartosci w tablicy
         latwy[0] = new DaneDoZapisu("nick", 0, data, 1);
         latwy[1] =  new DaneDoZapisu("nick", 0, data, 1);
         latwy[2] =  new DaneDoZapisu("nick", 0, data, 1);

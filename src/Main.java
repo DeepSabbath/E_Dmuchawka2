@@ -16,10 +16,13 @@ import java.io.File;
  */
 public class Main {
 
+    /** okresla wysokosc okna */
     static final int WYSOKOSC = 700;
+    /** okresla szerokosc okna */
     static final int SZEROKOSC = 1280;
-    public static OknoGlowne o;
+   /** przechowuje calkowity czas odpalenia aplikacji */
     public static int lacznyCzasOdpaleniaAplikacji;
+    /** przechowuje calkowity czas dmuchania (klikania dynamitu) */
     public static int lacznyCzasDmuchania;
 
     /**
@@ -46,14 +49,18 @@ public class Main {
                 }
 
                 //pobierz rozmiar ekranu
+                /** przechowuje szerokosc ekranu */
                 int szerokoscEkranu=Toolkit.getDefaultToolkit().getScreenSize().width;
+                /** przechowuje wysokosc ekranu */
                 int wysokoscEkranu=Toolkit.getDefaultToolkit().getScreenSize().height;
 
                 //oblicz współrzędne narożnika tak, aby pole gry było wyśrodkowane
+                /** przechowuje srodek szerokosci ekranu */
                 int xSrodek=(szerokoscEkranu - SZEROKOSC)/2;
+                /** przechowuje srodek wyskokosci ekranu */
                 int ySrodek=(wysokoscEkranu - WYSOKOSC)/2;
 
-                o = new OknoGlowne(SZEROKOSC, WYSOKOSC, xSrodek, ySrodek);      // utworzenie okna głównego aplikacji
+                OknoGlowne o = new OknoGlowne(SZEROKOSC, WYSOKOSC, xSrodek, ySrodek);      // utworzenie okna głównego aplikacji
                 o.setDefaultCloseOperation(o.EXIT_ON_CLOSE);
             } // koniec run
         }); // koniec Runnable
@@ -95,6 +102,7 @@ public class Main {
 
     public static Font ustawCzcionke(int rozmiar)
     {
+        /** ustawia czcionke */
         Font font = new Font("Helvetica", Font.BOLD, rozmiar);
         return font;
     }
